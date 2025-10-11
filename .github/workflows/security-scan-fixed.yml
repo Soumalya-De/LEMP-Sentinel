@@ -5,6 +5,8 @@ on:
     - cron: '0 2 * * *' # nightly at 02:00 UTC
   workflow_dispatch:
   pull_request:
+  push:
+    branches: [ main ]
 
 jobs:
   trivy-scan:
