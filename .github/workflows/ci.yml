@@ -48,6 +48,14 @@ jobs:
       - name: Validate docker-compose.yml
         run: docker compose config
 
+      - name: Show resolved Compose (with defaults)
+        run: |
+          docker compose config > compose.resolved.yml
+          echo "--- compose.resolved.yml (snippet) ---"
+          sed -n '1,160p' compose.resolved.yml
+          echo "--- grep build args ---"
+          grep -n "BASE_IMAGE" -n compose.resolved.yml || true
+
       - name: PHP lint (syntax check all PHP files)
         run: |
           docker run --rm -v "$PWD/www":/app -w /app php:8.2-cli sh -lc '
