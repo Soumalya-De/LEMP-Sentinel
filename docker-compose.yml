@@ -3,8 +3,6 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-      args:
-        BASE_IMAGE: ${NGINX_BASE_IMAGE:-nginx:alpine}
     container_name: lemp_nginx
     ports:
       - "8080:80"
@@ -29,8 +27,6 @@ services:
     build:
       context: ./php
       dockerfile: Dockerfile
-      args:
-        BASE_IMAGE: ${PHP_BASE_IMAGE:-php:8.2-fpm-alpine}
     container_name: lemp_php
     volumes:
       - ./www:/var/www/html
