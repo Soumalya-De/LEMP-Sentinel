@@ -4,7 +4,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
       args:
-        BASE_IMAGE: ${NGINX_BASE_IMAGE}
+        BASE_IMAGE: ${NGINX_BASE_IMAGE:-nginx:alpine}
     container_name: lemp_nginx
     ports:
       - "8080:80"
@@ -30,15 +30,15 @@ services:
       context: ./php
       dockerfile: Dockerfile
       args:
-        BASE_IMAGE: ${PHP_BASE_IMAGE}
+        BASE_IMAGE: ${PHP_BASE_IMAGE:-php:8.2-fpm-alpine}
     container_name: lemp_php
     volumes:
       - ./www:/var/www/html
     environment:
-      - DB_HOST=${DB_HOST}
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST:-mysql}
+      - DB_NAME=${DB_NAME:-my_app_db}
+      - DB_USER=${DB_USER:-app_user}
+      - DB_PASSWORD=${DB_PASSWORD:-app_pass}
     depends_on:
       mysql:
         condition: service_healthy
@@ -54,10 +54,10 @@ services:
     container_name: lemp_mysql
     environment:
       # MySQL's built-in initialization variables
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${DB_NAME}
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-rootpass}
+      - MYSQL_DATABASE=${DB_NAME:-my_app_db}
+      - MYSQL_USER=${DB_USER:-app_user}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-app_pass}
       # Additional security settings
       - MYSQL_DEFAULT_AUTHENTICATION_PLUGIN=mysql_native_password
     volumes:
