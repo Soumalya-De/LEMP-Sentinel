@@ -13,11 +13,10 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Run gitleaks (detect high-confidence secrets)
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
-        with:
-          args: --verbose --redact --exit-code 1
+        run: |
+          docker run --rm -v "$PWD":/repo zricethezav/gitleaks:latest detect \
+            --source /repo \
+            --verbose --redact --exit-code 1
 
   smoke-tests:
     name: Build, start and smoke-test stack
@@ -131,7 +130,7 @@ jobs:
       - name: Simulate data loss (drop tables)
         run: |
           set -e
-          docker exec -i lemp_mysql sh -lc 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;" "$MYSQL_DATABASE"'
+          docker exec -i lemp_mysql mysql -uroot -p"$MYSQL_ROOT_PASSWORD" "$DB_NAME" -e 'DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;'
 
       - name: Validate failure after drop (test-db.php should error)
         run: |
