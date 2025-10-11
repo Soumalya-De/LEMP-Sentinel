@@ -42,13 +42,15 @@ reset:
 db-backup:
 	@echo "Dumping my_app_db to backups/my_app_db.sql"
 	mkdir -p backups
-	docker exec -i lemp_mysql sh -lc 'exec mysqldump -u "$${MYSQL_USER}" -p"$${MYSQL_PASSWORD}" "$${MYSQL_DATABASE}"' > backups/my_app_db.sql
+	docker exec -i -e MYSQL_PWD="$${MYSQL_PASSWORD}" lemp_mysql \
+	  sh -lc 'exec mysqldump --no-tablespaces -u "$${MYSQL_USER}" "$${MYSQL_DATABASE}"' > backups/my_app_db.sql
 	@echo "Backup written to backups/my_app_db.sql"
 
 db-restore:
 	@echo "Restoring my_app_db from backups/my_app_db.sql"
 	@test -f backups/my_app_db.sql || (echo "Missing backups/my_app_db.sql" && exit 1)
-	docker exec -i lemp_mysql sh -lc 'exec mysql -u "$${MYSQL_USER}" -p"$${MYSQL_PASSWORD}" "$${MYSQL_DATABASE}"' < backups/my_app_db.sql
+	docker exec -i -e MYSQL_PWD="$${MYSQL_PASSWORD}" lemp_mysql \
+	  sh -lc 'exec mysql -u "$${MYSQL_USER}" "$${MYSQL_DATABASE}"' < backups/my_app_db.sql
 	@echo "Restore completed"
 
 # --- Utilities ---

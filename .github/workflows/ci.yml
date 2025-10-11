@@ -130,8 +130,9 @@ jobs:
       - name: Simulate data loss (drop tables)
         run: |
           set -e
-          docker exec -i -e MYSQL_PWD="$MYSQL_ROOT_PASSWORD" lemp_mysql \
-            mysql -uroot "$DB_NAME" -e 'DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;'
+          docker exec -i lemp_mysql \
+            mysql -uroot --password="$MYSQL_ROOT_PASSWORD" "$DB_NAME" \
+            -e 'DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;'
 
       - name: Validate failure after drop (test-db.php should error)
         run: |
