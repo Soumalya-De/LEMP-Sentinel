@@ -36,6 +36,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+      - name: Resolve image digests (main only)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          # Resolve digests for reproducibility
+          NGINX_TAG=nginx:alpine
+          PHP_TAG=php:8.2-fpm-alpine
+          docker pull "$NGINX_TAG" >/dev/null
+          docker pull "$PHP_TAG" >/dev/null
+          NGINX_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' "$NGINX_TAG")
+          PHP_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' "$PHP_TAG")
+          echo "NGINX_BASE_IMAGE=$NGINX_DIGEST" >> $GITHUB_ENV
+          echo "PHP_BASE_IMAGE=$PHP_DIGEST" >> $GITHUB_ENV
+
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -114,6 +128,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Resolve image digests (main only)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          NGINX_TAG=nginx:alpine
+          PHP_TAG=php:8.2-fpm-alpine
+          docker pull "$NGINX_TAG" >/dev/null
+          docker pull "$PHP_TAG" >/dev/null
+          NGINX_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' "$NGINX_TAG")
+          PHP_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' "$PHP_TAG")
+          echo "NGINX_BASE_IMAGE=$NGINX_DIGEST" >> $GITHUB_ENV
+          echo "PHP_BASE_IMAGE=$PHP_DIGEST" >> $GITHUB_ENV
+
       - name: Set up Syft and Grype/Trivy
         run: |
           curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
@@ -127,12 +154,22 @@ jobs:
         run: |
           docker compose build --pull
 
-      - name: Scan local images with Trivy (non-blocking)
+      - name: Scan local images with Trivy (PRs - non-blocking)
+        if: github.event_name == 'pull_request'
         run: |
           set -e
           for img in $(docker images --format '{{.Repository}}:{{.Tag}}' | grep -E 'nginx:|php:' | sort -u); do
-            echo "Scanning $img"
+            echo "Scanning $img (informational)"
             trivy image --severity HIGH,CRITICAL --no-progress --timeout 5m --format table "$img" || true
+          done
+
+      - name: Scan local images with Trivy (main - blocking)
+        if: github.event_name != 'pull_request'
+        run: |
+          set -e
+          for img in $(docker images --format '{{.Repository}}:{{.Tag}}' | grep -E 'nginx:|php:' | sort -u); do
+            echo "Scanning $img (blocking)"
+            trivy image --severity HIGH,CRITICAL --no-progress --timeout 5m --exit-code 1 --format table "$img"
           done
 
       - name: Upload SBOM

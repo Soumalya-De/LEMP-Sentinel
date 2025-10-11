@@ -1,0 +1,7 @@
+services:
+  adminer:
+    # Exclude adminer in prod profile by overriding with condition: service_removed in docs or simply not including this file.
+    # This file intentionally left minimal; production orchestrations should remove this service entirely.
+    # Keeping as a placeholder to document intent.
+    deploy:
+      replicas: 0

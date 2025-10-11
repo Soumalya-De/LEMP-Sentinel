@@ -193,6 +193,7 @@ If you have a finalized report, you can include the PDF at `docs/REPORT.pdf` for
 - [Future Updates](#future-updates)
 - [License](#license)
  - [Security Policy](#security)
+ - [Secrets Management Guide](docs/secrets.md)
 
 ---
 
@@ -425,7 +426,14 @@ For production, replace with real password hashes (e.g. bcrypt via `password_has
 - Useful for quickly inspecting or editing MySQL tables during development.  
 
 > [!WARNING]
-> Never expose Adminer publicly in production deployments. Keep it bound to localhost or remove the service before production.
+> Never expose Adminer publicly in production deployments. Keep it bound to localhost or use the production compose profile that excludes Adminer.
+
+Production profile example:
+```bash
+docker compose -f docker-compose.yml -f docker-compose.nonroot.yml up -d # dev
+# For production-like (no Adminer), use the prod override to omit Adminer
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+```
 
 ---
 
@@ -507,6 +515,8 @@ make logs       # tail logs
 make lint-php   # php -l on all files in /www
 make smoke      # curl checks for /, /test-db.php, /info.php
 make reset      # down + remove volumes + orphans
+make db-backup  # dump DB to backups/my_app_db.sql
+make db-restore # restore DB from backups/my_app_db.sql
 ```
 
 #### Restarting Later

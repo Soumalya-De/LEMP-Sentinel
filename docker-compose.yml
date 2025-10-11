@@ -3,6 +3,8 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: ${NGINX_BASE_IMAGE:-nginx:alpine}
     container_name: lemp_nginx
     ports:
       - "8080:80"
@@ -27,6 +29,8 @@ services:
     build:
       context: ./php
       dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: ${PHP_BASE_IMAGE:-php:8.2-fpm-alpine}
     container_name: lemp_php
     volumes:
       - ./www:/var/www/html
@@ -43,6 +47,9 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pidof php-fpm"]
+      interval: 30s
+      retries: 3
+      start_period: 40s
     # dev-only diagnostics are gated by APP_ENV in the app code
 
   mysql:
