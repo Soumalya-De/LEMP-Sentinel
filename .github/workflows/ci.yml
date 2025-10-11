@@ -75,6 +75,16 @@ jobs:
             fi
           '
 
+      - name: Validate bcrypt helper outputs bcrypt hash
+        run: |
+          set -e
+          out=$(docker run --rm -v "$PWD/scripts":/scripts php:8.2-cli php /scripts/bcrypt.php 'secret123')
+          echo "Hash: $out"
+          case "$out" in
+            \$2y\$*) echo "Looks like bcrypt" ;;
+            *) echo "Unexpected hash format: $out"; exit 1 ;;
+          esac
+
       - name: Build and start stack
         run: |
           docker compose up --build -d
