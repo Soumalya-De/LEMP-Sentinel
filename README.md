@@ -34,7 +34,7 @@ This repository delivers a production-aligned LEMP stack wired for observability
 Quick links:
 - Quickstart: jump to [Quickstart](#quickstart)
 - Dashboard: http://localhost:8080
-- Adminer: http://localhost:8081
+- Adminer (dev profile only): http://localhost:8081
 - Uptime Kuma: http://localhost:3001
 
 ---
@@ -135,7 +135,7 @@ docker compose up --build -d
 ```bash
 docker compose ps
 open http://localhost:8080
-open http://localhost:8081
+open http://localhost:8081  # if running with --profile dev
 open http://localhost:3001
 ```
 
@@ -199,7 +199,7 @@ If you have a finalized report, you can include the PDF at `docs/REPORT.pdf` for
 
 ## Demo
 **Live Dashboard:** `http://localhost:8080`  
-**Database UI (Adminer):** `http://localhost:8081`  
+**Database UI (Adminer):** `http://localhost:8081` (only when `--profile dev` is enabled)  
 **Monitoring (Uptime Kuma):** `http://localhost:3001`
 
 
@@ -415,8 +415,23 @@ File: `mysql/init.sql`
   - Users: `admin`, `john_doe` (with placeholder `hashedpassword`)  
   - One sample post linked to `admin`  
 
-⚠️ Note: `password_hash` values are **dummy text** for demo only.  
-For production, replace with real password hashes (e.g. bcrypt via `password_hash()` in PHP).  
+⚠️ Note: `password_hash` values are placeholders for demo only. Replace with real bcrypt hashes.  
+
+Generate a bcrypt hash using the built-in helper:
+```bash
+# Option A: via Makefile
+make bcrypt PASSWORD='your-secure-password'
+
+# Option B: directly with PHP CLI inside a container
+docker run --rm -v "$PWD/scripts":/scripts php:8.2-cli php /scripts/bcrypt.php 'your-secure-password'
+```
+
+Then update `mysql/init.sql` seed users, for example:
+```sql
+INSERT INTO users (username, email, password_hash) VALUES
+('admin', 'admin@example.com', '$2y$10$REPLACE_WITH_REAL_BCRYPT_HASH'),
+('john_doe', 'john@example.com', '$2y$10$REPLACE_WITH_REAL_BCRYPT_HASH');
+```
 
 ---
 
@@ -426,13 +441,15 @@ For production, replace with real password hashes (e.g. bcrypt via `password_has
 - Useful for quickly inspecting or editing MySQL tables during development.  
 
 > [!WARNING]
-> Never expose Adminer publicly in production deployments. Keep it bound to localhost or use the production compose profile that excludes Adminer.
+> Adminer is for local development only. It is now placed under the `dev` profile and excluded by default.
 
-Production profile example:
+Usage:
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.nonroot.yml up -d # dev
-# For production-like (no Adminer), use the prod override to omit Adminer
-docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+# Default: prod-like (no Adminer)
+docker compose up -d
+
+# Dev: include Adminer explicitly
+docker compose --profile dev up -d
 ```
 
 ---
@@ -501,7 +518,7 @@ docker compose up --build -d
 docker ps --format "table {{.Names}}\t{{.Status}}"
 # 5. Access services:
 #   Dashboard: http://localhost:8080
-#   Adminer:   http://localhost:8081
+#   Adminer:   http://localhost:8081   (only with --profile dev)
 #   Uptime Kuma: http://localhost:3001
 ```
 
@@ -720,7 +737,7 @@ Expected: `Up (healthy)` for nginx, php, mysql, adminer, uptime_kuma. If any is 
 A secure PHP info page restricted to the `development` environment: `http://localhost:8080/info.php`
 
 ### Adminer (Database UI)
-Access: `http://localhost:8081`
+Access (when dev profile enabled): `http://localhost:8081`
 Login:
 - System: `MySQL`
 - Server: `mysql`

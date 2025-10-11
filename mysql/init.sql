@@ -1,3 +1,10 @@
+-- Note: Replace placeholder password hashes with real bcrypt hashes.
+-- Generate one via:
+--   make bcrypt PASSWORD='your-secure-password'
+-- or
+--   docker run --rm -v "$PWD/scripts":/scripts php:8.2-cli php /scripts/bcrypt.php 'your-secure-password'
+-- Then paste the resulting $2y$... value into the INSERT statements below.
+--
 -- Create tables
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,

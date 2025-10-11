@@ -79,6 +79,7 @@ services:
   adminer:
     image: adminer:latest
     container_name: lemp_adminer
+    profiles: ["dev"]
     ports:
       - "8081:8080"
     depends_on:

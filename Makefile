@@ -50,3 +50,12 @@ db-restore:
 	@test -f backups/my_app_db.sql || (echo "Missing backups/my_app_db.sql" && exit 1)
 	docker exec -i lemp_mysql sh -lc 'exec mysql -u "$${MYSQL_USER}" -p"$${MYSQL_PASSWORD}" "$${MYSQL_DATABASE}"' < backups/my_app_db.sql
 	@echo "Restore completed"
+
+# --- Utilities ---
+.PHONY: bcrypt
+
+# Generate a bcrypt hash using PHP (no local PHP required)
+# Usage: make bcrypt PASSWORD=mysecret
+bcrypt:
+	@test -n "$(PASSWORD)" || (echo "Usage: make bcrypt PASSWORD=your_password" && exit 1)
+	docker run --rm -v "$(PWD)/scripts":/scripts php:8.2-cli php /scripts/bcrypt.php "$(PASSWORD)"
