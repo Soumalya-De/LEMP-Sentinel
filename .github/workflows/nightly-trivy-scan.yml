@@ -1,0 +1,47 @@
+name: Nightly Trivy scan
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # daily at 03:00 UTC
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Trivy
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Build images for scanning
+        run: |
+          docker compose build --pull
+
+      - name: Run Trivy on local images and upload results
+        run: |
+          mkdir -p trivy-reports
+          for img in $(docker images --format '{{.Repository}}:{{.Tag}}' | grep -E 'nginx:|php:' | sort -u); do
+            out=trivy-reports/$(echo $img | tr '/:' '__').txt
+            echo "Scanning $img -> $out"
+            trivy image --severity HIGH,CRITICAL --format table "$img" > "$out" || true
+          done
+          tar -czf trivy-reports.tgz trivy-reports || true
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-reports
+          path: trivy-reports.tgz
+
+      - name: Create issue if critical findings exist
+        run: |
+          if grep -q "CRITICAL" trivy-reports/* 2>/dev/null; then
+            gh issue create --title "Nightly: Critical vulnerabilities found in built images" --body "Trivy found CRITICAL vulnerabilities. See attached reports in workflow artifacts." || true
+          else
+            echo "No critical vulnerabilities found"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

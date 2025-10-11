@@ -1,0 +1,72 @@
+name: Build & pin patched PHP image
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-and-pin:
+    name: Build patched PHP image and open PR to pin digest
+    runs-on: ubuntu-latest
+    env:
+      BASE_PHP_DIGEST: php@sha256:f5cbb745950ec7ae49117fc1e326fddcd07ec2d0a47e230918e2eaa65f1b80b0
+      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/lemp-php-patched
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Log into GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Dockerfile for patched image
+        run: |
+          cat > Dockerfile.patched <<'EOF'
+          FROM ${BASE_PHP_DIGEST}
+          # Try installing the fixed libxml2 package; fall back to edge repo if not present
+          RUN apk update && \
+              apk add --no-cache libxml2=2.13.9-r0 || \
+              apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main libxml2
+          EOF
+
+      - name: Build patched image
+        run: |
+          docker build -f Dockerfile.patched -t ${IMAGE_NAME}:patched-${{ github.run_id }} .
+
+      - name: Push patched image
+        run: |
+          docker push ${IMAGE_NAME}:patched-${{ github.run_id }}
+
+      - name: Get pushed image digest
+        id: getdigest
+        run: |
+          DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${IMAGE_NAME}:patched-${{ github.run_id }})
+          echo "digest=$DIGEST" >> $GITHUB_OUTPUT
+
+      - name: Prepare pin commit
+        run: |
+          echo "Pinning PHP_BASE_IMAGE to ${{ steps.getdigest.outputs.digest }}"
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git checkout -b pin/php-base-image-${{ github.run_id }}
+          # Replace PHP_BASE_IMAGE tag entry with pinned digest in ci.yml
+          sed -i "s|PHP_BASE_IMAGE: php:8.2-fpm-alpine|PHP_BASE_IMAGE: ${{ steps.getdigest.outputs.digest }}|" .github/workflows/ci.yml
+          git add .github/workflows/ci.yml
+          git commit -m "ci: pin PHP_BASE_IMAGE to patched image digest (${{ steps.getdigest.outputs.digest }})"
+
+      - name: Create Pull Request with pin
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "ci: pin PHP_BASE_IMAGE to patched image digest"
+          branch: pin/php-base-image-${{ github.run_id }}
+          title: "ci: pin PHP base image to patched digest"
+          body: |
+            This PR pins `PHP_BASE_IMAGE` in CI to the patched PHP image pushed to GHCR.
+            The image upgrades `libxml2` to a fixed version. After merge, remove `.trivyignore` and keep Trivy blocking.
