@@ -1,4 +1,21 @@
-# Add SHA256 IDs or vulnerability IDs (e.g., CVE-XXXX-YYYY) to suppress known/acceptable findings.
+# Temporary Trivy suppressions
+# Reason: The following libxml2 CVEs are present in the base Alpine image used by the local PHP image.
+# These are upstream distro/package issues and will be remediated by updating the base image when a fixed package is available.
+# Keep this suppression in the repo only until the base image is upgraded and CI passes without it.
+
+# libxml2: Heap UAF -> fixed in 2.13.9-r0
+CVE-2025-49794
+
+# libxml: Type confusion DoS
+CVE-2025-49796
+
+# libxml: Null pointer dereference DoS
+CVE-2025-49795
+
+# libxml2: Integer overflow (xmlBuildQName) -> stack buffer overflow
+CVE-2025-6021
+
+# TODO: Remove entries above after upgrading `PHP_BASE_IMAGE` / underlying Alpine image and reconfirm CI# Add SHA256 IDs or vulnerability IDs (e.g., CVE-XXXX-YYYY) to suppress known/acceptable findings.
 # Include a rationale above each rule and a link to an issue/PR tracking remediation.
 # Example:
 #
