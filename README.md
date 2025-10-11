@@ -15,6 +15,7 @@ Built for reproducible local or staging environments with integrated observabili
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](http://makeapullrequest.com)
 [![Stars](https://img.shields.io/github/stars/soumalyade/lemp-sentinel?style=for-the-badge)](https://github.com/soumalyade/lemp-sentinel/stargazers)
 [![Forks](https://img.shields.io/github/forks/soumalyade/lemp-sentinel?style=for-the-badge)](https://github.com/soumalyade/lemp-sentinel/network/members)
+[![Last Commit](https://img.shields.io/github/last-commit/soumalyade/lemp-sentinel?style=for-the-badge)](https://github.com/soumalyade/lemp-sentinel/commits/main)
 
 ---
 
@@ -1066,3 +1067,4 @@ Please ensure your code adheres to the existing style and includes updates to do
 - Repository hardening guidance: `docs/security-hardening.md`.
 
 - Nightly scans (Trivy) are blocking on HIGH/CRITICAL; PR scans are informational and post a summary comment. A proposed `.trivyignore` file is attached as an artifact for review when high/critical findings appear.
+
