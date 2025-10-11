@@ -39,12 +39,16 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           set -e
+          mkdir -p trivy-results
           for img in $(docker images --format '{{.Repository}}:{{.Tag}}' | grep -E 'nginx:|php:' | sort -u); do
             echo "Scanning $img (informational)"
-            safe=$(echo "$img" | sed 's#[:/]#_#g')
-            trivy image --severity HIGH,CRITICAL --format sarif --output trivy-$safe.sarif --timeout 5m "$img" || true
-            trivy image --severity HIGH,CRITICAL --format json  --output trivy-$safe.json  --timeout 5m "$img" || true
+            safe=$(echo "$img" | sed 's/[^A-Za-z0-9._-]/_/g')
+            out=trivy-results/trivy-${safe}.sarif
+            json=trivy-results/trivy-${safe}.json
+            trivy image --severity HIGH,CRITICAL --format sarif --output "$out" --timeout 5m "$img" || true
+            trivy image --severity HIGH,CRITICAL --format json  --output "$json"  --timeout 5m "$img" || true
           done
+          ls -lah trivy-results || true
 
       - name: Create Trivy summary (PRs)
         if: github.event_name == 'pull_request'
@@ -88,13 +92,18 @@ jobs:
         if: github.event_name != 'pull_request'
         run: |
           set -e
+          mkdir -p trivy-results
           for img in $(docker images --format '{{.Repository}}:{{.Tag}}' | grep -E 'nginx:|php:' | sort -u); do
             echo "Scanning $img (blocking)"
-            trivy image --severity HIGH,CRITICAL --exit-code 1 --format sarif --output trivy-$${img//[:\/]/_}.sarif --timeout 5m "$img"
+            safe=$(echo "$img" | sed 's/[^A-Za-z0-9._-]/_/g')
+            out=trivy-results/trivy-${safe}.sarif
+            # exit-code 1 makes this command return non-zero if HIGH/CRITICAL findings exist
+            trivy image --severity HIGH,CRITICAL --exit-code 1 --format sarif --output "$out" --timeout 5m "$img"
           done
+          ls -lah trivy-results || true
 
       - name: Upload SARIF results
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: .
+          sarif_file: trivy-results/*.sarif
           category: trivy
