@@ -119,8 +119,12 @@ jobs:
       - name: Backup database dump
         run: |
           set -e
-          # Ensure Makefile uses container env vars properly
-          make db-backup
+          echo "Dumping $DB_NAME to backups/my_app_db.sql"
+          mkdir -p backups
+          # Use container env values and non-interactive auth; avoid PROCESS privilege warning
+          docker exec -i -e MYSQL_PWD="$DB_PASSWORD" lemp_mysql \
+            sh -lc 'exec mysqldump --no-tablespaces -u "$MYSQL_USER" "$MYSQL_DATABASE"' > backups/my_app_db.sql
+          echo "Backup written to backups/my_app_db.sql"
 
       - name: Upload DB dump artifact
         uses: actions/upload-artifact@v4
@@ -140,7 +144,7 @@ jobs:
         run: |
           set -e
           docker exec -i -e MYSQL_PWD="$MYSQL_ROOT_PASSWORD" lemp_mysql \
-            sh -lc 'mysql -uroot "$MYSQL_DATABASE" -e "DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;"'
+            sh -lc 'exec mysql -uroot "$MYSQL_DATABASE" -e "DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;"'
 
       - name: Validate failure after drop (test-db.php should error)
         run: |
