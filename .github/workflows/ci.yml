@@ -24,7 +24,7 @@ jobs:
     needs: secret-scan
     env:
       COMPOSE_HTTP_TIMEOUT: 200
-      RUN_DB_BACKUP_RESTORE: "false"
+      RUN_DB_BACKUP_RESTORE: "true"
       # Hard defaults to avoid blank build args/env in CI
       NGINX_BASE_IMAGE: nginx:alpine
       PHP_BASE_IMAGE: php:8.2-fpm-alpine
@@ -124,8 +124,8 @@ jobs:
           echo "Dumping $DB_NAME to backups/my_app_db.sql"
           mkdir -p backups
           # Use container env values and non-interactive auth; avoid PROCESS privilege warning
-          docker exec -i -e MYSQL_PWD="$DB_PASSWORD" lemp_mysql \
-            sh -lc 'exec mysqldump --no-tablespaces -u "$MYSQL_USER" "$MYSQL_DATABASE"' > backups/my_app_db.sql
+          docker exec -i lemp_mysql \
+            sh -lc 'MYSQL_PWD="$MYSQL_PASSWORD" exec mysqldump --no-tablespaces -u "$MYSQL_USER" "$MYSQL_DATABASE"' > backups/my_app_db.sql
           echo "Backup written to backups/my_app_db.sql"
 
       - name: Upload DB dump artifact
@@ -142,14 +142,14 @@ jobs:
           echo "Job env DB_NAME=$DB_NAME"
           echo "Container MYSQL_DATABASE=$(docker exec lemp_mysql printenv MYSQL_DATABASE)"
           # Simple auth check; do not print results to avoid leaking creds
-          docker exec -i -e MYSQL_PWD="$MYSQL_ROOT_PASSWORD" lemp_mysql sh -lc 'mysql -uroot -e "SELECT 1" "$MYSQL_DATABASE" >/dev/null'
+          docker exec -i lemp_mysql sh -lc 'MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "SELECT 1" "$MYSQL_DATABASE" >/dev/null'
 
       - name: Simulate data loss (drop tables)
         if: env.RUN_DB_BACKUP_RESTORE == 'true'
         run: |
           set -e
-          docker exec -i -e MYSQL_PWD="$MYSQL_ROOT_PASSWORD" lemp_mysql \
-            sh -lc 'exec mysql -uroot "$MYSQL_DATABASE" -e "DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;"'
+          docker exec -i lemp_mysql \
+            sh -lc 'MYSQL_PWD="$MYSQL_ROOT_PASSWORD" exec mysql -uroot "$MYSQL_DATABASE" -e "DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;"'
 
       - name: Validate failure after drop (test-db.php should error)
         if: env.RUN_DB_BACKUP_RESTORE == 'true'
@@ -163,8 +163,8 @@ jobs:
         if: env.RUN_DB_BACKUP_RESTORE == 'true'
         run: |
           set -e
-          docker exec -i -e MYSQL_PWD="$DB_PASSWORD" lemp_mysql \
-            sh -lc 'exec mysql -u "$MYSQL_USER" "$MYSQL_DATABASE"' < backups/my_app_db.sql
+          docker exec -i lemp_mysql \
+            sh -lc 'MYSQL_PWD="$MYSQL_PASSWORD" exec mysql -u "$MYSQL_USER" "$MYSQL_DATABASE"' < backups/my_app_db.sql
 
       - name: Validate after restore (test-db.php success)
         if: env.RUN_DB_BACKUP_RESTORE == 'true'
