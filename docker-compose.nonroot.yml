@@ -1,0 +1,5 @@
+version: '3.8'
+
+services:
+  php:
+    user: "${APP_USER_ID:-1000}:${APP_GROUP_ID:-1000}"

@@ -1,0 +1,6 @@
+# Add SHA256 IDs or vulnerability IDs (e.g., CVE-XXXX-YYYY) to suppress known/acceptable findings.
+# Include a rationale above each rule and a link to an issue/PR tracking remediation.
+# Example:
+#
+# # alpine:3.18 busybox CVE that does not affect our usage path
+# CVE-2023-12345
