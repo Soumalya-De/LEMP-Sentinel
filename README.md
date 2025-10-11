@@ -1097,3 +1097,22 @@ Please ensure your code adheres to the existing style and includes updates to do
 - Nightly scans (Trivy) are blocking on HIGH/CRITICAL; PR scans are informational and post a summary comment. A proposed `.trivyignore` file is attached as an artifact for review when high/critical findings appear.
 
 
+---
+
+## Database backup/restore (manual workflow)
+
+To validate the backup/restore sequence end-to-end without making the main CI flaky, use the manual workflow:
+
+1) In GitHub → Actions, run "Manual - DB Backup/Restore Validation".
+2) It will:
+  - Start the stack and wait for `/test-db.php` health
+  - Write `/root/.my.cnf` inside the MySQL container for non-interactive auth
+  - Dump the DB with `mysqldump --no-tablespaces`
+  - Drop `users` and `posts` to simulate data loss
+  - Restore from the dump and verify success via `test-db.php`
+
+Notes
+- Default uses MySQL root; you can switch to the app user via the workflow input.
+- The main CI has this stage disabled by default (`RUN_DB_BACKUP_RESTORE: "false"`). Flip it to `true` in `.github/workflows/ci.yml` if you want it on every run.
+
+

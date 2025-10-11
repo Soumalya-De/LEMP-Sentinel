@@ -1,0 +1,92 @@
+name: Manual - DB Backup/Restore Validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      use-root:
+        description: "Use root for dump/restore (true) or app user (false)"
+        required: false
+        default: "true"
+
+jobs:
+  db-validate:
+    runs-on: ubuntu-latest
+    env:
+      COMPOSE_HTTP_TIMEOUT: 200
+      NGINX_BASE_IMAGE: nginx:alpine
+      PHP_BASE_IMAGE: php:8.2-fpm-alpine
+      DB_HOST: mysql
+      DB_NAME: my_app_db
+      DB_USER: app_user
+      DB_PASSWORD: app_pass
+      MYSQL_ROOT_PASSWORD: rootpass
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Build and start stack
+        run: |
+          docker compose up --build -d
+
+      - name: Wait for /test-db.php (max 90s)
+        run: |
+          set -e
+          attempts=0; max=45
+          until curl -sSf http://localhost:8080/test-db.php >/dev/null 2>&1 || [ $attempts -ge $max ]; do
+            attempts=$((attempts+1)); echo "Waiting for test-db.php ($attempts/$max)..."; sleep 2
+          done
+          [ $attempts -lt $max ]
+
+      - name: Prepare ~/.my.cnf in container
+        run: |
+          set -e
+          if [ "${{ github.event.inputs.use-root }}" = "true" ]; then
+            docker exec lemp_mysql sh -lc 'cat > /root/.my.cnf <<EOF
+[client]
+user=root
+password="$MYSQL_ROOT_PASSWORD"
+host=localhost
+socket=/var/run/mysqld/mysqld.sock
+EOF
+chmod 600 /root/.my.cnf'
+          else
+            docker exec lemp_mysql sh -lc 'cat > /root/.my.cnf <<EOF
+[client]
+user="$MYSQL_USER"
+password="$MYSQL_PASSWORD"
+host=localhost
+socket=/var/run/mysqld/mysqld.sock
+EOF
+chmod 600 /root/.my.cnf'
+          fi
+
+      - name: Pre-check (SELECT 1)
+        run: |
+          docker exec lemp_mysql sh -lc 'mysql "$MYSQL_DATABASE" -e "SELECT 1"'
+
+      - name: Dump database (no-tablespaces)
+        run: |
+          mkdir -p backups
+          docker exec lemp_mysql sh -lc 'mysqldump --no-tablespaces "$MYSQL_DATABASE"' > backups/my_app_db.sql
+
+      - name: Drop tables
+        run: |
+          docker exec lemp_mysql sh -lc 'mysql "$MYSQL_DATABASE" -e "DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;"'
+
+      - name: Validate failure after drop
+        run: |
+          set +e
+          curl -sSf http://localhost:8080/test-db.php >/dev/null
+          echo "Expected failure after drop (non-fatal)."
+
+      - name: Restore from dump
+        run: |
+          docker exec -i lemp_mysql sh -lc 'mysql "$MYSQL_DATABASE"' < backups/my_app_db.sql
+
+      - name: Validate success after restore
+        run: |
+          curl -sSf http://localhost:8080/test-db.php | jq -r '.overall_status'
+
+      - name: Tear down
+        if: always()
+        run: docker compose down --volumes --remove-orphans

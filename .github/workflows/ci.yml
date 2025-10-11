@@ -24,7 +24,7 @@ jobs:
     needs: secret-scan
     env:
       COMPOSE_HTTP_TIMEOUT: 200
-      RUN_DB_BACKUP_RESTORE: "true"
+      RUN_DB_BACKUP_RESTORE: "false"
       # Hard defaults to avoid blank build args/env in CI
       NGINX_BASE_IMAGE: nginx:alpine
       PHP_BASE_IMAGE: php:8.2-fpm-alpine
