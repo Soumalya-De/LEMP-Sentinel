@@ -7,7 +7,7 @@ This repository is a learning/reference stack. Security scans (Trivy) run on PRs
 
 ## Reporting a vulnerability
 - Please DO NOT open a public issue for suspected vulnerabilities.
-- Email the maintainer with the subject: "[LEMP-STACK] Security Report" and include:
+- Email the maintainer with the subject: "[LEMP-Sentinel] Security Report" and include:
   - Affected component(s)
   - Steps to reproduce
   - Impact assessment (what could an attacker do?)

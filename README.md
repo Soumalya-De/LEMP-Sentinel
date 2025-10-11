@@ -16,7 +16,7 @@ Built for reproducible local or staging environments with integrated observabili
 [![Stars](https://img.shields.io/github/stars/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/stargazers)
 [![Forks](https://img.shields.io/github/forks/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/network/members)
 [![Last Commit](https://img.shields.io/github/last-commit/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/commits/main)
-[![Security Scan](https://img.shields.io/github/actions/workflow/status/Soumalya-De/LEMP-Sentinel/ci.yml?label=Security%20Scan&style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/actions)
+[![Security Scan](https://img.shields.io/github/actions/workflow/status/Soumalya-De/LEMP-Sentinel/security-scan.yml?branch=main&label=Security%20Scan&style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan.yml)
 
 ---
 
@@ -41,7 +41,7 @@ Quick links:
 
 ## Repository Layout
 ```
-lemp-stack/
+LEMP-Sentinel/
 ├── docker-compose.yml          # Service orchestration
 ├── .github/workflows/ci.yml    # CI: gitleaks + docker-compose smoke tests
 ├── .env.example                # Template for environment variables
@@ -125,8 +125,8 @@ docker context use default
 
 2) Clone and run
 ```bash
-git clone https://github.com/<PLACEHOLDER_USER>/<PLACEHOLDER_REPO>.git
-cd lemp-stack
+git clone https://github.com/Soumalya-De/LEMP-Sentinel.git
+cd LEMP-Sentinel
 cp .env.example .env
 docker compose up --build -d
 ```
@@ -483,8 +483,8 @@ graph TB
 #### Steps
 ```bash
 # 1. Clone the repo
-git clone https://github.com/<PLACEHOLDER_USER>/<PLACEHOLDER_REPO>.git
-cd lemp-stack
+git clone https://github.com/Soumalya-De/LEMP-Sentinel.git
+cd LEMP-Sentinel
 # 2. Copy environment template
 cp .env.example .env
 # 3. Build & start (one command)
@@ -511,7 +511,7 @@ make reset      # down + remove volumes + orphans
 
 #### Restarting Later
 ```bash
-cd ~/lemp-stack
+cd ~/LEMP-Sentinel
 docker compose up -d  # No rebuild needed!
 ```
 
@@ -538,8 +538,8 @@ newgrp docker # or log out/in of WSL
 
 3) Clone and run inside WSL
 ```bash
-git clone https://github.com/<PLACEHOLDER_USER>/<PLACEHOLDER_REPO>.git
-cd lemp-stack
+git clone https://github.com/Soumalya-De/LEMP-Sentinel.git
+cd LEMP-Sentinel
 cp .env.example .env
 docker compose up --build -d
 ```
@@ -551,7 +551,7 @@ xdg-open http://localhost:8080 || true
 ```
 
 Notes
-- Store the repo under your Linux home directory (e.g., `~/lemp-stack`) for best file I/O performance.
+- Store the repo under your Linux home directory (e.g., `~/LEMP-Sentinel`) for best file I/O performance.
 - VS Code users: install "Remote - WSL" and open the folder in WSL for a smoother experience.
 
 
