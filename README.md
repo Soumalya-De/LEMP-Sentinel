@@ -9,13 +9,14 @@ Built for reproducible local or staging environments with integrated observabili
 </p>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/soumalyade/lemp-sentinel/ci.yml?branch=main&style=for-the-badge)](https://github.com/soumalyade/lemp-sentinel/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/Soumalya-De/LEMP-Sentinel/ci.yml?branch=main&style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/actions)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![Uptime Kuma](https://img.shields.io/badge/Uptime_Kuma-1F8CFF?style=for-the-badge&logo=uptime-kuma)](https://github.com/louislam/uptime-kuma)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](http://makeapullrequest.com)
-[![Stars](https://img.shields.io/github/stars/soumalyade/lemp-sentinel?style=for-the-badge)](https://github.com/soumalyade/lemp-sentinel/stargazers)
-[![Forks](https://img.shields.io/github/forks/soumalyade/lemp-sentinel?style=for-the-badge)](https://github.com/soumalyade/lemp-sentinel/network/members)
-[![Last Commit](https://img.shields.io/github/last-commit/soumalyade/lemp-sentinel?style=for-the-badge)](https://github.com/soumalyade/lemp-sentinel/commits/main)
+[![Stars](https://img.shields.io/github/stars/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/stargazers)
+[![Forks](https://img.shields.io/github/forks/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/network/members)
+[![Last Commit](https://img.shields.io/github/last-commit/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/commits/main)
+[![Security Scan](https://img.shields.io/github/actions/workflow/status/Soumalya-De/LEMP-Sentinel/ci.yml?label=Security%20Scan&style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/actions)
 
 ---
 
@@ -1067,4 +1068,5 @@ Please ensure your code adheres to the existing style and includes updates to do
 - Repository hardening guidance: `docs/security-hardening.md`.
 
 - Nightly scans (Trivy) are blocking on HIGH/CRITICAL; PR scans are informational and post a summary comment. A proposed `.trivyignore` file is attached as an artifact for review when high/critical findings appear.
+
 
