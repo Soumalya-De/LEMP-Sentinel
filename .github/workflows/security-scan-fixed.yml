@@ -90,27 +90,32 @@ jobs:
 
       - name: Trivy scan (main/schedule - blocking on HIGH/CRITICAL)
         if: github.event_name != 'pull_request'
+        working-directory: ${{ github.workspace }}
         run: |
           set -euo pipefail
-          mkdir -p "$GITHUB_WORKSPACE/trivy-results"
+          mkdir -p "${GITHUB_WORKSPACE}/trivy-results"
           scan_rc=0
-          for img in $(docker images --format '{{.Repository}}:{{.Tag}}' | grep -E 'nginx:|php:' | sort -u); do
-            safe=$(echo "$img" | sed 's/[^A-Za-z0-9._-]/_/g')
-            out="$GITHUB_WORKSPACE/trivy-results/${safe}.sarif"
+          docker images --format '{{.Repository}}:{{.Tag}}' | grep -E 'nginx:|php:' | sort -u | while read -r img; do
+            safe=$(echo "$img" | sed 's#[^A-Za-z0-9._-]#_#g')
+            out="${GITHUB_WORKSPACE}/trivy-results/${safe}.sarif"
             echo "Scanning $img -> $out"
-            trivy image --format sarif --severity HIGH,CRITICAL --output "$out" --timeout 5m "$img" || scan_rc=$?
+            trivy image --format sarif --severity HIGH,CRITICAL --output "$out" "$img" || scan_rc=$?
           done
-          ls -lah "$GITHUB_WORKSPACE/trivy-results" || true
-          if [ "$scan_rc" -ne 0 ]; then
-            echo "Trivy detected HIGH/CRITICAL vulnerabilities (scan_rc=$scan_rc)"
-            exit 1
-          fi
+          ls -lah "${GITHUB_WORKSPACE}/trivy-results" || true
+          exit "$scan_rc"
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
 
       - name: Upload SARIF results
         if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-sarif
+          path: ${{ github.workspace }}/trivy-results/*.sarif
+
+      - name: Upload SARIF to GitHub Security
+        if: always()
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: trivy-results/*.sarif
+          sarif_file: ${{ github.workspace }}/trivy-results/*.sarif
           category: trivy
