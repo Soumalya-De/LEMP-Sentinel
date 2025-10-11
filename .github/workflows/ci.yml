@@ -25,6 +25,14 @@ jobs:
     needs: secret-scan
     env:
       COMPOSE_HTTP_TIMEOUT: 200
+      # Hard defaults to avoid blank build args/env in CI
+      NGINX_BASE_IMAGE: nginx:alpine
+      PHP_BASE_IMAGE: php:8.2-fpm-alpine
+      DB_HOST: mysql
+      DB_NAME: my_app_db
+      DB_USER: app_user
+      DB_PASSWORD: app_pass
+      MYSQL_ROOT_PASSWORD: rootpass
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -92,6 +100,15 @@ jobs:
     name: SBOM + Image Scan (non-blocking)
     runs-on: ubuntu-latest
     needs: smoke-tests
+    env:
+      # Ensure compose builds use sane defaults here as well
+      NGINX_BASE_IMAGE: nginx:alpine
+      PHP_BASE_IMAGE: php:8.2-fpm-alpine
+      DB_HOST: mysql
+      DB_NAME: my_app_db
+      DB_USER: app_user
+      DB_PASSWORD: app_pass
+      MYSQL_ROOT_PASSWORD: rootpass
     steps:
       - name: Checkout
         uses: actions/checkout@v5
