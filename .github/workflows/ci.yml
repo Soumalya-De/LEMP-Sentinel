@@ -119,6 +119,7 @@ jobs:
       - name: Backup database dump
         run: |
           set -e
+          # Ensure Makefile uses container env vars properly
           make db-backup
 
       - name: Upload DB dump artifact
@@ -127,12 +128,19 @@ jobs:
           name: mysql-backup
           path: backups/my_app_db.sql
 
+      - name: MySQL pre-check (auth and env)
+        run: |
+          set -e
+          echo "Job env DB_NAME=$DB_NAME"
+          echo "Container MYSQL_DATABASE=$(docker exec lemp_mysql printenv MYSQL_DATABASE)"
+          # Simple auth check; do not print results to avoid leaking creds
+          docker exec -i -e MYSQL_PWD="$MYSQL_ROOT_PASSWORD" lemp_mysql sh -lc 'mysql -uroot -e "SELECT 1" "$MYSQL_DATABASE" >/dev/null'
+
       - name: Simulate data loss (drop tables)
         run: |
           set -e
-          docker exec -i lemp_mysql \
-            mysql -uroot --password="$MYSQL_ROOT_PASSWORD" "$DB_NAME" \
-            -e 'DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;'
+          docker exec -i -e MYSQL_PWD="$MYSQL_ROOT_PASSWORD" lemp_mysql \
+            sh -lc 'mysql -uroot "$MYSQL_DATABASE" -e "DROP TABLE IF EXISTS posts; DROP TABLE IF EXISTS users;"'
 
       - name: Validate failure after drop (test-db.php should error)
         run: |
