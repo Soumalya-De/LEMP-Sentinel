@@ -1,731 +1,185 @@
-# LEMP Stack with Integrated Monitoring# LEMP Stack with Integrated Monitoring# LEMP Stack with Integrated Monitoring# Dockerized LEMP stack with integrated monitoring
+# Dockerized LEMP stack with integrated monitoring
 
-
+A production-aligned **LEMP stack** packaged for local or staging environments.  
+Includes containerized **Nginx**, **PHP-FPM**, **MySQL**, **Adminer**, and **Uptime Kuma** with automated health checks.  
+Built for reproducible local or staging environments with integrated observability.
 
 <p align="center">
+  <img src="images/LEMP-GitHub-Cover-Banner.png" alt="Secure & Scalable Dockerized LEMP Stack Banner" style="max-width: 100%; height: auto;" loading="lazy">
+</p>
 
-  <img src="images/LEMP-GitHub-Cover-Banner.png" alt="LEMP Stack Banner" width="800" style="max-width: 100%; height: auto;">
-
-</p><p align="center">
-
-
-
-A production-ready LEMP (Linux, Nginx, MySQL, PHP) stack with built-in monitoring, security scanning, and automated CI/CD workflows. Designed for local development with production-aligned architecture.  <img src="images/LEMP-GitHub-Cover-Banner.png" alt="LEMP Stack Banner" width="800" style="max-width: 100%; height: auto;">
-
-
-
-[![CI Pipeline](https://github.com/Soumalya-De/lemp-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/lemp-stack/actions/workflows/ci.yml)</p><p align="center">A production-aligned **LEMP stack** packaged for local or staging environments.  
-
-[![Security Scan](https://github.com/Soumalya-De/lemp-stack/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/lemp-stack/actions/workflows/security-scan-fixed.yml)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-A production-ready LEMP (Linux, Nginx, MySQL, PHP) stack with built-in monitoring, security scanning, and automated CI/CD workflows. Designed for local development with production-aligned architecture.  <img src="images/LEMP-GitHub-Cover-Banner.png" alt="LEMP Stack Banner" width="800" style="max-width: 100%; height: auto;">Includes containerized **Nginx**, **PHP-FPM**, **MySQL**, **Adminer**, and **Uptime Kuma** with automated health checks.  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/Soumalya-De/LEMP-Sentinel/ci.yml?branch=main&style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/actions)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Uptime Kuma](https://img.shields.io/badge/Uptime_Kuma-1F8CFF?style=for-the-badge&logo=uptime-kuma)](https://github.com/louislam/uptime-kuma)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](http://makeapullrequest.com)
+[![Stars](https://img.shields.io/github/stars/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/stargazers)
+[![Forks](https://img.shields.io/github/forks/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/network/members)
+[![Last Commit](https://img.shields.io/github/last-commit/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/commits/main)
+[![Security Scan](https://img.shields.io/github/actions/workflow/status/Soumalya-De/LEMP-Sentinel/security-scan-fixed.yml?branch=main&label=Security%20Scan&style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
 
 ---
 
+## Executive Summary
 
 
-## ✨ Features
+This repository delivers a production-aligned LEMP stack wired for observability, security, and safe local defaults.
 
-[![CI Pipeline](https://github.com/Soumalya-De/lemp-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/lemp-stack/actions/workflows/ci.yml)</p>Built for reproducible local or staging environments with integrated observability.
-
-- **🐳 Docker-Based**: Fully containerized with Docker Compose orchestration
-
-- **🔒 Security-First**: Pre-commit secret scanning, vulnerability scans, SBOM generation[![Security Scan](https://github.com/Soumalya-De/lemp-stack/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/lemp-stack/actions/workflows/security-scan-fixed.yml)
-
-- **📊 Built-In Monitoring**: Uptime Kuma for real-time service health tracking
-
-- **🚀 CI/CD Automated**: 5 GitHub Actions workflows for testing, scanning, and validation[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-- **💾 Backup/Restore**: Automated database backup and restore procedures
-
-- **🔧 Development-Ready**: Hot-reload PHP files, Adminer for database management[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-- **📦 Supply Chain Security**: Dependabot auto-updates, image digest pinning
-
-- **🎯 Production-Aligned**: Same codebase for dev/staging/production with env variablesA production-ready LEMP (Linux, Nginx, MySQL, PHP) stack with built-in monitoring, security scanning, and automated CI/CD workflows. Designed for local development with production-aligned architecture.<p align="center">
-
-
-
-------
-
-
-
-## 🚀 Quick Start  <img src="images/LEMP-GitHub-Cover-Banner.png" alt="Secure & Scalable Dockerized LEMP Stack Banner" style="max-width: 100%; height: auto;" loading="lazy">
-
-
-
-Get up and running in 5 minutes:## ✨ Features
-
-
-
-```bash[![CI Pipeline](https://github.com/Soumalya-De/lemp-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/lemp-stack/actions/workflows/ci.yml)</p>
-
-# Clone the repository
-
-git clone https://github.com/Soumalya-De/lemp-stack.git- **🐳 Docker-Based**: Fully containerized with Docker Compose orchestration
-
-cd lemp-stack
-
-- **🔒 Security-First**: Pre-commit secret scanning, vulnerability scans, SBOM generation[![Security Scan](https://github.com/Soumalya-De/lemp-stack/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/lemp-stack/actions/workflows/security-scan-fixed.yml)
-
-# Configure environment
-
-cp .env.example .env- **📊 Built-In Monitoring**: Uptime Kuma for real-time service health tracking
-
-
-
-# Start the stack- **🚀 CI/CD Automated**: 5 GitHub Actions workflows for testing, scanning, and validation[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
-
-docker compose up -d
-
-- **💾 Backup/Restore**: Automated database backup and restore procedures
-
-# Verify services
-
-docker compose ps- **🔧 Development-Ready**: Hot-reload PHP files, Adminer for database management[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)[![Build Status](https://img.shields.io/github/actions/workflow/status/Soumalya-De/LEMP-Sentinel/ci.yml?branch=main&style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/actions)
-
-
-
-# Access application- **📦 Supply Chain Security**: Dependabot auto-updates, image digest pinning
-
-curl http://localhost:8080
-
-```- **🎯 Production-Aligned**: Same codebase for dev/staging/production with env variables[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-
-
-
-**Access Points**:
-
-- Application: http://localhost:8080
-
-- Uptime Kuma: http://localhost:3001------[![Uptime Kuma](https://img.shields.io/badge/Uptime_Kuma-1F8CFF?style=for-the-badge&logo=uptime-kuma)](https://github.com/louislam/uptime-kuma)
-
-- Adminer (dev): http://localhost:8081
-
-
-
-See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructions.
-
-## 🚀 Quick Start[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](http://makeapullrequest.com)
-
----
-
-
-
-## 📚 Documentation
-
-Get up and running in 5 minutes:## ✨ Features[![Stars](https://img.shields.io/github/stars/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/stargazers)
-
-| Document | Description |
-
-|----------|-------------|
-
-| [**Architecture**](docs/architecture.md) | System design, components, network architecture, data flow |
-
-| [**Quickstart Guide**](docs/quickstart.md) | Platform-specific setup, verification steps, first-time configuration |```bash[![Forks](https://img.shields.io/github/forks/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/network/members)
-
-| [**Configuration**](docs/configuration.md) | Environment variables, Docker Compose options, customization |
-
-| [**CI/CD Workflows**](docs/ci-cd-workflows.md) | GitHub Actions pipelines, Dependabot, SBOM, security scanning |# Clone the repository
-
-| [**Security**](docs/security.md) | Security hardening, scanning workflows, secrets management |
-
-| [**Monitoring**](docs/monitoring.md) | Uptime Kuma setup, alerting, observability best practices |git clone https://github.com/Soumalya-De/lemp-stack.git- **🐳 Docker-Based**: Fully containerized with Docker Compose orchestration[![Last Commit](https://img.shields.io/github/last-commit/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/commits/main)
-
-| [**Troubleshooting**](docs/troubleshooting.md) | Common issues, playbooks, debugging techniques |
-
-| [**Performance Tuning**](docs/performance-tuning.md) | OPcache, Nginx, PHP-FPM optimization strategies |cd lemp-stack
-
-
-
----- **🔒 Security-First**: Pre-commit secret scanning, vulnerability scans, SBOM generation[![Security Scan](https://img.shields.io/github/actions/workflow/status/Soumalya-De/LEMP-Sentinel/security-scan-fixed.yml?branch=main&label=Security%20Scan&style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
-
-
-
-## 🛠️ Technology Stack# Configure environment
-
-
-
-| Layer | Technology | Version |cp .env.example .env- **📊 Built-In Monitoring**: Uptime Kuma for real-time service health tracking
-
-|-------|-----------|---------|
-
-| **Web Server** | Nginx | alpine (latest) |
-
-| **Runtime** | PHP-FPM | 8.2-fpm-alpine |
-
-| **Database** | MySQL | 8.0 |# Start the stack- **🚀 CI/CD Automated**: 5 GitHub Actions workflows for testing, scanning, and validation---
-
-| **Container** | Docker | Engine 24+ |
-
-| **Orchestration** | Docker Compose | v2 |docker compose up -d
-
-| **Monitoring** | Uptime Kuma | 1.x |
-
-| **DB Admin** | Adminer | 4.x |- **💾 Backup/Restore**: Automated database backup and restore procedures
-
-
-
----# Verify services
-
-
-
-## 📦 Project Structuredocker compose ps- **🔧 Development-Ready**: Hot-reload PHP files, Adminer for database management## Executive Summary
-
-
-
-```
-
-lemp-stack/
-
-├── .github/# Access application- **📦 Supply Chain Security**: Dependabot auto-updates, image digest pinning
-
-│   ├── workflows/          # CI/CD pipelines
-
-│   └── dependabot.yml      # Automated dependency updatescurl http://localhost:8080
-
-├── docs/                   # Comprehensive documentation
-
-├── mysql/```- **🎯 Production-Aligned**: Same codebase for dev/staging/production with env variables
-
-│   └── init.sql            # Database schema
-
-├── nginx/
-
-│   ├── Dockerfile          # Custom Nginx image
-
-│   └── default.conf        # Virtual host configuration**Access Points**:This repository delivers a production-aligned LEMP stack wired for observability, security, and safe local defaults.
-
-├── php/
-
-│   ├── Dockerfile          # Custom PHP-FPM image- Application: http://localhost:8080
-
-│   └── php.ini             # Runtime configuration
-
-├── scripts/- Uptime Kuma: http://localhost:3001---
-
-│   └── bcrypt.php          # Password hashing utility
-
-├── www/                    # Application files- Adminer (dev): http://localhost:8081
-
-│   ├── index.php           # Homepage
-
-│   ├── info.php            # PHP diagnostics (dev only)- What: Dockerized Nginx + PHP-FPM + MySQL with Adminer and Uptime Kuma, health-checked and ready in minutes.
-
-│   └── test-db.php         # Database test (dev only)
-
-├── docker-compose.yml      # Service orchestrationSee the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructions.
-
-├── Makefile                # Common task automation
-
-└── .env.example            # Environment template## 🚀 Quick Start- Why: Reproducible environments, secrets hygiene via .env, and first-class monitoring to surface failures quickly.
-
-```
-
----
-
----
-
+- What: Dockerized Nginx + PHP-FPM + MySQL with Adminer and Uptime Kuma, health-checked and ready in minutes.
+- Why: Reproducible environments, secrets hygiene via .env, and first-class monitoring to surface failures quickly.
 - Who: Learners, candidates, and teams needing a clean reference that demonstrates DevOps/SRE thinking.
+- How: Docker Compose v2, internal networking, gated startup via healthchecks, and dev-only diagnostics.
+- Success criteria: stack starts; `/test-db.php` passes; Adminer login works; Kuma shows green; no secrets in git.
+- Out-of-scope: public TLS/WAF (see Future updates for next steps).
+- New: Manual database backup/restore workflow for disaster recovery and migration validation.
 
-## 🔐 Security
+Quick links:
+- Quickstart: jump to [Quickstart](#quickstart)
+- Dashboard: http://localhost:8080
+- Adminer (dev profile only): http://localhost:8081
+- Uptime Kuma: http://localhost:3001
 
-## 📚 Documentation
+---
 
-This project implements multiple layers of security:
-
-Get up and running in 5 minutes:- How: Docker Compose v2, internal networking, gated startup via healthchecks, and dev-only diagnostics.
-
-- **Pre-Commit Scanning**: Gitleaks and detect-secrets prevent credential leaks
-
-- **Vulnerability Scanning**: Trivy scans Docker images for known CVEs| Document | Description |
-
-- **SBOM Generation**: Complete software bill of materials for supply chain audits
-
-- **Nightly Security Scans**: Automated vulnerability detection with GitHub Issues|----------|-------------|- Success criteria: stack starts; `/test-db.php` passes; Adminer login works; Kuma shows green; no secrets in git.
-
-- **Network Isolation**: Internal services not exposed to host
-
-- **Secrets Management**: All credentials in `.env` (gitignored)| [**Architecture**](docs/architecture.md) | System design, components, network architecture, data flow |
-
-
-
-See [**Security Guide**](docs/security.md) for comprehensive security practices.| [**Quickstart Guide**](docs/quickstart.md) | Platform-specific setup, verification steps, first-time configuration |```bash- Out-of-scope: public TLS/WAF (see Future updates for next steps).
-
-
-
----| [**Configuration**](docs/configuration.md) | Environment variables, Docker Compose options, customization |
-
-
-
-## 🤝 Contributing| [**CI/CD Workflows**](docs/ci-cd-workflows.md) | GitHub Actions pipelines, Dependabot, SBOM, security scanning |# Clone the repository- New: Manual database backup/restore workflow for disaster recovery and migration validation.
-
-
-
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.| [**Security**](docs/security.md) | Security hardening, scanning workflows, secrets management |
-
-
-
-### Development Workflow| [**Monitoring**](docs/monitoring.md) | Uptime Kuma setup, alerting, observability best practices |git clone https://github.com/Soumalya-De/lemp-stack.git
-
-
-
-```bash| [**Troubleshooting**](docs/troubleshooting.md) | Common issues, playbooks, debugging techniques |
-
-# Start with dev profile (includes Adminer)
-
-make up-dev| [**Performance Tuning**](docs/performance-tuning.md) | OPcache, Nginx, PHP-FPM optimization strategies |cd lemp-stackQuick links:
-
-
-
-# View logs
-
-make logs
-
----- Quickstart: jump to [Quickstart](#quickstart)
-
-# Run tests (when available)
-
-make test
-
-
-
-# Stop services## 🛠️ Technology Stack# Configure environment- Dashboard: http://localhost:8080
-
-make down
-
+## Repository Layout
 ```
-
-
-
----| Layer | Technology | Version |cp .env.example .env- Adminer (dev profile only): http://localhost:8081
-
-
-
-## 📄 License|-------|-----------|---------|
-
-
-
-This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.| **Web Server** | Nginx | alpine (latest) |- Uptime Kuma: http://localhost:3001
-
-
-
-Documentation is licensed under CC-BY-4.0 - see [LICENSE-DOCS](LICENSE-DOCS).| **Runtime** | PHP-FPM | 8.2-fpm-alpine |
-
-
-
----| **Database** | MySQL | 8.0 |# Start the stack
-
-
-
-## 🙏 Acknowledgments| **Container** | Docker | Engine 24+ |
-
-
-
-- [Docker](https://www.docker.com/) - Container platform| **Orchestration** | Docker Compose | v2 |docker compose up -d---
-
-- [Uptime Kuma](https://github.com/louislam/uptime-kuma) - Monitoring solution
-
-- [Trivy](https://github.com/aquasecurity/trivy) - Vulnerability scanner| **Monitoring** | Uptime Kuma | 1.x |
-
-- [Gitleaks](https://github.com/gitleaks/gitleaks) - Secret scanner
-
-| **DB Admin** | Adminer | 4.x |
-
----
-
-
-
-## 📞 Support
-
----# Verify services## Repository Layout
-
-- **Issues**: [GitHub Issues](https://github.com/Soumalya-De/lemp-stack/issues)
-
-- **Discussions**: [GitHub Discussions](https://github.com/Soumalya-De/lemp-stack/discussions)
-
-- **Security**: See [SECURITY.md](SECURITY.md)
-
-## 📦 Project Structuredocker compose ps```
-
----
-
-
-
-<p align="center">
-
-  Made with ❤️ by <a href="https://github.com/Soumalya-De">Soumalya De</a>```LEMP-Sentinel/
-
-</p>
-
-lemp-stack/
-
-├── .github/# Access application├── docker-compose.yml              # Service orchestration
-
-│   ├── workflows/          # CI/CD pipelines
-
-│   └── dependabot.yml      # Automated dependency updatescurl http://localhost:8080├── docker-compose.nonroot.yml      # Optional override to run PHP as non-root
-
-├── docs/                   # Comprehensive documentation
-
-├── mysql/```├── docker-compose.prod.yml         # Production overrides with pinned digest images
-
-│   └── init.sql            # Database schema
-
-├── nginx/├── .env.example                    # Template for environment variables
-
-│   ├── Dockerfile          # Custom Nginx image
-
-│   └── default.conf        # Virtual host configuration**Access Points**:├── .env                            # Local secrets (never commit, ignored by git)
-
-├── php/
-
-│   ├── Dockerfile          # Custom PHP-FPM image- Application: http://localhost:8080├── .gitignore                      # Prevents secret leakage
-
-│   └── php.ini             # Runtime configuration
-
-├── scripts/- Uptime Kuma: http://localhost:3001├── .trivyignore                    # Temporary CVE suppressions with rationale
-
-│   └── bcrypt.php          # Password hashing utility
-
-├── www/                    # Application files- Adminer (dev): http://localhost:8081├── .pre-commit-config.yaml         # Local hooks: gitleaks + detect-secrets
-
-│   ├── index.php           # Homepage
-
-│   ├── info.php            # PHP diagnostics (dev only)├── .secrets.baseline               # Baseline for detect-secrets (safe to commit)
-
-│   └── test-db.php         # Database test (dev only)
-
-├── docker-compose.yml      # Service orchestrationSee the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructions.├── Makefile                        # Common dev tasks (build/up/down/logs/lint/smoke/bcrypt)
-
-├── Makefile                # Common task automation
-
-└── .env.example            # Environment template├── CONTRIBUTING.md                 # Contributor guidelines
-
-```
-
----├── SECURITY.md                     # Security policy and vulnerability reporting
-
----
-
+LEMP-Sentinel/
+├── docker-compose.yml              # Service orchestration
+├── docker-compose.nonroot.yml      # Optional override to run PHP as non-root
+├── docker-compose.prod.yml         # Production overrides with pinned digest images
+├── .env.example                    # Template for environment variables
+├── .env                            # Local secrets (never commit, ignored by git)
+├── .gitignore                      # Prevents secret leakage
+├── .trivyignore                    # Temporary CVE suppressions with rationale
+├── .pre-commit-config.yaml         # Local hooks: gitleaks + detect-secrets
+├── .secrets.baseline               # Baseline for detect-secrets (safe to commit)
+├── Makefile                        # Common dev tasks (build/up/down/logs/lint/smoke/bcrypt)
+├── CONTRIBUTING.md                 # Contributor guidelines
+├── SECURITY.md                     # Security policy and vulnerability reporting
 ├── LICENSE                         # MIT License for code
-
-## 🔐 Security
-
-## 📚 Documentation├── LICENSE-DOCS                    # CC BY 4.0 License for documentation
-
-This project implements multiple layers of security:
-
+├── LICENSE-DOCS                    # CC BY 4.0 License for documentation
 ├── README.md                       # This documentation
-
-- **Pre-Commit Scanning**: Gitleaks and detect-secrets prevent credential leaks
-
-- **Vulnerability Scanning**: Trivy scans Docker images for known CVEs| Document | Description |├── .github/
-
-- **SBOM Generation**: Complete software bill of materials for supply chain audits
-
-- **Nightly Security Scans**: Automated vulnerability detection with GitHub Issues|----------|-------------|│   ├── workflows/
-
-- **Network Isolation**: Internal services not exposed to host
-
-- **Secrets Management**: All credentials in `.env` (gitignored)| [**Architecture**](docs/architecture.md) | System design, components, network architecture, data flow |│   │   ├── ci.yml                  # Main CI: secrets scan + build + smoke tests
-
-
-
-See [**Security Guide**](docs/security.md) for comprehensive security practices.| [**Quickstart Guide**](docs/quickstart.md) | Platform-specific setup, verification steps, first-time configuration |│   │   ├── security-scan-fixed.yml # Nightly Trivy security scans with SARIF upload
-
-
-
----| [**Configuration**](docs/configuration.md) | Environment variables, Docker Compose options, customization |│   │   ├── nightly-trivy-scan.yml  # Alternate nightly scanner with issue creation
-
-
-
-## 🤝 Contributing| [**CI/CD Workflows**](docs/ci-cd-workflows.md) | GitHub Actions pipelines, Dependabot, SBOM, security scanning |│   │   ├── build-and-pin-php-patched.yml  # Build patched PHP base images
-
-
-
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.| [**Security**](docs/security.md) | Security hardening, scanning workflows, secrets management |│   │   └── db-backup-restore.yml   # Manual database backup/restore workflow
-
-
-
-### Development Workflow| [**Monitoring**](docs/monitoring.md) | Uptime Kuma setup, alerting, observability best practices |│   ├── dependabot.yml              # Automated dependency updates for Docker & Actions
-
-
-
-```bash| [**Troubleshooting**](docs/troubleshooting.md) | Common issues, playbooks, debugging techniques |│   ├── pull_request_template.md    # PR template with checklist
-
-# Start with dev profile (includes Adminer)
-
-make up-dev| [**Performance Tuning**](docs/performance-tuning.md) | OPcache, Nginx, PHP-FPM optimization strategies |│   └── ISSUE_TEMPLATE/
-
-
-
-# View logs│       ├── bug_report.md           # Bug report template
-
-make logs
-
----│       ├── feature_request.md      # Feature request template
-
-# Run tests (when available)
-
-make test│       ├── security_vulnerability.md  # Security report template
-
-
-
-# Stop services## 🛠️ Technology Stack│       └── config.yml              # Issue template configuration
-
-make down
-
-```├── .vscode/
-
-
-
----| Layer | Technology | Version |│   └── settings.json               # Disable auto port forwarding; ignore 3306/9000
-
-
-
-## 📄 License|-------|-----------|---------|├── scripts/
-
-
-
-This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.| **Web Server** | Nginx | alpine (latest) |│   └── bcrypt.php                  # BCrypt password hashing helper utility
-
-
-
-Documentation is licensed under CC-BY-4.0 - see [LICENSE-DOCS](LICENSE-DOCS).| **Runtime** | PHP-FPM | 8.2-fpm-alpine |├── nginx/
-
-
-
----| **Database** | MySQL | 8.0 |│   ├── Dockerfile                  # Custom Nginx image with curl for healthchecks
-
-
-
-## 🙏 Acknowledgments| **Container** | Docker | Engine 24+ |│   └── default.conf                # Nginx server & routing rules
-
-
-
-- [Docker](https://www.docker.com/) - Container platform| **Orchestration** | Docker Compose | v2 |├── php/
-
-- [Uptime Kuma](https://github.com/louislam/uptime-kuma) - Monitoring solution
-
-- [Trivy](https://github.com/aquasecurity/trivy) - Vulnerability scanner| **Monitoring** | Uptime Kuma | 1.x |│   ├── Dockerfile                  # Custom PHP-FPM image with extensions
-
-- [Gitleaks](https://github.com/gitleaks/gitleaks) - Secret scanner
-
-| **DB Admin** | Adminer | 4.x |│   └── php.ini                     # PHP runtime & security settings
-
----
-
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml                  # Main CI: secrets scan + build + smoke tests
+│   │   ├── security-scan-fixed.yml # Nightly Trivy security scans with SARIF upload
+│   │   ├── nightly-trivy-scan.yml  # Alternate nightly scanner with issue creation
+│   │   ├── build-and-pin-php-patched.yml  # Build patched PHP base images
+│   │   └── db-backup-restore.yml   # Manual database backup/restore workflow
+│   ├── dependabot.yml              # Automated dependency updates for Docker & Actions
+│   ├── pull_request_template.md    # PR template with checklist
+│   └── ISSUE_TEMPLATE/
+│       ├── bug_report.md           # Bug report template
+│       ├── feature_request.md      # Feature request template
+│       ├── security_vulnerability.md  # Security report template
+│       └── config.yml              # Issue template configuration
+├── .vscode/
+│   └── settings.json               # Disable auto port forwarding; ignore 3306/9000
+├── scripts/
+│   └── bcrypt.php                  # BCrypt password hashing helper utility
+├── nginx/
+│   ├── Dockerfile                  # Custom Nginx image with curl for healthchecks
+│   └── default.conf                # Nginx server & routing rules
+├── php/
+│   ├── Dockerfile                  # Custom PHP-FPM image with extensions
+│   └── php.ini                     # PHP runtime & security settings
 ├── mysql/
-
-## 📞 Support
-
----│   └── init.sql                    # Database schema and seed data
-
-- **Issues**: [GitHub Issues](https://github.com/Soumalya-De/lemp-stack/issues)
-
-- **Discussions**: [GitHub Discussions](https://github.com/Soumalya-De/lemp-stack/discussions)├── www/                            # Application code
-
-- **Security**: See [SECURITY.md](SECURITY.md)
-
-## 📦 Project Structure│   ├── index.php                   # Main dashboard
-
----
-
+│   └── init.sql                    # Database schema and seed data
+├── www/                            # Application code
+│   ├── index.php                   # Main dashboard
 │   ├── info.php                    # Restricted PHP info page
+│   └── test-db.php                 # JSON API for DB tests
+├── docs/                           # Documentation
+│   ├── secrets.md                  # Secrets management guide
+│   └── security-hardening.md       # Security best practices
+└── images/                         # Screenshots for documentation
+    └── LEMP-GitHub-Cover-Banner.png
+```
 
-<p align="center">
+### Complete file reference
+This section lists every file/folder and its purpose for easy navigation.
 
-  Made with ❤️ by <a href="https://github.com/Soumalya-De">Soumalya De</a>```│   └── test-db.php                 # JSON API for DB tests
-
-</p>
-
-lemp-stack/├── docs/                           # Documentation
-
-├── .github/│   ├── secrets.md                  # Secrets management guide
-
-│   ├── workflows/          # CI/CD pipelines│   └── security-hardening.md       # Security best practices
-
-│   └── dependabot.yml      # Automated dependency updates└── images/                         # Screenshots for documentation
-
-├── docs/                   # Comprehensive documentation    └── LEMP-GitHub-Cover-Banner.png
-
-├── mysql/```
-
-│   └── init.sql            # Database schema
-
-├── nginx/### Complete file reference
-
-│   ├── Dockerfile          # Custom Nginx imageThis section lists every file/folder and its purpose for easy navigation.
-
-│   └── default.conf        # Virtual host configuration
-
-├── php/- **Root files**
-
-│   ├── Dockerfile          # Custom PHP-FPM image  - `docker-compose.yml` — Orchestrates Nginx, PHP-FPM, MySQL, Adminer, Uptime Kuma, networks and volumes
-
-│   └── php.ini             # Runtime configuration  - `docker-compose.nonroot.yml` — Optional override to run PHP container as the host user (avoids file permission issues)
-
-├── scripts/  - `docker-compose.prod.yml` — Production overrides with digest-pinned base images for supply-chain security
-
-│   └── bcrypt.php          # Password hashing utility  - `Makefile` — Shortcuts for build/up/down/logs/lint/smoke/reset/bcrypt
-
-├── www/                    # Application files  - `README.md` — This documentation
-
-│   ├── index.php           # Homepage  - `.gitignore` — Ensures secrets like `.env` and local artifacts are never committed
-
-│   ├── info.php            # PHP diagnostics (dev only)  - `.env.example` — Safe template for environment variables to copy into `.env`
-
-│   └── test-db.php         # Database test (dev only)  - `.env` — Local secrets file (never commit, ignored by git)
-
-├── docker-compose.yml      # Service orchestration  - `.trivyignore` — Temporary CVE suppressions with rationale and tracking info (remove after base image fixes)
-
-├── Makefile                # Common task automation  - `.pre-commit-config.yaml` — Pre-commit hooks (gitleaks, detect-secrets)
-
-└── .env.example            # Environment template  - `.secrets.baseline` — Baseline for `detect-secrets` detector
-
-```  - `CONTRIBUTING.md` — Contributor guidelines and development workflow
-
+- **Root files**
+  - `docker-compose.yml` — Orchestrates Nginx, PHP-FPM, MySQL, Adminer, Uptime Kuma, networks and volumes
+  - `docker-compose.nonroot.yml` — Optional override to run PHP container as the host user (avoids file permission issues)
+  - `docker-compose.prod.yml` — Production overrides with digest-pinned base images for supply-chain security
+  - `Makefile` — Shortcuts for build/up/down/logs/lint/smoke/reset/bcrypt
+  - `README.md` — This documentation
+  - `.gitignore` — Ensures secrets like `.env` and local artifacts are never committed
+  - `.env.example` — Safe template for environment variables to copy into `.env`
+  - `.env` — Local secrets file (never commit, ignored by git)
+  - `.trivyignore` — Temporary CVE suppressions with rationale and tracking info (remove after base image fixes)
+  - `.pre-commit-config.yaml` — Pre-commit hooks (gitleaks, detect-secrets)
+  - `.secrets.baseline` — Baseline for `detect-secrets` detector
+  - `CONTRIBUTING.md` — Contributor guidelines and development workflow
   - `SECURITY.md` — Security policy and vulnerability reporting instructions
-
----  - `LICENSE` — MIT License for code
-
+  - `LICENSE` — MIT License for code
   - `LICENSE-DOCS` — CC BY 4.0 License for documentation
 
-## 🔐 Security
-
 - **CI & Automation (`.github/`)**
-
-This project implements multiple layers of security:  - `workflows/ci.yml` — Main CI pipeline: secret scan (gitleaks), compose config validation, PHP lint, build, smoke tests, SBOM generation, Trivy image scans
-
+  - `workflows/ci.yml` — Main CI pipeline: secret scan (gitleaks), compose config validation, PHP lint, build, smoke tests, SBOM generation, Trivy image scans
   - `workflows/security-scan-fixed.yml` — Nightly security scanner that runs Trivy on all images and uploads SARIF results to GitHub Security tab
-
-- **Pre-Commit Scanning**: Gitleaks and detect-secrets prevent credential leaks  - `workflows/nightly-trivy-scan.yml` — Alternative nightly scanner with automated GitHub issue creation for CRITICAL vulnerabilities
-
-- **Vulnerability Scanning**: Trivy scans Docker images for known CVEs  - `workflows/build-and-pin-php-patched.yml` — Workflow to build patched PHP base images with updated libxml2/other dependencies and pin digests
-
-- **SBOM Generation**: Complete software bill of materials for supply chain audits  - `workflows/db-backup-restore.yml` — Manual workflow for database backup/restore testing and validation
-
-- **Nightly Security Scans**: Automated vulnerability detection with GitHub Issues  - `dependabot.yml` — Automated dependency updates for Docker base images and GitHub Actions versions
-
-- **Network Isolation**: Internal services not exposed to host  - `pull_request_template.md` — Pull request template with checklist for contributors
-
-- **Secrets Management**: All credentials in `.env` (gitignored)  - `ISSUE_TEMPLATE/bug_report.md` — Bug report issue template
-
+  - `workflows/nightly-trivy-scan.yml` — Alternative nightly scanner with automated GitHub issue creation for CRITICAL vulnerabilities
+  - `workflows/build-and-pin-php-patched.yml` — Workflow to build patched PHP base images with updated libxml2/other dependencies and pin digests
+  - `workflows/db-backup-restore.yml` — Manual workflow for database backup/restore testing and validation
+  - `dependabot.yml` — Automated dependency updates for Docker base images and GitHub Actions versions
+  - `pull_request_template.md` — Pull request template with checklist for contributors
+  - `ISSUE_TEMPLATE/bug_report.md` — Bug report issue template
   - `ISSUE_TEMPLATE/feature_request.md` — Feature request issue template
-
-See [**Security Guide**](docs/security.md) for comprehensive security practices.  - `ISSUE_TEMPLATE/security_vulnerability.md` — Security vulnerability report template
-
+  - `ISSUE_TEMPLATE/security_vulnerability.md` — Security vulnerability report template
   - `ISSUE_TEMPLATE/config.yml` — Issue template configuration
 
----
-
 - **Scripts**
+  - `scripts/bcrypt.php` — Standalone PHP script for generating BCrypt password hashes (use via `make bcrypt`)
 
-## 🤝 Contributing  - `scripts/bcrypt.php` — Standalone PHP script for generating BCrypt password hashes (use via `make bcrypt`)
-
-
-
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.- **Editor Configuration**
-
+- **Editor Configuration**
   - `.vscode/settings.json` — Disables VS Code auto port-forward and ignores internal ports (3306, 9000)
 
-### Development Workflow
-
 - **Nginx**
-
-```bash  - `nginx/Dockerfile` — Nginx image (alpine) with curl installed for healthchecks
-
-# Start with dev profile (includes Adminer)  - `nginx/default.conf` — Virtual host, PHP-FPM upstream, and static file rules
-
-make up-dev
+  - `nginx/Dockerfile` — Nginx image (alpine) with curl installed for healthchecks
+  - `nginx/default.conf` — Virtual host, PHP-FPM upstream, and static file rules
 
 - **PHP**
+  - `php/Dockerfile` — PHP-FPM (8.2) with common extensions and composer
+  - `php/php.ini` — Runtime limits, error handling, security, and opcache settings
 
-# View logs  - `php/Dockerfile` — PHP-FPM (8.2) with common extensions and composer
+- **MySQL**
+  - `mysql/init.sql` — Creates `users` and `posts` tables and seeds sample rows
 
-make logs  - `php/php.ini` — Runtime limits, error handling, security, and opcache settings
-
-
-
-# Run tests (when available)- **MySQL**
-
-make test  - `mysql/init.sql` — Creates `users` and `posts` tables and seeds sample rows
-
-
-
-# Stop services- **Web Application**
-
-make down  - `www/index.php` — Dashboard UI; shows DB connection and recent posts
-
-```  - `www/test-db.php` — Dev-only API that performs connection, schema, read, write, delete tests
-
+- **Web Application**
+  - `www/index.php` — Dashboard UI; shows DB connection and recent posts
+  - `www/test-db.php` — Dev-only API that performs connection, schema, read, write, delete tests
   - `www/info.php` — Dev-only phpinfo page gated by `APP_ENV=development`
 
----
-
 - **Documentation & Assets**
-
-## 📄 License  - `docs/secrets.md` — Comprehensive guide for secrets management and .env configuration
-
+  - `docs/secrets.md` — Comprehensive guide for secrets management and .env configuration
   - `docs/security-hardening.md` — Security best practices and hardening recommendations
+  - `images/LEMP-GitHub-Cover-Banner.png` — Cover image used in README
 
-This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.  - `images/LEMP-GitHub-Cover-Banner.png` — Cover image used in README
-
-
-
-Documentation is licensed under CC-BY-4.0 - see [LICENSE-DOCS](LICENSE-DOCS).**Notes:**
-
+**Notes:**
 - A `.env` file holds secrets for local use only and is ignored by git. Share `.env.example` instead.
-
----- Internal service ports (PHP:9000, MySQL:3306) are not exposed to the host; Nginx/Adminer/Kuma are.
-
-
-
-## 🙏 Acknowledgments---
-
-
-
-- [Docker](https://www.docker.com/) - Container platform## Screenshots and Diagrams
-
-- [Uptime Kuma](https://github.com/louislam/uptime-kuma) - Monitoring solutionThis section collects key visuals that complement the documentation.
-
-- [Trivy](https://github.com/aquasecurity/trivy) - Vulnerability scanner
-
-- [Gitleaks](https://github.com/gitleaks/gitleaks) - Secret scanner- System Architecture — see the diagram in the [Architecture](#architecture) section.
-
-
-
----Additional screenshots (e.g., Dashboard, Adminer) can be added here as they become available. Images below use fixed widths for consistent layout.
-
-
-
-## 📞 Support---
-
-
-
-- **Issues**: [GitHub Issues](https://github.com/Soumalya-De/lemp-stack/issues)## Final Report
-
-- **Discussions**: [GitHub Discussions](https://github.com/Soumalya-De/lemp-stack/discussions)If you have a finalized report, you can include the PDF at `docs/REPORT.pdf` for sharing. This repository does not maintain a Markdown version of the report.
-
-- **Security**: See [SECURITY.md](SECURITY.md)
+- Internal service ports (PHP:9000, MySQL:3306) are not exposed to the host; Nginx/Adminer/Kuma are.
 
 ---
+
+## Screenshots and Diagrams
+This section collects key visuals that complement the documentation.
+
+- System Architecture — see the diagram in the [Architecture](#architecture) section.
+
+Additional screenshots (e.g., Dashboard, Adminer) can be added here as they become available. Images below use fixed widths for consistent layout.
+
+---
+
+## Final Report
+If you have a finalized report, you can include the PDF at `docs/REPORT.pdf` for sharing. This repository does not maintain a Markdown version of the report.
 
 ---
 
 ## Table of Contents
-
-<p align="center">- [Executive Summary](#executive-summary)
-
-  Made with ❤️ by <a href="https://github.com/Soumalya-De">Soumalya De</a>- [Repository Layout](#repository-layout)
-
-</p>- [Screenshots and Diagrams](#screenshots-and-diagrams)
-
+- [Executive Summary](#executive-summary)
+- [Repository Layout](#repository-layout)
+- [Screenshots and Diagrams](#screenshots-and-diagrams)
 - [Final Report](#final-report)
 - [Demo](#demo)
 - [Features](#features)
