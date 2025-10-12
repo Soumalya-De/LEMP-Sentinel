@@ -31,3 +31,7 @@ Thumbs.db
 
 # Backup configs
 *.save.*
+
+# Backup directory (keep structure, ignore content)
+backup/*
+!backup/.gitkeep

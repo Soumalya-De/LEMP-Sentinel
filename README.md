@@ -91,26 +91,45 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 ```
 lemp-stack/
 ├── .github/
-│   ├── workflows/          # CI/CD pipelines
-│   └── dependabot.yml      # Automated dependency updates
-├── docs/                   # Comprehensive documentation
+│   ├── workflows/              # CI/CD pipelines (5 workflows)
+│   ├── ISSUE_TEMPLATE/         # Issue templates (bug, feature, security)
+│   ├── pull_request_template.md # PR checklist template
+│   └── dependabot.yml          # Automated dependency updates
+├── backup/                     # Backup files (gitignored)
+├── docs/                       # Comprehensive documentation
+│   ├── architecture.md         # System design and data flow
+│   ├── quickstart.md           # Platform-specific setup
+│   ├── configuration.md        # Environment variables
+│   ├── ci-cd-workflows.md      # GitHub Actions documentation
+│   ├── secrets.md              # Secrets management guide
+│   └── security-hardening.md   # Security best practices
+├── images/                     # Screenshots and diagrams
 ├── mysql/
-│   └── init.sql            # Database schema
+│   └── init.sql                # Database schema
 ├── nginx/
-│   ├── Dockerfile          # Custom Nginx image
-│   └── default.conf        # Virtual host configuration
+│   ├── Dockerfile              # Custom Nginx image
+│   └── default.conf            # Virtual host configuration
 ├── php/
-│   ├── Dockerfile          # Custom PHP-FPM image
-│   └── php.ini             # Runtime configuration
+│   ├── Dockerfile              # Custom PHP-FPM image
+│   └── php.ini                 # Runtime configuration
 ├── scripts/
-│   └── bcrypt.php          # Password hashing utility
-├── www/                    # Application files
-│   ├── index.php           # Homepage
-│   ├── info.php            # PHP diagnostics (dev only)
-│   └── test-db.php         # Database test (dev only)
-├── docker-compose.yml      # Service orchestration
-├── Makefile                # Common task automation
-└── .env.example            # Environment template
+│   └── bcrypt.php              # Password hashing utility
+├── www/                        # Application files
+│   ├── index.php               # Homepage
+│   ├── info.php                # PHP diagnostics (dev only)
+│   └── test-db.php             # Database test (dev only)
+├── docker-compose.yml          # Service orchestration (main)
+├── docker-compose.nonroot.yml  # Non-root PHP override
+├── docker-compose.prod.yml     # Production overrides (digest pinning)
+├── Makefile                    # Common task automation
+├── .env.example                # Environment template
+├── .gitignore                  # Git ignore rules
+├── .trivyignore                # CVE suppressions (temporary)
+├── .pre-commit-config.yaml     # Pre-commit hooks
+├── CONTRIBUTING.md             # Contribution guidelines
+├── SECURITY.md                 # Security policy
+├── LICENSE                     # MIT License (code)
+└── LICENSE-DOCS                # CC-BY-4.0 License (docs)
 ```
 
 ---
