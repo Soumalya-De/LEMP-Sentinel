@@ -16,7 +16,7 @@ Built for reproducible local or staging environments with integrated observabili
 [![Stars](https://img.shields.io/github/stars/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/stargazers)
 [![Forks](https://img.shields.io/github/forks/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/network/members)
 [![Last Commit](https://img.shields.io/github/last-commit/Soumalya-De/LEMP-Sentinel?style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/commits/main)
-[![Security Scan](https://img.shields.io/github/actions/workflow/status/Soumalya-De/LEMP-Sentinel/security-scan.yml?branch=main&label=Security%20Scan&style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan.yml)
+[![Security Scan](https://img.shields.io/github/actions/workflow/status/Soumalya-De/LEMP-Sentinel/security-scan-fixed.yml?branch=main&label=Security%20Scan&style=for-the-badge)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
 
 ---
 
