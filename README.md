@@ -13,7 +13,7 @@ A production-ready LEMP (Linux, Nginx, MySQL, PHP) stack with built-in monitorin
 
 ---
 
-## ✨ Features
+## Features
 
 - **🐳 Docker-Based**: Fully containerized with Docker Compose orchestration
 - **🔒 Security-First**: Pre-commit secret scanning, vulnerability scans, SBOM generation
@@ -26,7 +26,7 @@ A production-ready LEMP (Linux, Nginx, MySQL, PHP) stack with built-in monitorin
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 Get up and running in 5 minutes:
 
@@ -57,7 +57,7 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 | Document | Description |
 |----------|-------------|
@@ -65,14 +65,12 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 | [**Quickstart Guide**](docs/quickstart.md) | Platform-specific setup, verification steps, first-time configuration |
 | [**Configuration**](docs/configuration.md) | Environment variables, Docker Compose options, customization |
 | [**CI/CD Workflows**](docs/ci-cd-workflows.md) | GitHub Actions pipelines, Dependabot, SBOM, security scanning |
-| [**Security**](docs/security.md) | Security hardening, scanning workflows, secrets management |
-| [**Monitoring**](docs/monitoring.md) | Uptime Kuma setup, alerting, observability best practices |
-| [**Troubleshooting**](docs/troubleshooting.md) | Common issues, playbooks, debugging techniques |
-| [**Performance Tuning**](docs/performance-tuning.md) | OPcache, Nginx, PHP-FPM optimization strategies |
+| [**Secrets Management**](docs/secrets.md) | Environment variables, credential storage, pre-commit hooks |
+| [**Security Hardening**](docs/security-hardening.md) | Security best practices and hardening recommendations |
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Layer | Technology | Version |
 |-------|-----------|---------|
@@ -86,7 +84,7 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 
 ---
 
-## 📦 Project Structure
+## Project Structure
 
 ```
 lemp-stack/
@@ -134,7 +132,7 @@ lemp-stack/
 
 ---
 
-## 🔐 Security
+## Security
 
 This project implements multiple layers of security:
 
@@ -145,11 +143,11 @@ This project implements multiple layers of security:
 - **Network Isolation**: Internal services not exposed to host
 - **Secrets Management**: All credentials in `.env` (gitignored)
 
-See [**Security Guide**](docs/security.md) for comprehensive security practices.
+See [**Secrets Management Guide**](docs/secrets.md) and [**Security Hardening**](docs/security-hardening.md) for comprehensive security practices.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
@@ -171,7 +169,7 @@ make down
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.
 
@@ -179,7 +177,7 @@ Documentation is licensed under CC-BY-4.0 - see [LICENSE-DOCS](LICENSE-DOCS).
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Docker](https://www.docker.com/) - Container platform
 - [Uptime Kuma](https://github.com/louislam/uptime-kuma) - Monitoring solution
@@ -188,7 +186,7 @@ Documentation is licensed under CC-BY-4.0 - see [LICENSE-DOCS](LICENSE-DOCS).
 
 ---
 
-## 📞 Support
+## Support
 
 - **Issues**: [GitHub Issues](https://github.com/Soumalya-De/lemp-stack/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/Soumalya-De/lemp-stack/discussions)
