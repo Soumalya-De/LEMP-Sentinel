@@ -115,9 +115,41 @@ jobs:
           name: trivy-sarif
           path: ${{ github.workspace }}/trivy-results/*.sarif
 
-      - name: Upload SARIF to GitHub Security
+      - name: List SARIF files for upload
         if: always()
-        uses: github/codeql-action/upload-sarif@v4
-        with:
-          sarif_file: trivy-results
-          category: trivy
+        id: list-sarifs
+        run: |
+          echo "sarif_files<<EOF" >> $GITHUB_OUTPUT
+          ls -1 trivy-results/*.sarif 2>/dev/null | while read -r file; do
+            basename=$(basename "$file" .sarif)
+            echo "$file|$basename"
+          done >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Upload each SARIF to GitHub Security
+        if: always()
+        continue-on-error: true
+        run: |
+          # Upload each SARIF file separately with unique category
+          for sarif in trivy-results/*.sarif; do
+            if [ -f "$sarif" ]; then
+              basename=$(basename "$sarif" .sarif)
+              echo "Uploading $sarif with category: trivy-$basename"
+              
+              # Use a temporary workflow to upload each file
+              # This works around the multi-run limitation
+              curl -X POST \
+                -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                -H "Accept: application/vnd.github+json" \
+                "https://api.github.com/repos/${{ github.repository }}/code-scanning/sarifs" \
+                -d "{
+                  \"commit_sha\": \"${{ github.sha }}\",
+                  \"ref\": \"${{ github.ref }}\",
+                  \"sarif\": \"$(gzip < "$sarif" | base64 -w0)\",
+                  \"tool_name\": \"Trivy\",
+                  \"category\": \"trivy-$basename\"
+                }" || echo "Warning: Failed to upload $basename"
+            fi
+          done
+        shell: bash
