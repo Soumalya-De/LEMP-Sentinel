@@ -188,8 +188,8 @@ Documentation is licensed under CC-BY-4.0 - see [LICENSE-DOCS](LICENSE-DOCS).
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/Soumalya-De/lemp-stack/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/Soumalya-De/lemp-stack/discussions)
+- **Issues**: [GitHub Issues](https://github.com/Soumalya-De/LEMP-Sentinel/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Soumalya-De/LEMP-Sentinel/discussions)
 - **Security**: See [SECURITY.md](SECURITY.md)
 
 ---
