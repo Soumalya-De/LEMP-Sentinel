@@ -41,23 +41,23 @@ jobs:
         run: |
           set -e
           if [ "${{ github.event.inputs.use-root }}" = "true" ]; then
-            docker exec lemp_mysql sh -lc 'cat > /root/.my.cnf <<EOF
-[client]
-user=root
-password="$MYSQL_ROOT_PASSWORD"
-host=localhost
-socket=/var/run/mysqld/mysqld.sock
-EOF
-chmod 600 /root/.my.cnf'
+            docker exec lemp_mysql sh -c 'cat > /root/.my.cnf <<EOF
+          [client]
+          user=root
+          password=$MYSQL_ROOT_PASSWORD
+          host=localhost
+          socket=/var/run/mysqld/mysqld.sock
+          EOF
+          chmod 600 /root/.my.cnf'
           else
-            docker exec lemp_mysql sh -lc 'cat > /root/.my.cnf <<EOF
-[client]
-user="$MYSQL_USER"
-password="$MYSQL_PASSWORD"
-host=localhost
-socket=/var/run/mysqld/mysqld.sock
-EOF
-chmod 600 /root/.my.cnf'
+            docker exec lemp_mysql sh -c 'cat > /root/.my.cnf <<EOF
+          [client]
+          user=$MYSQL_USER
+          password=$MYSQL_PASSWORD
+          host=localhost
+          socket=/var/run/mysqld/mysqld.sock
+          EOF
+          chmod 600 /root/.my.cnf'
           fi
 
       - name: Pre-check (SELECT 1)
