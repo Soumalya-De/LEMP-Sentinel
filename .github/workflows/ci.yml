@@ -223,23 +223,48 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           set -e
+          mkdir -p trivy-results
           for img in $(docker images --format '{{.Repository}}:{{.Tag}}' | grep -E 'nginx:|php:' | sort -u); do
-            echo "Scanning $img (informational)"
-            trivy image --severity HIGH,CRITICAL --no-progress --timeout 5m --format table "$img" || true
+            safe=$(echo "$img" | sed 's/[^A-Za-z0-9._-]/_/g')
+            out="trivy-results/${safe}.sarif"
+            echo "Scanning $img -> $out (informational)"
+            trivy image --format sarif --severity HIGH,CRITICAL --output "$out" --no-progress --timeout 5m "$img" || true
           done
+          ls -lah trivy-results || true
 
       - name: Scan local images with Trivy (main - blocking)
         if: github.event_name != 'pull_request'
         run: |
           set -e
+          mkdir -p trivy-results
+          scan_rc=0
           for img in $(docker images --format '{{.Repository}}:{{.Tag}}' | grep -E 'nginx:|php:' | sort -u); do
-            echo "Scanning $img (blocking)"
-            # Temporarily make the trivy scan non-blocking on main while we triage upstream CVEs
-            trivy image --severity HIGH,CRITICAL --no-progress --timeout 5m --format table "$img" || true
+            safe=$(echo "$img" | sed 's/[^A-Za-z0-9._-]/_/g')
+            out="trivy-results/${safe}.sarif"
+            echo "Scanning $img -> $out (blocking)"
+            trivy image --format sarif --severity HIGH,CRITICAL --output "$out" --no-progress --timeout 5m "$img" || scan_rc=$?
           done
+          ls -lah trivy-results || true
+          # Fail the job if any scan returned a non-zero exit code
+          if [ "$scan_rc" -ne 0 ]; then
+            echo "Trivy detected HIGH/CRITICAL vulnerabilities (scan_rc=$scan_rc)"
+            # Print brief summaries
+            for f in trivy-results/*.sarif; do
+              echo "---- $f ----"
+              jq -r '.runs[].results[]?.level' "$f" 2>/dev/null | sort -u || true
+            done
+            exit $scan_rc
+          fi
 
       - name: Upload SBOM
         uses: actions/upload-artifact@v4
         with:
           name: sbom
           path: sbom.spdx.json
+
+      - name: Upload Trivy SARIF results (if any)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-sarif
+          path: trivy-results/*.sarif

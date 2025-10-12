@@ -22,14 +22,16 @@ Built for reproducible local or staging environments with integrated observabili
 
 ## Executive Summary
 
-This repository delivers a production-aligned LEMP stack wired for observability and safe local defaults.
+
+This repository delivers a production-aligned LEMP stack wired for observability, security, and safe local defaults.
 
 - What: Dockerized Nginx + PHP-FPM + MySQL with Adminer and Uptime Kuma, health-checked and ready in minutes.
 - Why: Reproducible environments, secrets hygiene via .env, and first-class monitoring to surface failures quickly.
 - Who: Learners, candidates, and teams needing a clean reference that demonstrates DevOps/SRE thinking.
 - How: Docker Compose v2, internal networking, gated startup via healthchecks, and dev-only diagnostics.
 - Success criteria: stack starts; `/test-db.php` passes; Adminer login works; Kuma shows green; no secrets in git.
-- Out-of-scope: public TLS/WAF, backup/restore automation; see Future updates for next steps.
+- Out-of-scope: public TLS/WAF (see Future updates for next steps).
+- New: Manual database backup/restore workflow for disaster recovery and migration validation.
 
 Quick links:
 - Quickstart: jump to [Quickstart](#quickstart)
@@ -42,106 +44,121 @@ Quick links:
 ## Repository Layout
 ```
 LEMP-Sentinel/
-├── docker-compose.yml          # Service orchestration
-├── .github/workflows/ci.yml    # CI: gitleaks + docker-compose smoke tests
-├── .env.example                # Template for environment variables
-├── .gitignore                  # Prevents secret leakage
-├── .pre-commit-config.yaml     # Local hooks: gitleaks + detect-secrets
-├── .secrets.baseline           # Baseline for detect-secrets (safe to commit)
-├── docker-compose.nonroot.yml  # Optional override to run PHP as non-root
+├── docker-compose.yml              # Service orchestration
+├── docker-compose.nonroot.yml      # Optional override to run PHP as non-root
+├── docker-compose.prod.yml         # Production overrides with pinned digest images
+├── .env.example                    # Template for environment variables
+├── .env                            # Local secrets (never commit, ignored by git)
+├── .gitignore                      # Prevents secret leakage
+├── .trivyignore                    # Temporary CVE suppressions with rationale
+├── .pre-commit-config.yaml         # Local hooks: gitleaks + detect-secrets
+├── .secrets.baseline               # Baseline for detect-secrets (safe to commit)
+├── Makefile                        # Common dev tasks (build/up/down/logs/lint/smoke/bcrypt)
+├── CONTRIBUTING.md                 # Contributor guidelines
+├── SECURITY.md                     # Security policy and vulnerability reporting
+├── LICENSE                         # MIT License for code
+├── LICENSE-DOCS                    # CC BY 4.0 License for documentation
+├── README.md                       # This documentation
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml                  # Main CI: secrets scan + build + smoke tests
+│   │   ├── security-scan-fixed.yml # Nightly Trivy security scans with SARIF upload
+│   │   ├── nightly-trivy-scan.yml  # Alternate nightly scanner with issue creation
+│   │   ├── build-and-pin-php-patched.yml  # Build patched PHP base images
+│   │   └── db-backup-restore.yml   # Manual database backup/restore workflow
+│   ├── dependabot.yml              # Automated dependency updates for Docker & Actions
+│   ├── pull_request_template.md    # PR template with checklist
+│   └── ISSUE_TEMPLATE/
+│       ├── bug_report.md           # Bug report template
+│       ├── feature_request.md      # Feature request template
+│       ├── security_vulnerability.md  # Security report template
+│       └── config.yml              # Issue template configuration
 ├── .vscode/
-│   └── settings.json           # Disable auto port forwarding; ignore 3306/9000
-├── Makefile                    # Common dev tasks (build/up/down/logs/lint/smoke)
+│   └── settings.json               # Disable auto port forwarding; ignore 3306/9000
+├── scripts/
+│   └── bcrypt.php                  # BCrypt password hashing helper utility
 ├── nginx/
-│   ├── Dockerfile              # Custom Nginx image with curl for healthchecks
-│   └── default.conf            # Nginx server & routing rules
+│   ├── Dockerfile                  # Custom Nginx image with curl for healthchecks
+│   └── default.conf                # Nginx server & routing rules
 ├── php/
-│   ├── Dockerfile              # Custom PHP-FPM image with extensions
-│   └── php.ini                 # PHP runtime & security settings
+│   ├── Dockerfile                  # Custom PHP-FPM image with extensions
+│   └── php.ini                     # PHP runtime & security settings
 ├── mysql/
-│   └── init.sql                # Database schema and seed data
-├── www/                        # Application code
-│   ├── index.php               # Main dashboard
-│   ├── info.php                # Restricted PHP info page
-│   └── test-db.php             # JSON API for DB tests
-└── images/                     # Screenshots for documentation
-  └── LEMP-GitHub-Cover-Banner.png
+│   └── init.sql                    # Database schema and seed data
+├── www/                            # Application code
+│   ├── index.php                   # Main dashboard
+│   ├── info.php                    # Restricted PHP info page
+│   └── test-db.php                 # JSON API for DB tests
+├── docs/                           # Documentation
+│   ├── secrets.md                  # Secrets management guide
+│   └── security-hardening.md       # Security best practices
+└── images/                         # Screenshots for documentation
+    └── LEMP-GitHub-Cover-Banner.png
 ```
 
 ### Complete file reference
-This section lists every file/folder and its purpose so contributors can quickly understand the repo structure.
+This section lists every file/folder and its purpose for easy navigation.
 
-- Root files
+- **Root files**
   - `docker-compose.yml` — Orchestrates Nginx, PHP-FPM, MySQL, Adminer, Uptime Kuma, networks and volumes
   - `docker-compose.nonroot.yml` — Optional override to run PHP container as the host user (avoids file permission issues)
-  - `Makefile` — Shortcuts for build/up/down/logs/lint/smoke/reset
+  - `docker-compose.prod.yml` — Production overrides with digest-pinned base images for supply-chain security
+  - `Makefile` — Shortcuts for build/up/down/logs/lint/smoke/reset/bcrypt
   - `README.md` — This documentation
   - `.gitignore` — Ensures secrets like `.env` and local artifacts are never committed
-  - `.env.example` — Safe template for env vars to copy into `.env`
+  - `.env.example` — Safe template for environment variables to copy into `.env`
+  - `.env` — Local secrets file (never commit, ignored by git)
+  - `.trivyignore` — Temporary CVE suppressions with rationale and tracking info (remove after base image fixes)
   - `.pre-commit-config.yaml` — Pre-commit hooks (gitleaks, detect-secrets)
   - `.secrets.baseline` — Baseline for `detect-secrets` detector
-  - `.vscode/settings.json` — Disables VS Code auto port-forward and ignores internal ports
+  - `CONTRIBUTING.md` — Contributor guidelines and development workflow
+  - `SECURITY.md` — Security policy and vulnerability reporting instructions
+  - `LICENSE` — MIT License for code
+  - `LICENSE-DOCS` — CC BY 4.0 License for documentation
 
-- CI
-  - `.github/workflows/ci.yml` — GitHub Actions: secret scan, compose config, PHP lint, build, smoke tests
+- **CI & Automation (`.github/`)**
+  - `workflows/ci.yml` — Main CI pipeline: secret scan (gitleaks), compose config validation, PHP lint, build, smoke tests, SBOM generation, Trivy image scans
+  - `workflows/security-scan-fixed.yml` — Nightly security scanner that runs Trivy on all images and uploads SARIF results to GitHub Security tab
+  - `workflows/nightly-trivy-scan.yml` — Alternative nightly scanner with automated GitHub issue creation for CRITICAL vulnerabilities
+  - `workflows/build-and-pin-php-patched.yml` — Workflow to build patched PHP base images with updated libxml2/other dependencies and pin digests
+  - `workflows/db-backup-restore.yml` — Manual workflow for database backup/restore testing and validation
+  - `dependabot.yml` — Automated dependency updates for Docker base images and GitHub Actions versions
+  - `pull_request_template.md` — Pull request template with checklist for contributors
+  - `ISSUE_TEMPLATE/bug_report.md` — Bug report issue template
+  - `ISSUE_TEMPLATE/feature_request.md` — Feature request issue template
+  - `ISSUE_TEMPLATE/security_vulnerability.md` — Security vulnerability report template
+  - `ISSUE_TEMPLATE/config.yml` — Issue template configuration
 
-- Nginx
+- **Scripts**
+  - `scripts/bcrypt.php` — Standalone PHP script for generating BCrypt password hashes (use via `make bcrypt`)
+
+- **Editor Configuration**
+  - `.vscode/settings.json` — Disables VS Code auto port-forward and ignores internal ports (3306, 9000)
+
+- **Nginx**
   - `nginx/Dockerfile` — Nginx image (alpine) with curl installed for healthchecks
   - `nginx/default.conf` — Virtual host, PHP-FPM upstream, and static file rules
 
-- PHP
+- **PHP**
   - `php/Dockerfile` — PHP-FPM (8.2) with common extensions and composer
   - `php/php.ini` — Runtime limits, error handling, security, and opcache settings
 
-- MySQL
+- **MySQL**
   - `mysql/init.sql` — Creates `users` and `posts` tables and seeds sample rows
 
-- Web app
+- **Web Application**
   - `www/index.php` — Dashboard UI; shows DB connection and recent posts
   - `www/test-db.php` — Dev-only API that performs connection, schema, read, write, delete tests
   - `www/info.php` — Dev-only phpinfo page gated by `APP_ENV=development`
 
-- Docs & assets
+- **Documentation & Assets**
+  - `docs/secrets.md` — Comprehensive guide for secrets management and .env configuration
+  - `docs/security-hardening.md` — Security best practices and hardening recommendations
   - `images/LEMP-GitHub-Cover-Banner.png` — Cover image used in README
 
-Notes:
+**Notes:**
 - A `.env` file holds secrets for local use only and is ignored by git. Share `.env.example` instead.
 - Internal service ports (PHP:9000, MySQL:3306) are not exposed to the host; Nginx/Adminer/Kuma are.
-
----
-
-### macOS quick start
-
-Two options: Docker Desktop (GUI) or Colima (lightweight, Homebrew-based). Both work well.
-
-1) Install Docker
-- Docker Desktop: download from docker.com and install.
-- Colima + Docker CLI (Homebrew):
-```bash
-brew install colima docker docker-compose
-colima start --cpu 2 --memory 4 --vm-type=qemu
-docker context use default
-```
-
-2) Clone and run
-```bash
-git clone https://github.com/Soumalya-De/LEMP-Sentinel.git
-cd LEMP-Sentinel
-cp .env.example .env
-docker compose up --build -d
-```
-
-3) Verify & open services
-```bash
-docker compose ps
-open http://localhost:8080
-open http://localhost:8081  # if running with --profile dev
-open http://localhost:3001
-```
-
-Notes
-- On Apple Silicon (M1/M2/M3), images are multi-arch; Docker will pull the `arm64` variants automatically.
-- If you switch between Docker Desktop and Colima, stop one before starting the other to avoid socket conflicts.
 
 ---
 
@@ -301,7 +318,7 @@ The system is a multi-container application orchestrated by Docker Compose. All 
 This diagram illustrates how a request travels across Nginx → PHP-FPM → MySQL and how Uptime Kuma observes each hop.
 
 <p align="center">
-  <img src="images/request-data-flow.png" alt="Request and Data Flow" width="600" style="width: 600px; max-width: none; height: auto;" loading="lazy">
+  <img src="images/request-data-flow.png" alt="Request and Data Flow" width="1000" style="width: 1000px; max-width: 100%; height: auto;" loading="lazy">
 </p>
 
 #### Lifecycle (happy path)
@@ -578,9 +595,45 @@ xdg-open http://localhost:8080 || true
 ```
 
 Notes
-- Store the repo under your Linux home directory (e.g., `~/LEMP-Sentinel`) for best file I/O performance.
+- Store the repo under the Linux home directory (e.g., `~/LEMP-Sentinel`) for best file I/O performance.
 - VS Code users: install "Remote - WSL" and open the folder in WSL for a smoother experience.
 
+---
+
+### macOS quick start
+
+Two options: Docker Desktop (GUI) or Colima (lightweight, Homebrew-based). Both work well.
+
+1) Install Docker
+- **Docker Desktop**: download from docker.com and install.
+- **Colima + Docker CLI** (Homebrew):
+  ```bash
+  brew install colima docker docker-compose
+  colima start --cpu 2 --memory 4 --vm-type=qemu
+  docker context use default
+  ```
+
+2) Clone and run
+```bash
+git clone https://github.com/Soumalya-De/LEMP-Sentinel.git
+cd LEMP-Sentinel
+cp .env.example .env
+docker compose up --build -d
+```
+
+3) Verify & open services
+```bash
+docker compose ps
+open http://localhost:8080
+open http://localhost:8081  # if running with --profile dev
+open http://localhost:3001
+```
+
+**Notes:**
+- On Apple Silicon (M1/M2/M3), images are multi-arch; Docker will pull the `arm64` variants automatically.
+- If switching between Docker Desktop and Colima, stop one before starting the other to avoid socket conflicts.
+
+---
 
 ## Configuration
 All configuration is externalized via `.env`.
@@ -629,25 +682,86 @@ cp .env.example .env
 ---
 
 ## Continuous Integration (CI)
-This repo includes a GitHub Actions workflow at `.github/workflows/ci.yml` that runs on pushes and PRs:
+This repo includes comprehensive GitHub Actions workflows for automated testing, security scanning, and dependency management.
 
-- Secret scan with gitleaks (high-confidence secrets, redacted output)
-- Docker Compose validation (`docker compose config`)
-- PHP lint (syntax check for all PHP files)
-- Build and start the stack
-- Smoke tests against `/`, `/test-db.php`, and `/info.php` (expects 403 unless `APP_ENV=development`)
-- SBOM generation (Syft) and image scanning (Trivy) — informational by default
+### Main CI Pipeline (`.github/workflows/ci.yml`)
+Runs on every push and pull request to validate code quality and functionality:
 
-Logs are printed on timeout to aid debugging. The stack is torn down with volumes to keep CI ephemeral.
+1. **Secret scan with gitleaks** — Detects high-confidence secrets in commits (redacted output for security)
+2. **Docker Compose validation** — Runs `docker compose config` to catch syntax errors
+3. **PHP lint** — Syntax check for all PHP files
+4. **Build and start the stack** — Builds images and starts all services
+5. **Smoke tests** — HTTP requests to `/`, `/test-db.php`, and `/info.php` (expects 403 unless `APP_ENV=development`)
+6. **SBOM generation (Syft)** — Creates Software Bill of Materials (`sbom.spdx.json`) for auditing
+7. **Trivy image scanning** — Scans all images for known CVEs (informational by default, non-blocking)
+8. **Database backup/restore validation** — Gated behind `RUN_DB_BACKUP_RESTORE=false` by default (manual opt-in)
+
+Logs are printed on timeout to aid debugging. The stack is torn down with volumes after each run to keep CI ephemeral.
+
+### Security Scanning (`.github/workflows/security-scan-fixed.yml`)
+Nightly security scanner (runs at 02:00 UTC daily, or manually via workflow_dispatch):
+
+- **Trivy vulnerability scans** — Scans all Docker images (nginx, php, mysql, etc.) for HIGH/CRITICAL severity CVEs
+- **SARIF output** — Generates SARIF (Static Analysis Results Interchange Format) files for each image
+- **GitHub Security tab integration** — Uploads scan results to GitHub Advanced Security Code Scanning (each image gets unique category)
+- **Artifact uploads** — SARIF files available as downloadable artifacts for manual review
+- **Pull request comments** — On PRs, posts automated summary with vulnerability counts
+
+**Note:** This workflow was renamed from `security-scan.yml` to `security-scan-fixed.yml` to bust GitHub Actions workflow cache after fixing SARIF file creation issues.
+
+### Nightly Trivy Scanner (`.github/workflows/nightly-trivy-scan.yml`)
+Alternative security scanner with automated issue creation:
+
+- Runs nightly at 01:00 UTC
+- Scans all images with Trivy
+- **Automatically creates GitHub Issues** for any CRITICAL vulnerabilities found
+- Issues are tagged with `security` and `trivy` labels
+- Includes detailed CVE information, severity, and remediation recommendations
+
+### Build Patched Base Images (`.github/workflows/build-and-pin-php-patched.yml`)
+Manual workflow for building and pinning patched base images:
+
+- **Purpose:** When upstream CVEs are found (e.g., libxml2 in Alpine), build custom patched images
+- **Triggers:** Manual workflow_dispatch only
+- **Process:**
+  1. Builds PHP-FPM image with latest Alpine packages (forces `apk upgrade`)
+  2. Captures image digest (SHA256)
+  3. Creates PR with digest-pinned `FROM` statements in Dockerfile
+- **Goal:** Supply-chain security via immutable digest pinning instead of mutable tags
+
+### Database Backup/Restore (`.github/workflows/db-backup-restore.yml`)
+Manual workflow for database maintenance:
+
+- **Triggers:** Manual workflow_dispatch only
+- **Operations:**
+  1. Dumps MySQL database to SQL file
+  2. Drops all tables (destructive test)
+  3. Restores from backup
+  4. Validates restored data integrity
+- **Use cases:** Testing backup procedures, pre-migration validation, disaster recovery drills
 
 > [!TIP]
-> Make Trivy blocking by removing the `|| true` from the scan step or adding `--exit-code 1` for HIGH/CRITICAL findings.
+> Make Trivy blocking by removing the `|| true` from scan steps or adding `--exit-code 1` for HIGH/CRITICAL findings.
 
 #### About SBOM & Trivy
-- SBOM (Software Bill of Materials) lists all packages and versions in your build so you can audit what you ship. We generate `sbom.spdx.json` on every CI run and upload it as an artifact.
-- Trivy scans container images for known CVEs. In this repo it runs in informational mode to avoid failing contributor PRs. When you want to enforce security gates, set Trivy to fail the job on HIGH/CRITICAL findings.
- - On PRs, a brief Trivy summary comment is posted automatically with counts of HIGH/CRITICAL findings.
- - Add acceptable/stable findings to `.trivyignore` with a rationale and tracking issue.
+- **SBOM (Software Bill of Materials)** lists all packages and versions in the build for audit purposes. The pipeline generates `sbom.spdx.json` on every CI run and uploads it as an artifact.
+- **Trivy** scans container images for known CVEs. In this repo it runs in informational mode by default to avoid failing contributor PRs. To enforce security gates, set Trivy to fail the job on HIGH/CRITICAL findings.
+- On PRs, a brief Trivy summary comment is posted automatically with counts of HIGH/CRITICAL findings.
+- Add acceptable/stable findings to `.trivyignore` with a rationale and tracking issue.
+
+#### Temporary CVE Suppressions (`.trivyignore`)
+The `.trivyignore` file contains temporary suppressions for known CVEs that are pending upstream fixes:
+
+```
+# Temporary suppressions for libxml2 CVEs in Alpine 3.22.2 base images
+# TODO: Remove after merging patched base image PR from build-and-pin-php-patched.yml
+CVE-2025-49794
+CVE-2025-49796
+CVE-2025-49795
+CVE-2025-6021
+```
+
+**Important:** These suppressions should be removed once patched base images are deployed. Track removal via GitHub Issues.
 
 ---
 
@@ -669,6 +783,46 @@ Initialize/update the baseline after intentional changes:
 ```bash
 detect-secrets scan > .secrets.baseline
 pre-commit run detect-secrets --all-files
+```
+
+---
+
+## Automated Dependency Updates (Dependabot)
+This repository uses **Dependabot** (`.github/dependabot.yml`) to automatically monitor and update dependencies:
+
+### Docker Base Images
+- Monitors `nginx/Dockerfile` and `php/Dockerfile` for outdated base images
+- Checks weekly on Mondays at 06:00 UTC
+- Creates PRs for `nginx:alpine`, `php:8.2-fpm-alpine`, `mysql:8`, etc.
+- Automatically assigns reviewers and labels PRs with `dependencies` and `docker`
+
+### GitHub Actions
+- Monitors all workflow files in `.github/workflows/`
+- Checks weekly on Mondays at 06:00 UTC
+- Updates action versions (e.g., `actions/checkout@v4` → `@v5`)
+- Ensures workflows use latest security patches and features
+
+**Benefits:**
+- 🔒 **Security:** Automatically patches known CVEs in base images and actions
+- 📦 **Freshness:** Keeps dependencies up-to-date without manual tracking
+- 🤖 **Automation:** PRs are created automatically with clear changelogs
+- ✅ **CI Validation:** All Dependabot PRs run through full CI pipeline before merge
+
+**Configuration highlights:**
+```yaml
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directory: "/nginx"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+  
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
 ```
 
 ---
@@ -870,16 +1024,59 @@ Notes
 ---
 
 ## Security Notes
-This project aims to avoid leaking secrets and reduce risk in local development:
+This project implements defense-in-depth security practices for local development and CI/CD:
 
+### Secrets Management
 - Secrets live in `.env` (never committed). A safe template is provided as `.env.example`.
-- `info.php` and `test-db.php` are restricted to `APP_ENV=development`.
+- Pre-commit hooks (`gitleaks`, `detect-secrets`) scan for secrets before commits.
+- CI pipeline runs `gitleaks` on every push to catch leaked credentials.
+- All workflows use GitHub Actions secrets (e.g., `${{ secrets.GITHUB_TOKEN }}`) instead of hardcoded values.
+
+### Application Security
+- `info.php` and `test-db.php` are restricted to `APP_ENV=development` (return 403 otherwise).
 - PHP `display_errors` is disabled outside development in `index.php`.
-- Ports exposed to the host are minimal: 8080 (Nginx), 8081 (Adminer), 3001 (Uptime Kuma).
-- Pre-commit and CI both scan for secrets before code is pushed.
+- Ports exposed to the host are minimal: 8080 (Nginx), 8081 (Adminer, dev-only), 3001 (Uptime Kuma).
+- Adminer is gated behind `--profile dev` to prevent accidental production exposure.
+
+### Supply Chain Security
+- **Automated security scanning:** Three Trivy-based workflows scan for CVEs:
+  - Main CI (`ci.yml`): Scans on every push/PR
+  - Nightly scan (`security-scan-fixed.yml`): Uploads SARIF to GitHub Security tab
+  - Issue creator (`nightly-trivy-scan.yml`): Auto-creates issues for CRITICAL CVEs
+- **Vulnerability tracking:** `.trivyignore` file documents temporary CVE suppressions with rationale.
+- **Base image updates:** Dependabot automatically creates PRs for outdated Docker images and GitHub Actions.
+- **Digest pinning:** `build-and-pin-php-patched.yml` workflow builds patched images and pins them by immutable SHA256 digest.
+
+### Security Scanning Workflows
+1. **`security-scan-fixed.yml`** — Nightly security scanner:
+   - Runs Trivy on all images (nginx, php, mysql, etc.)
+   - Generates SARIF files for GitHub Advanced Security
+   - Each image gets unique category to avoid conflicts
+   - Results visible in Security → Code scanning alerts tab
+
+2. **`nightly-trivy-scan.yml`** — Automated issue creation:
+   - Runs at 01:00 UTC daily
+   - Creates GitHub Issues for CRITICAL vulnerabilities
+   - Includes CVE details, severity, and remediation steps
+   - Issues tagged with `security` and `trivy` labels
+
+3. **`.trivyignore`** — Temporary suppressions:
+   ```
+   # Example: Known CVEs pending upstream fix
+   CVE-2025-49794  # libxml2 in Alpine 3.22.2
+   CVE-2025-49796  # libxml2 in Alpine 3.22.2
+   ```
+   **Important:** Document rationale and removal plan for each suppression.
+
+### Best Practices
+- **Never commit secrets.** Use `.env` locally, rotate credentials if exposure is suspected.
+- **Treat scanners as a backstop** — not the first line of defense. Review PRs manually.
+- **Monitor Security tab:** Check GitHub Security → Code scanning alerts regularly.
+- **Respond to Dependabot PRs promptly:** Security updates should be merged quickly.
+- **Remove temporary suppressions:** Once patched images deploy, delete related `.trivyignore` entries.
 
 > [!IMPORTANT]
-> Secrets must never be committed. Use `.env` locally, rotate credentials if exposure is suspected, and treat CI/pre-commit scanners as a backstop—not your first line of defense.
+> Security is a continuous process. Review the `SECURITY.md` file for vulnerability reporting procedures and incident response guidelines.
 
 ---
 
@@ -887,16 +1084,16 @@ This project aims to avoid leaking secrets and reduce risk in local development:
 - `docker-compose.yml` defines the full stack.
 - Health checks are present for core services.
 - CI performs a smoke test of main endpoints.
-- Base images are parameterized (`NGINX_BASE_IMAGE`, `PHP_BASE_IMAGE`) so you can pin immutable digests in `.env` (e.g., `php@sha256:...`).
-- Optional non-root: use `docker-compose.nonroot.yml` to run PHP as your host user.
+- Base images are parameterized (`NGINX_BASE_IMAGE`, `PHP_BASE_IMAGE`) for pinning immutable digests in `.env` (e.g., `php@sha256:...`).
+- Optional non-root: use `docker-compose.nonroot.yml` to run PHP as the host user.
 
 > [!NOTE]
 > Key takeaway: parameterized base images for reproducibility, opt-in non-root for local file permissions, and a single Compose file that’s easy to reason about.
 
 ### Run PHP as Non-Root (Optional)
-To avoid permission issues with bind mounts, running the container as your host user is opt-in.
+To avoid permission issues with bind mounts, running the container as the host user is opt-in.
 
-1. Set your IDs in `.env` (Linux/macOS):
+1. Set IDs in `.env` (Linux/macOS):
   ```bash
   echo "APP_USER_ID=$(id -u)" >> .env
   echo "APP_GROUP_ID=$(id -g)" >> .env
@@ -1045,6 +1242,19 @@ General
 - For a stuck state, perform a clean restart: `docker compose down && docker compose up -d`
 
 ---
+
+## Utilities
+
+### BCrypt password hashing helper
+
+- The Makefile provides a `make bcrypt PASSWORD=your_password` target to generate a bcrypt hash for use in MySQL or application config.
+- This uses the `scripts/bcrypt.php` utility, which can also be run directly:
+  ```bash
+  php scripts/bcrypt.php 'your_password'
+  # or
+  echo -n 'your_password' | php scripts/bcrypt.php
+  ```
+- Output is a bcrypt hash suitable for use in `mysql/init.sql` or user provisioning scripts.
 
 ---
 

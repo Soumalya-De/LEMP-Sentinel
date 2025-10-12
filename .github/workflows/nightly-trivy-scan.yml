@@ -23,10 +23,12 @@ jobs:
       - name: Run Trivy on local images and upload results
         run: |
           mkdir -p trivy-reports
+          scan_rc=0
           for img in $(docker images --format '{{.Repository}}:{{.Tag}}' | grep -E 'nginx:|php:' | sort -u); do
-            out=trivy-reports/$(echo $img | tr '/:' '__').txt
+            safe=$(echo "$img" | sed 's/[^A-Za-z0-9._-]/_/g')
+            out=trivy-reports/${safe}.sarif
             echo "Scanning $img -> $out"
-            trivy image --severity HIGH,CRITICAL --format table "$img" > "$out" || true
+            trivy image --format sarif --severity HIGH,CRITICAL --output "$out" --no-progress --timeout 5m "$img" || scan_rc=$?
           done
           tar -czf trivy-reports.tgz trivy-reports || true
 
@@ -38,8 +40,11 @@ jobs:
 
       - name: Create issue if critical findings exist
         run: |
-          if grep -q "CRITICAL" trivy-reports/* 2>/dev/null; then
-            gh issue create --title "Nightly: Critical vulnerabilities found in built images" --body "Trivy found CRITICAL vulnerabilities. See attached reports in workflow artifacts." || true
+          if [ -n "$(grep -R "CRITICAL" trivy-reports 2>/dev/null || true)" ]; then
+            echo "Critical findings exist. Creating issue via REST API."
+            body="Trivy found CRITICAL vulnerabilities in nightly image scan. See attached trivy-reports artifact."
+            curl -s -X POST -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" \
+              https://api.github.com/repos/${{ github.repository }}/issues -d "$(jq -n --arg t "Nightly: Critical vulnerabilities found in built images" --arg b "$body" '{title:$t, body:$b}')" || true
           else
             echo "No critical vulnerabilities found"
           fi
