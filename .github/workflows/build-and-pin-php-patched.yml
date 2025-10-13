@@ -61,7 +61,7 @@ jobs:
           git commit -m "ci: pin PHP_BASE_IMAGE to patched image digest (${{ steps.getdigest.outputs.digest }})"
 
       - name: Create Pull Request with pin
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "ci: pin PHP_BASE_IMAGE to patched image digest"
