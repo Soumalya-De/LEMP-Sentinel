@@ -206,10 +206,15 @@ jobs:
           echo "NGINX_BASE_IMAGE=$NGINX_DIGEST" >> $GITHUB_ENV
           echo "PHP_BASE_IMAGE=$PHP_DIGEST" >> $GITHUB_ENV
 
-      - name: Set up Syft and Grype/Trivy
+      - name: Set up Syft
         run: |
-          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
-          curl -sSfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+          wget -qO- https://github.com/anchore/syft/releases/download/v1.18.1/syft_1.18.1_linux_amd64.tar.gz | tar xz -C /usr/local/bin syft
+          syft version
+
+      - name: Set up Trivy
+        run: |
+          wget -qO- https://github.com/aquasecurity/trivy/releases/download/v0.67.2/trivy_0.67.2_Linux-64bit.tar.gz | tar xz -C /usr/local/bin trivy
+          trivy version
 
       - name: Generate SBOM for repository
         run: |
