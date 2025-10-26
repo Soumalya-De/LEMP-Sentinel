@@ -53,8 +53,8 @@ choco install make
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/Soumalya-De/lemp-stack.git
-cd lemp-stack
+git clone https://github.com/Soumalya-De/LEMP-Sentinel.git
+cd LEMP-Sentinel
 
 # 2. Configure environment
 cp .env.example .env
@@ -350,7 +350,6 @@ Before deploying to production:
 
 ## Support
 
-- **Issues**: https://github.com/Soumalya-De/lemp-stack/issues
-- **Discussions**: https://github.com/Soumalya-De/lemp-stack/discussions
+- **Issues**: https://github.com/Soumalya-De/LEMP-Sentinel/issues
 - **Security**: See [SECURITY.md](../SECURITY.md)
 - **Contributing**: See [CONTRIBUTING.md](../CONTRIBUTING.md)

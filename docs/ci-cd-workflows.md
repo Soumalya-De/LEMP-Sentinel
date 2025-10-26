@@ -8,9 +8,9 @@ This project includes 5 GitHub Actions workflows for comprehensive CI/CD:
 
 | Workflow | Trigger | Purpose | Badge |
 |----------|---------|---------|-------|
-| **CI Pipeline** | Push, PR | Secret scan, build, smoke tests, SBOM | ![CI](https://github.com/Soumalya-De/lemp-stack/actions/workflows/ci.yml/badge.svg) |
-| **Security Scan** | Nightly (01:00 UTC) | Vulnerability scanning with SARIF upload | ![Security](https://github.com/Soumalya-De/lemp-stack/actions/workflows/security-scan-fixed.yml/badge.svg) |
-| **Nightly Trivy Scan** | Nightly (02:00 UTC) | Critical CVE detection with GitHub Issues | ![Trivy](https://github.com/Soumalya-De/lemp-stack/actions/workflows/nightly-trivy-scan.yml/badge.svg) |
+| **CI Pipeline** | Push, PR | Secret scan, build, smoke tests, SBOM | ![CI](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml/badge.svg) |
+| **Security Scan** | Nightly (01:00 UTC) | Vulnerability scanning with SARIF upload | ![Security](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml/badge.svg) |
+| **Nightly Trivy Scan** | Nightly (02:00 UTC) | Critical CVE detection with GitHub Issues | ![Trivy](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/nightly-trivy-scan.yml/badge.svg) |
 | **Build PHP Patched** | Manual | Build and pin patched PHP images | Manual dispatch |
 | **DB Backup/Restore** | Manual | Validate backup and restore procedures | Manual dispatch |
 

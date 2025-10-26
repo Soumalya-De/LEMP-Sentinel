@@ -6,8 +6,8 @@
 
 A production-ready LEMP (Linux, Nginx, MySQL, PHP) stack with built-in monitoring, security scanning, and automated CI/CD workflows. Designed for local development with production-aligned architecture.
 
-[![CI Pipeline](https://github.com/Soumalya-De/lemp-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/lemp-stack/actions/workflows/ci.yml)
-[![Security Scan](https://github.com/Soumalya-De/lemp-stack/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/lemp-stack/actions/workflows/security-scan-fixed.yml)
+[![CI Pipeline](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml)
+[![Security Scan](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
@@ -32,8 +32,8 @@ Get up and running in 5 minutes:
 
 ```bash
 # Clone the repository
-git clone https://github.com/Soumalya-De/lemp-stack.git
-cd lemp-stack
+git clone https://github.com/Soumalya-De/LEMP-Sentinel.git
+cd LEMP-Sentinel
 
 # Configure environment
 cp .env.example .env
@@ -87,7 +87,7 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 ## Project Structure
 
 ```
-lemp-stack/
+LEMP-Sentinel/
 ├── .github/
 │   ├── workflows/              # CI/CD pipelines (5 workflows)
 │   ├── ISSUE_TEMPLATE/         # Issue templates (bug, feature, security)
@@ -189,7 +189,6 @@ Documentation is licensed under CC-BY-4.0 - see [LICENSE-DOCS](LICENSE-DOCS).
 ## Support
 
 - **Issues**: [GitHub Issues](https://github.com/Soumalya-De/LEMP-Sentinel/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/Soumalya-De/LEMP-Sentinel/discussions)
 - **Security**: See [SECURITY.md](SECURITY.md)
 
 ---
