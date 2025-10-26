@@ -62,7 +62,8 @@ services:
       - MYSQL_USER=${DB_USER:-app_user}
       - MYSQL_PASSWORD=${DB_PASSWORD:-app_pass}
       # Additional security settings
-      - MYSQL_DEFAULT_AUTHENTICATION_PLUGIN=mysql_native_password
+      # Using caching_sha2_password (MySQL 8.0+ default, more secure than mysql_native_password)
+      - MYSQL_DEFAULT_AUTHENTICATION_PLUGIN=caching_sha2_password
     volumes:
       - mysql_data:/var/lib/mysql
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
