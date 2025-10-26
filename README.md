@@ -16,13 +16,14 @@ A production-ready LEMP (Linux, Nginx, MySQL, PHP) stack with built-in monitorin
 ## Features
 
 - **🐳 Docker-Based**: Fully containerized with Docker Compose orchestration
-- **🔒 Security-First**: Pre-commit secret scanning, vulnerability scans, SBOM generation
+- **🔒 Security-First**: Pre-commit secret scanning, vulnerability scans, SBOM generation, security headers, rate limiting
 - **📊 Built-In Monitoring**: Uptime Kuma for real-time service health tracking
 - **🚀 CI/CD Automated**: 5 GitHub Actions workflows for testing, scanning, and validation
 - **💾 Backup/Restore**: Automated database backup and restore procedures
 - **🔧 Development-Ready**: Hot-reload PHP files, Adminer for database management
 - **📦 Supply Chain Security**: Dependabot auto-updates, image digest pinning
 - **🎯 Production-Aligned**: Same codebase for dev/staging/production with env variables
+- **🛡️ Hardened by Default**: XSS protection, clickjacking prevention, modern MySQL authentication
 
 ---
 
@@ -126,6 +127,7 @@ LEMP-Sentinel/
 ├── .pre-commit-config.yaml     # Pre-commit hooks
 ├── CONTRIBUTING.md             # Contribution guidelines
 ├── SECURITY.md                 # Security policy
+├── RELEASE_NOTES_v1.0.0.md     # v1.0.0 release documentation
 ├── LICENSE                     # MIT License (code)
 └── LICENSE-DOCS                # CC-BY-4.0 License (docs)
 ```
@@ -142,6 +144,9 @@ This project implements multiple layers of security:
 - **Nightly Security Scans**: Automated vulnerability detection with GitHub Issues
 - **Network Isolation**: Internal services not exposed to host
 - **Secrets Management**: All credentials in `.env` (gitignored)
+- **Security Headers**: XSS, clickjacking, and MIME-sniffing protection via Nginx
+- **Rate Limiting**: DoS and brute force prevention (10 req/s general, 5 req/s PHP)
+- **Modern Authentication**: MySQL 8.0+ caching_sha2_password for stronger security
 
 See [**Secrets Management Guide**](docs/secrets.md) and [**Security Hardening**](docs/security-hardening.md) for comprehensive security practices.
 
