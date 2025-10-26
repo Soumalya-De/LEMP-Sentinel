@@ -107,6 +107,7 @@ LEMP-Sentinel/
 │   └── init.sql                # Database schema
 ├── nginx/
 │   ├── Dockerfile              # Custom Nginx image
+│   ├── nginx.conf              # Main Nginx config (rate limiting)
 │   └── default.conf            # Virtual host configuration
 ├── php/
 │   ├── Dockerfile              # Custom PHP-FPM image
@@ -145,8 +146,8 @@ This project implements multiple layers of security:
 - **Network Isolation**: Internal services not exposed to host
 - **Secrets Management**: All credentials in `.env` (gitignored)
 - **Security Headers**: XSS, clickjacking, and MIME-sniffing protection via Nginx
-- **Rate Limiting**: DoS and brute force prevention (10 req/s general, 5 req/s PHP)
-- **Modern Authentication**: MySQL 8.0+ caching_sha2_password for stronger security
+- **Rate Limiting**: DoS and brute force prevention (10 req/s general, 5 req/s PHP with burst allowances)
+- **Modern Authentication**: MySQL 8.0 authentication (development uses mysql_native_password, production should use caching_sha2_password with SSL)
 
 See [**Secrets Management Guide**](docs/secrets.md) and [**Security Hardening**](docs/security-hardening.md) for comprehensive security practices.
 
