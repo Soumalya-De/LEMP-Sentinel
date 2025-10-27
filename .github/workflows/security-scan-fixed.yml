@@ -85,7 +85,7 @@ jobs:
 
       - name: Upload proposed ignore file (PRs)
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: trivy-proposed-ignore
           path: trivy-proposed-ignore.txt
@@ -110,7 +110,7 @@ jobs:
 
       - name: Upload SARIF results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: trivy-sarif
           path: ${{ github.workspace }}/trivy-results/*.sarif

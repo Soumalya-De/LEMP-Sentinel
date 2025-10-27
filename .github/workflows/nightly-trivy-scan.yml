@@ -33,7 +33,7 @@ jobs:
           tar -czf trivy-reports.tgz trivy-reports || true
 
       - name: Upload results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: trivy-reports
           path: trivy-reports.tgz
