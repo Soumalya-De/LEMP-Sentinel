@@ -35,3 +35,7 @@ Thumbs.db
 # Backup directory (keep structure, ignore content)
 backup/*
 !backup/.gitkeep
+
+# Private documentation (local use only, not for public repo)
+PROJECT_DESCRIPTION.md
+GITHUB_ABOUT.md
