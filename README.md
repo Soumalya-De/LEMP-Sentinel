@@ -68,6 +68,7 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 | [**CI/CD Workflows**](docs/ci-cd-workflows.md) | GitHub Actions pipelines, Dependabot, SBOM, security scanning |
 | [**Secrets Management**](docs/secrets.md) | Environment variables, credential storage, pre-commit hooks |
 | [**Security Hardening**](docs/security-hardening.md) | Security best practices and hardening recommendations |
+| [**CVE Remediation**](docs/cve-remediation.md) | Active CVE management strategy, monitoring, and remediation process |
 
 ---
 
