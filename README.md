@@ -170,6 +170,46 @@ See [**CVE Remediation Strategy**](docs/cve-remediation.md), [**Secrets Manageme
 
 ---
 
+## Troubleshooting
+
+### Common Issues
+
+**Nginx container restarting with "zero size shared memory zone" error:**
+```bash
+# Check logs
+docker logs lemp_nginx --tail 20
+
+# Fix: Rebuild Nginx image
+docker compose stop nginx
+docker compose rm -f nginx
+docker compose build --no-cache nginx
+docker compose up -d nginx
+```
+
+**"Command 'php' not found" on host system:**
+- This is expected! PHP runs inside the Docker container, not on your host
+- To check PHP syntax: `docker exec lemp_php php -l /var/www/html/index.php`
+- To run PHP commands: `docker exec lemp_php php [command]`
+
+**Trivy not found when running CVE check script:**
+- This is normal for local development
+- Trivy runs automatically in GitHub Actions (weekly monitoring)
+- To install locally (optional): See https://aquasecurity.github.io/trivy/latest/getting-started/installation/
+
+**Containers not starting:**
+```bash
+# Check container status
+docker compose ps
+
+# View logs
+docker compose logs [service_name]
+
+# Validate configuration
+docker compose config
+```
+
+---
+
 ## Contributing
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
