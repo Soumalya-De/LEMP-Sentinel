@@ -17,11 +17,12 @@ A production-ready LEMP (Linux, Nginx, MySQL, PHP) stack with built-in monitorin
 
 - **🐳 Docker-Based**: Fully containerized with Docker Compose orchestration
 - **🔒 Security-First**: Pre-commit secret scanning, vulnerability scans, SBOM generation, security headers, rate limiting
+- **🤖 Active CVE Remediation**: Automated weekly CVE monitoring with auto-issue creation, minimal human intervention, and proactive remediation when fixes become available
 - **📊 Built-In Monitoring**: Uptime Kuma for real-time service health tracking
-- **🚀 CI/CD Automated**: 5 GitHub Actions workflows for testing, scanning, and validation
+- **🚀 CI/CD Automated**: 6 GitHub Actions workflows for testing, scanning, CVE monitoring, and validation
 - **💾 Backup/Restore**: Automated database backup and restore procedures
 - **🔧 Development-Ready**: Hot-reload PHP files, Adminer for database management
-- **📦 Supply Chain Security**: Dependabot auto-updates, image digest pinning
+- **📦 Supply Chain Security**: Dependabot auto-updates, image digest pinning, weekly CVE status checks
 - **🎯 Production-Aligned**: Same codebase for dev/staging/production with env variables
 - **🛡️ Hardened by Default**: XSS protection, clickjacking prevention, modern MySQL authentication
 
@@ -68,6 +69,7 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 | [**CI/CD Workflows**](docs/ci-cd-workflows.md) | GitHub Actions pipelines, Dependabot, SBOM, security scanning |
 | [**Secrets Management**](docs/secrets.md) | Environment variables, credential storage, pre-commit hooks |
 | [**Security Hardening**](docs/security-hardening.md) | Security best practices and hardening recommendations |
+| [**CVE Remediation**](docs/cve-remediation.md) | Active CVE management strategy, monitoring, and remediation process |
 
 ---
 
@@ -90,8 +92,18 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 ```
 LEMP-Sentinel/
 ├── .github/
-│   ├── workflows/              # CI/CD pipelines (5 workflows)
-│   ├── ISSUE_TEMPLATE/         # Issue templates (bug, feature, security)
+│   ├── workflows/              # CI/CD pipelines (6 workflows)
+│   │   ├── ci.yml              # Main CI: secrets, build, test, SBOM
+│   │   ├── security-scan-fixed.yml  # Security scanning with SARIF
+│   │   ├── nightly-trivy-scan.yml   # Nightly vulnerability scans
+│   │   ├── build-and-pin-php-patched.yml  # Digest pinning
+│   │   ├── db-backup-restore.yml    # Backup validation
+│   │   └── cve-remediation-monitor.yml  # Weekly CVE monitoring
+│   ├── ISSUE_TEMPLATE/         # Issue templates
+│   │   ├── bug_report.md       # Bug report template
+│   │   ├── feature_request.md  # Feature request template
+│   │   ├── security_report.md  # Security vulnerability report
+│   │   └── cve-tracking.md     # CVE suppression tracking
 │   ├── pull_request_template.md # PR checklist template
 │   └── dependabot.yml          # Automated dependency updates
 ├── backup/                     # Backup files (gitignored)
@@ -101,7 +113,8 @@ LEMP-Sentinel/
 │   ├── configuration.md        # Environment variables
 │   ├── ci-cd-workflows.md      # GitHub Actions documentation
 │   ├── secrets.md              # Secrets management guide
-│   └── security-hardening.md   # Security best practices
+│   ├── security-hardening.md   # Security best practices
+│   └── cve-remediation.md      # CVE remediation strategy (326 lines)
 ├── images/                     # Screenshots and diagrams
 ├── mysql/
 │   └── init.sql                # Database schema
@@ -113,7 +126,8 @@ LEMP-Sentinel/
 │   ├── Dockerfile              # Custom PHP-FPM image
 │   └── php.ini                 # Runtime configuration
 ├── scripts/
-│   └── bcrypt.php              # Password hashing utility
+│   ├── bcrypt.php              # Password hashing utility
+│   └── check-cve-remediation.sh # Weekly CVE status checker
 ├── www/                        # Application files
 │   ├── index.php               # Homepage
 │   ├── info.php                # PHP diagnostics (dev only)
@@ -124,11 +138,13 @@ LEMP-Sentinel/
 ├── Makefile                    # Common task automation
 ├── .env.example                # Environment template
 ├── .gitignore                  # Git ignore rules
-├── .trivyignore                # CVE suppressions (temporary)
+├── .trivyignore                # CVE suppressions (actively monitored)
 ├── .pre-commit-config.yaml     # Pre-commit hooks
 ├── CONTRIBUTING.md             # Contribution guidelines
 ├── SECURITY.md                 # Security policy
 ├── RELEASE_NOTES_v1.0.0.md     # v1.0.0 release documentation
+├── RELEASE_NOTES_v1.1.0.md     # v1.1.0 release documentation
+├── CVE-REMEDIATION-SUMMARY.md  # CVE strategy implementation summary
 ├── LICENSE                     # MIT License (code)
 └── LICENSE-DOCS                # CC-BY-4.0 License (docs)
 ```
@@ -141,6 +157,7 @@ This project implements multiple layers of security:
 
 - **Pre-Commit Scanning**: Gitleaks and detect-secrets prevent credential leaks
 - **Vulnerability Scanning**: Trivy scans Docker images for known CVEs
+- **Active CVE Remediation**: Automated weekly monitoring with GitHub Actions, auto-creates tracking issues, alerts when fixes are available, and requires minimal human intervention to apply patches
 - **SBOM Generation**: Complete software bill of materials for supply chain audits
 - **Nightly Security Scans**: Automated vulnerability detection with GitHub Issues
 - **Network Isolation**: Internal services not exposed to host
@@ -149,7 +166,7 @@ This project implements multiple layers of security:
 - **Rate Limiting**: DoS and brute force prevention (10 req/s general, 5 req/s PHP with burst allowances)
 - **Modern Authentication**: MySQL 8.0 authentication (development uses mysql_native_password, production should use caching_sha2_password with SSL)
 
-See [**Secrets Management Guide**](docs/secrets.md) and [**Security Hardening**](docs/security-hardening.md) for comprehensive security practices.
+See [**CVE Remediation Strategy**](docs/cve-remediation.md), [**Secrets Management Guide**](docs/secrets.md), and [**Security Hardening**](docs/security-hardening.md) for comprehensive security practices.
 
 ---
 

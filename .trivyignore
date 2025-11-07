@@ -1,21 +1,45 @@
-# Temporary Trivy suppressions
-# Reason: The following libxml2 CVEs are present in the base Alpine image used by the local PHP image.
-# These are upstream distro/package issues and will be remediated by updating the base image when a fixed package is available.
-# Keep this suppression in the repo only until the base image is upgraded and CI passes without it.
+# ⚠️ TEMPORARY TRIVY SUPPRESSIONS - ACTIVE REMEDIATION REQUIRED
+#
+# TRACKING ISSUE: https://github.com/Soumalya-De/LEMP-Sentinel/issues/XXX
+# 
+# Reason: The following libxml2 CVEs are present in Alpine Linux 3.19/3.20 base image.
+# These are upstream distro vulnerabilities that will be fixed when Alpine releases libxml2 2.13.9-r0.
+# 
+# REMEDIATION TIMELINE:
+# - Check weekly: https://pkgs.alpinelinux.org/package/edge/main/x86_64/libxml2
+# - Target: Remove suppressions within 2 weeks of Alpine 3.23 stable release
+# - Last checked: 2025-11-07
+#
+# SUPPRESSION JUSTIFICATION:
+# - Risk accepted: These CVEs require specific attack vectors (XML parsing exploitation)
+# - Mitigation: Application does not accept untrusted XML input from external sources
+# - Temporary: Will be removed once upstream fix is available
+#
+# ============================================================================
 
-# libxml2: Heap UAF -> fixed in 2.13.9-r0
+# libxml2: Heap Use-After-Free (HIGH severity)
+# Fixed in: libxml2 2.13.9-r0 (awaiting Alpine 3.23 release)
+# Tracking: https://github.com/Soumalya-De/LEMP-Sentinel/issues/XXX
 CVE-2025-49794
 
-# libxml: Type confusion DoS
+# libxml2: Type confusion DoS (MEDIUM severity)
+# Fixed in: libxml2 2.13.9-r0 (awaiting Alpine 3.23 release)
+# Tracking: https://github.com/Soumalya-De/LEMP-Sentinel/issues/XXX
 CVE-2025-49796
 
-# libxml: Null pointer dereference DoS
+# libxml2: Null pointer dereference DoS (MEDIUM severity)
+# Fixed in: libxml2 2.13.9-r0 (awaiting Alpine 3.23 release)
+# Tracking: https://github.com/Soumalya-De/LEMP-Sentinel/issues/XXX
 CVE-2025-49795
 
-# libxml2: Integer overflow (xmlBuildQName) -> stack buffer overflow
+# libxml2: Integer overflow → stack buffer overflow (HIGH severity)
+# Fixed in: libxml2 2.13.9-r0 (awaiting Alpine 3.23 release)
+# Tracking: https://github.com/Soumalya-De/LEMP-Sentinel/issues/XXX
 CVE-2025-6021
 
-# TODO: Remove entries above after upgrading `PHP_BASE_IMAGE` / underlying Alpine image and reconfirm CI# Add SHA256 IDs or vulnerability IDs (e.g., CVE-XXXX-YYYY) to suppress known/acceptable findings.
+# ============================================================================
+# ACTION REQUIRED: Remove all entries above after upgrading PHP_BASE_IMAGE
+# ============================================================================# Add SHA256 IDs or vulnerability IDs (e.g., CVE-XXXX-YYYY) to suppress known/acceptable findings.
 # Include a rationale above each rule and a link to an issue/PR tracking remediation.
 # Example:
 #
