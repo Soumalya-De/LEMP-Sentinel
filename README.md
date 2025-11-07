@@ -101,9 +101,10 @@ LEMP-Sentinel/
 │   │   └── cve-remediation-monitor.yml  # Weekly CVE monitoring
 │   ├── ISSUE_TEMPLATE/         # Issue templates
 │   │   ├── bug_report.md       # Bug report template
+│   │   ├── config.yml          # Issue template configuration
+│   │   ├── cve-tracking.md     # CVE suppression tracking
 │   │   ├── feature_request.md  # Feature request template
-│   │   ├── security_report.md  # Security vulnerability report
-│   │   └── cve-tracking.md     # CVE suppression tracking
+│   │   └── security_vulnerability.md  # Security vulnerability report
 │   ├── pull_request_template.md # PR checklist template
 │   └── dependabot.yml          # Automated dependency updates
 ├── backup/                     # Backup files (gitignored)
@@ -114,8 +115,17 @@ LEMP-Sentinel/
 │   ├── ci-cd-workflows.md      # GitHub Actions documentation
 │   ├── secrets.md              # Secrets management guide
 │   ├── security-hardening.md   # Security best practices
-│   └── cve-remediation.md      # CVE remediation strategy (326 lines)
+│   └── cve-remediation.md      # CVE remediation strategy
 ├── images/                     # Screenshots and diagrams
+│   ├── LEMP-GitHub-Cover-Banner.png  # Repository banner
+│   ├── system-architecture.png       # Complete system architecture
+│   ├── request-data-flow.png         # Request lifecycle diagram
+│   ├── dashboard-connected.png       # Dashboard verification
+│   ├── adminer-db-overview.png       # Adminer database UI
+│   ├── test-db-success.png           # Database test success
+│   ├── kuma-monitor-config-http.png  # Uptime Kuma HTTP monitor
+│   ├── kuma-monitor-mysql-tcp.png    # Uptime Kuma MySQL monitor
+│   └── kuma-telegram-alerts.png      # Uptime Kuma alert config
 ├── mysql/
 │   └── init.sql                # Database schema
 ├── nginx/
