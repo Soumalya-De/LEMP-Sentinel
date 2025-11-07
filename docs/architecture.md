@@ -25,6 +25,14 @@ This LEMP stack implements a production-aligned architecture with integrated mon
 - **Named Volumes**: Persistent data storage
 - **Health Checks**: Automated service health monitoring
 
+## System Architecture
+
+<p align="center">
+  <img src="../images/system-architecture.png" alt="Complete System Architecture" width="1000" style="max-width: 100%; height: auto;" loading="lazy">
+</p>
+
+The diagram above shows the complete system architecture including service dependencies, network isolation, and monitoring overlay.
+
 ## Request and Data Flow
 
 This diagram illustrates how a request travels across Nginx → PHP-FPM → MySQL and how Uptime Kuma observes each hop.
