@@ -2,6 +2,23 @@
 
 Get the LEMP stack running in 5 minutes.
 
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Quick Start (5 commands)](#quick-start-5-commands)
+- [Access Points](#access-points)
+  - [Uptime Kuma Monitoring Setup](#uptime-kuma-monitoring-setup)
+  - [Adminer Login](#adminer-login)
+- [Makefile Commands](#makefile-commands)
+- [Verification Steps](#verification-steps)
+- [Configuration](#configuration)
+- [First-Time Setup](#first-time-setup)
+- [Common Issues](#common-issues)
+- [Next Steps](#next-steps)
+- [Development Workflow](#development-workflow)
+- [Production Checklist](#production-checklist)
+- [Support](#support)
+
 ## Prerequisites
 
 - Docker Engine 24+ and Docker Compose v2
@@ -81,6 +98,28 @@ curl http://localhost:8080
 | **Uptime Kuma** | http://localhost:3001 | Monitoring dashboard |
 | **Adminer** | http://localhost:8081 | Database UI (dev only) |
 
+### Uptime Kuma Monitoring Setup
+
+Access http://localhost:3001 to configure monitoring for your services:
+
+<p align="center">
+  <img src="../images/kuma-monitor-config-http.png" alt="Uptime Kuma HTTP Monitor Configuration" width="700" style="max-width: 100%; height: auto;" loading="lazy">
+</p>
+
+*Screenshot: Configuring HTTP monitor for Nginx web server*
+
+<p align="center">
+  <img src="../images/kuma-monitor-mysql-tcp.png" alt="Uptime Kuma MySQL TCP Monitor" width="700" style="max-width: 100%; height: auto;" loading="lazy">
+</p>
+
+*Screenshot: Configuring TCP monitor for MySQL database*
+
+<p align="center">
+  <img src="../images/kuma-telegram-alerts.png" alt="Uptime Kuma Telegram Alerts" width="700" style="max-width: 100%; height: auto;" loading="lazy">
+</p>
+
+*Screenshot: Setting up Telegram notifications for downtime alerts*
+
 ### Adminer Login
 
 - **System**: MySQL
@@ -88,6 +127,12 @@ curl http://localhost:8080
 - **Username**: `lemp_user` (from `.env`)
 - **Password**: `lemp_password` (from `.env`)
 - **Database**: `lemp_db` (from `.env`)
+
+<p align="center">
+  <img src="../images/adminer-db-overview.png" alt="Adminer Database Overview" width="800" style="max-width: 100%; height: auto;" loading="lazy">
+</p>
+
+*Screenshot: Adminer interface showing database tables and structure*
 
 ## Makefile Commands
 
@@ -159,6 +204,12 @@ curl http://localhost:8080/test-db.php
 
 **Expected**: Both return HTTP 200 with valid HTML content.
 
+<p align="center">
+  <img src="../images/dashboard-connected.png" alt="Dashboard with Database Connected" width="800" style="max-width: 100%; height: auto;" loading="lazy">
+</p>
+
+*Screenshot: Dashboard showing successful database connection with user and post counts*
+
 ### 3. Check Logs
 
 ```bash
@@ -170,6 +221,18 @@ docker compose logs -f nginx
 ```
 
 **No errors should appear** (warnings about dev-only files are normal).
+
+### 4. Test Database Connection
+
+```bash
+curl -s http://localhost:8080/test-db.php | jq
+```
+
+<p align="center">
+  <img src="../images/test-db-success.png" alt="Database Test Success" width="800" style="max-width: 100%; height: auto;" loading="lazy">
+</p>
+
+*Screenshot: JSON output showing successful database tests (connection, tables, queries)*
 
 ## Configuration
 

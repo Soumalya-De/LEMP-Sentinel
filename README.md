@@ -63,8 +63,8 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 
 | Document | Description |
 |----------|-------------|
-| [**Architecture**](docs/architecture.md) | System design, components, network architecture, data flow |
-| [**Quickstart Guide**](docs/quickstart.md) | Platform-specific setup, verification steps, first-time configuration |
+| [**Architecture**](docs/architecture.md) | System design, components, network architecture, data flow, system architecture diagram |
+| [**Quickstart Guide**](docs/quickstart.md) | Platform-specific setup, verification steps, Uptime Kuma monitoring setup with screenshots, Adminer database UI |
 | [**Configuration**](docs/configuration.md) | Environment variables, Docker Compose options, customization |
 | [**CI/CD Workflows**](docs/ci-cd-workflows.md) | GitHub Actions pipelines, Dependabot, SBOM, security scanning |
 | [**Secrets Management**](docs/secrets.md) | Environment variables, credential storage, pre-commit hooks |
@@ -167,6 +167,46 @@ This project implements multiple layers of security:
 - **Modern Authentication**: MySQL 8.0 authentication (development uses mysql_native_password, production should use caching_sha2_password with SSL)
 
 See [**CVE Remediation Strategy**](docs/cve-remediation.md), [**Secrets Management Guide**](docs/secrets.md), and [**Security Hardening**](docs/security-hardening.md) for comprehensive security practices.
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+**Nginx container restarting with "zero size shared memory zone" error:**
+```bash
+# Check logs
+docker logs lemp_nginx --tail 20
+
+# Fix: Rebuild Nginx image
+docker compose stop nginx
+docker compose rm -f nginx
+docker compose build --no-cache nginx
+docker compose up -d nginx
+```
+
+**"Command 'php' not found" on host system:**
+- This is expected! PHP runs inside the Docker container, not on your host
+- To check PHP syntax: `docker exec lemp_php php -l /var/www/html/index.php`
+- To run PHP commands: `docker exec lemp_php php [command]`
+
+**Trivy not found when running CVE check script:**
+- This is normal for local development
+- Trivy runs automatically in GitHub Actions (weekly monitoring)
+- To install locally (optional): See https://aquasecurity.github.io/trivy/latest/getting-started/installation/
+
+**Containers not starting:**
+```bash
+# Check container status
+docker compose ps
+
+# View logs
+docker compose logs [service_name]
+
+# Validate configuration
+docker compose config
+```
 
 ---
 
