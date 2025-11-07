@@ -63,8 +63,8 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 
 | Document | Description |
 |----------|-------------|
-| [**Architecture**](docs/architecture.md) | System design, components, network architecture, data flow |
-| [**Quickstart Guide**](docs/quickstart.md) | Platform-specific setup, verification steps, first-time configuration |
+| [**Architecture**](docs/architecture.md) | System design, components, network architecture, data flow, system architecture diagram |
+| [**Quickstart Guide**](docs/quickstart.md) | Platform-specific setup, verification steps, Uptime Kuma monitoring setup with screenshots, Adminer database UI |
 | [**Configuration**](docs/configuration.md) | Environment variables, Docker Compose options, customization |
 | [**CI/CD Workflows**](docs/ci-cd-workflows.md) | GitHub Actions pipelines, Dependabot, SBOM, security scanning |
 | [**Secrets Management**](docs/secrets.md) | Environment variables, credential storage, pre-commit hooks |

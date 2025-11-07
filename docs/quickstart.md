@@ -2,6 +2,23 @@
 
 Get the LEMP stack running in 5 minutes.
 
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Quick Start (5 commands)](#quick-start-5-commands)
+- [Access Points](#access-points)
+  - [Uptime Kuma Monitoring Setup](#uptime-kuma-monitoring-setup)
+  - [Adminer Login](#adminer-login)
+- [Makefile Commands](#makefile-commands)
+- [Verification Steps](#verification-steps)
+- [Configuration](#configuration)
+- [First-Time Setup](#first-time-setup)
+- [Common Issues](#common-issues)
+- [Next Steps](#next-steps)
+- [Development Workflow](#development-workflow)
+- [Production Checklist](#production-checklist)
+- [Support](#support)
+
 ## Prerequisites
 
 - Docker Engine 24+ and Docker Compose v2

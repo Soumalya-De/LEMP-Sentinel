@@ -1,5 +1,21 @@
 # Architecture
 
+## Table of Contents
+
+- [System Overview](#system-overview)
+- [Components](#components)
+- [System Architecture](#system-architecture)
+- [Request and Data Flow](#request-and-data-flow)
+- [Network Architecture](#network-architecture)
+- [Data Persistence](#data-persistence)
+- [Service Dependencies](#service-dependencies)
+- [Configuration Management](#configuration-management)
+- [Security Design](#security-design)
+- [Scalability Considerations](#scalability-considerations)
+- [Technology Stack](#technology-stack)
+- [Design Principles](#design-principles)
+- [Related Documentation](#related-documentation)
+
 ## System Overview
 
 This LEMP stack implements a production-aligned architecture with integrated monitoring and security scanning.
