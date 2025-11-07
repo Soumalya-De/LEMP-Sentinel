@@ -1,10 +1,10 @@
-# LEMP Stack with Integrated Monitoring
+# LEMP-Sentinel: Production-Ready DevSecOps Stack
 
 <p align="center">
   <img src="images/LEMP-GitHub-Cover-Banner.png" alt="LEMP Stack Banner" width="800" style="max-width: 100%; height: auto;">
 </p>
 
-A production-ready LEMP (Linux, Nginx, MySQL, PHP) stack with built-in monitoring, security scanning, and automated CI/CD workflows. Designed for local development with production-aligned architecture.
+A security-first, fully containerized LEMP (Linux, Nginx, MySQL, PHP) stack with integrated monitoring, active CVE remediation, and GitOps-driven CI/CD workflows. Purpose-built for DevOps/SRE learning, local development, and production-aligned architectures with zero-to-hero automation—from container orchestration to supply chain security.
 
 [![CI Pipeline](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml)
 [![Security Scan](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
