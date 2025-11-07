@@ -44,6 +44,7 @@ make smoke
 - Never commit secrets; use `.env` locally and GitHub Actions secrets in CI
 - Report vulnerabilities privately per `SECURITY.md`
 - Adminer is for local dev only; do not expose publicly
+- **CVE Remediation:** Automated weekly monitoring runs via GitHub Actions; see [docs/cve-remediation.md](docs/cve-remediation.md) for the full strategy. If you encounter new CVEs, use the CVE tracking issue template to document them.
 
 ## Submitting a PR
 1. Ensure your branch is up to date with `main`
