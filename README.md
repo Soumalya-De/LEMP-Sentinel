@@ -1,10 +1,21 @@
-# LEMP-Sentinel: Production-Ready DevSecOps Stack
+# LEMP-Sentinel: Production-Grade DevSecOps Infrastructure
 
 <p align="center">
   <img src="images/LEMP-GitHub-Cover-Banner.png" alt="LEMP Stack Banner" width="800" style="max-width: 100%; height: auto;">
 </p>
 
-A security-first, fully containerized LEMP (Linux, Nginx, MySQL, PHP) stack with integrated monitoring, active CVE remediation, and GitOps-driven CI/CD workflows. Purpose-built for DevOps/SRE learning, local development, and production-aligned architectures with zero-to-hero automation—from container orchestration to supply chain security.
+**A security-first, fully containerized LEMP stack with active CVE remediation and automated security scanning.** This project demonstrates enterprise-grade DevSecOps practices—from container orchestration and CI/CD automation to supply chain security and real-time monitoring. Built for DevOps/SRE learning, local development environments, and production-aligned architectures.
+
+### 🎯 What Makes This Different
+
+Unlike basic Docker tutorials, LEMP-Sentinel implements **active CVE remediation** through automated weekly vulnerability scanning with GitHub Actions. When CVEs are detected, the system auto-generates tracking issues with severity-based SLAs (HIGH: 14 days, MEDIUM: 30 days) and alerts when patches become available—reducing manual security management from hours to minutes.
+
+**Core Security Features:**
+- 🔒 Pre-commit secret scanning (Gitleaks, detect-secrets) prevents credential leaks before they reach version control
+- 📦 Automated SBOM generation provides complete supply chain transparency for audit compliance
+- 🛡️ Network isolation ensures internal services never expose ports to the host (zero-trust architecture)
+- ⚡ Nginx rate limiting (10 req/s) and security headers protect against DoS, XSS, and clickjacking attacks
+- 📊 Real-time monitoring with Uptime Kuma and Telegram/Discord alerting for immediate downtime notifications
 
 [![CI Pipeline](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml)
 [![Security Scan](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
@@ -13,22 +24,52 @@ A security-first, fully containerized LEMP (Linux, Nginx, MySQL, PHP) stack with
 
 ---
 
-## Features
+## ✨ Key Features
 
-- **🐳 Docker-Based**: Fully containerized with Docker Compose orchestration
-- **🔒 Security-First**: Pre-commit secret scanning, vulnerability scans, SBOM generation, security headers, rate limiting
-- **🤖 Active CVE Remediation**: Automated weekly CVE monitoring with auto-issue creation, minimal human intervention, and proactive remediation when fixes become available
-- **📊 Built-In Monitoring**: Uptime Kuma for real-time service health tracking
-- **🚀 CI/CD Automated**: 6 GitHub Actions workflows for testing, scanning, CVE monitoring, and validation
-- **💾 Backup/Restore**: Automated database backup and restore procedures
-- **🔧 Development-Ready**: Hot-reload PHP files, Adminer for database management
-- **📦 Supply Chain Security**: Dependabot auto-updates, image digest pinning, weekly CVE status checks
-- **🎯 Production-Aligned**: Same codebase for dev/staging/production with env variables
-- **🛡️ Hardened by Default**: XSS protection, clickjacking prevention, modern MySQL authentication
+### � Security Automation
+- **Active CVE Remediation**: Automated weekly vulnerability scanning with Trivy, auto-generated GitHub issues, and severity-based SLA tracking
+- **Pre-Commit Protection**: Gitleaks and detect-secrets prevent credentials from reaching version control
+- **Supply Chain Security**: Automated SBOM generation, Dependabot updates, and digest-pinned images for reproducibility
+- **Security Headers**: XSS protection, clickjacking prevention, MIME-sniffing guards, and rate limiting (10 req/s)
+
+### 🚀 CI/CD & Automation
+- **6 GitHub Actions Workflows**: Automated secret scanning, vulnerability detection, SBOM generation, backup validation, and CVE monitoring
+- **Environment-Based Configs**: Single codebase deploys to dev/staging/production with environment variables
+- **Health Checks**: Self-healing containers with automated restart policies and dependency management
+
+### � Monitoring & Observability
+- **Real-Time Monitoring**: Uptime Kuma tracks Nginx, PHP-FPM, and MySQL health with 60-second intervals
+- **Instant Alerting**: Telegram and Discord notifications for downtime events
+- **Network Isolation**: Zero-trust architecture with internal-only service communication
+
+### �️ Developer Experience
+- **5-Minute Setup**: Single-command deployment across Linux, macOS, and Windows (WSL2)
+- **Hot-Reload Development**: Live PHP file changes without container restarts
+- **Database Management**: Adminer UI for easy MySQL administration (dev profile)
+- **Cross-Platform**: Tested on Ubuntu 22.04, macOS 14, and Windows 11 (WSL2)
 
 ---
 
-## Quick Start
+## 🎓 Why This Project?
+
+**Traditional LEMP stacks lack integrated security automation and monitoring**—developers manually track CVEs, configure alerts, and maintain infrastructure hygiene. LEMP-Sentinel bridges this gap by treating **security as code**, implementing the same practices used by enterprise DevSecOps teams but without expensive commercial tools.
+
+**Perfect For:**
+- 🎯 DevOps/SRE engineers building production-ready portfolio projects
+- 🚀 Startups needing secure, scalable local development environments
+- 📚 Learning modern DevSecOps practices with real-world CI/CD workflows
+- 🏢 Teams requiring dev/prod parity without Kubernetes complexity
+
+**What You'll Learn:**
+- Container orchestration with Docker Compose and multi-stage builds
+- GitOps-driven CI/CD with GitHub Actions (6 automated workflows)
+- Vulnerability management with automated Trivy scans and SBOM generation
+- Infrastructure monitoring with health checks and alerting systems
+- Security hardening with network isolation, rate limiting, and secret management
+
+---
+
+## 🚀 Quick Start
 
 Get up and running in 5 minutes:
 
