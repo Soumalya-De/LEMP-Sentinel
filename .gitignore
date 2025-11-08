@@ -39,3 +39,4 @@ backup/*
 # Private documentation (local use only, not for public repo)
 PROJECT_DESCRIPTION.md
 GITHUB_ABOUT.md
+DOCUMENTATION_STYLE_GUIDE.md
