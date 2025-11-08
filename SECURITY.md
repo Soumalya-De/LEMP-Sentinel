@@ -1,26 +1,120 @@
 # Security Policy
 
-We take the security of this project seriously. Please follow the guidance below.
+LEMP-Sentinel implements enterprise-grade security practices for containerized infrastructure. This document outlines our vulnerability management process and reporting procedures.
 
-## Supported versions
-This repository is a learning/reference stack. Security scans (Trivy) run on PRs (informational) and nightly for the default branch (blocking on HIGH/CRITICAL).
+---
 
-## Reporting a vulnerability
-- Please DO NOT open a public issue for suspected vulnerabilities.
-- Email the maintainer with the subject: "[LEMP-Sentinel] Security Report" and include:
-  - Affected component(s)
-  - Steps to reproduce
-  - Impact assessment (what could an attacker do?)
-  - Suggested fix if known
-- You will receive an acknowledgment within 72 hours.
+## Supported Versions
+
+**Current Status:** Active Development  
+**Security Scanning:** Automated Trivy vulnerability scans run on:
+- Pull requests (informational warnings)
+- Nightly builds (blocking on HIGH/CRITICAL findings)
+- Weekly CVE remediation monitoring with auto-generated tracking issues
+
+**Versioning:** This project follows [Semantic Versioning](https://semver.org/). Security patches are applied to the latest stable release.
+
+---
+
+## Reporting a Vulnerability
+
+**⚠️ DO NOT open public issues for security vulnerabilities.**
+
+### Responsible Disclosure Process
+
+1. **Submit a Private Report:**
+   - Use [GitHub Security Advisories](https://github.com/Soumalya-De/LEMP-Sentinel/security/advisories/new) (preferred)
+   - Or email: `[maintainer email]` with subject: `[LEMP-Sentinel] Security Vulnerability`
+
+2. **Include the Following Information:**
+   - **Affected Component:** Docker image, configuration file, or code module
+   - **Vulnerability Type:** SQL injection, command injection, privilege escalation, etc.
+   - **Attack Vector:** Steps to reproduce the issue
+   - **Impact Assessment:** Potential damage or data exposure
+   - **Suggested Remediation:** Proposed fix or mitigation (if known)
+   - **Discovery Method:** How the vulnerability was identified
+
+3. **Expected Response Timeline:**
+   - **Initial Acknowledgment:** Within 72 hours
+   - **Triage & Assessment:** Within 7 days
+   - **Fix Development:** Based on severity (see SLAs below)
+   - **Public Disclosure:** Coordinated with reporter after patch release
+
+---
+
+## Severity Levels & SLAs
+
+| Severity | Description | Response Time | Example |
+|----------|-------------|---------------|---------|
+| **CRITICAL** | Remote code execution, authentication bypass | 7 days | Unpatched RCE in PHP-FPM |
+| **HIGH** | Privilege escalation, data leakage | 14 days | SQL injection in application code |
+| **MEDIUM** | DoS, information disclosure | 30 days | Exposed debug endpoints |
+| **LOW** | Minor configuration issues | 60 days | Verbose error messages |
+
+---
 
 ## Scope
-- Docker images, Compose files, and default configuration in this repository.
-- Documentation and example code under `www/`.
 
-## Out of scope
-- Third-party images and upstream projects.
-- Production deployments outside this repository (e.g., forks, customizations).
+### In Scope (We Accept Reports For)
 
-## Coordinated disclosure
-If a vulnerability is confirmed, we will publish a fix and credit the reporter if requested.
+✅ Docker images and Dockerfiles (`nginx/Dockerfile`, `php/Dockerfile`)  
+✅ Docker Compose configuration files  
+✅ Application code in `www/` directory  
+✅ CI/CD workflows (`.github/workflows/`)  
+✅ Nginx and PHP configuration files  
+✅ Environment variable handling and secrets management  
+✅ Supply chain security (base images, dependencies)  
+
+### Out of Scope (We Do NOT Accept Reports For)
+
+❌ Upstream vulnerabilities in official Docker images (report to Alpine, PHP, Nginx, MySQL maintainers)  
+❌ Third-party dependencies tracked in `.trivyignore` with active remediation plans  
+❌ Vulnerabilities in forked/customized deployments outside this repository  
+❌ Social engineering or physical attacks  
+❌ Denial of service requiring extraordinary resources  
+
+**Note:** CVEs in base images (e.g., `php:8.2-fpm-alpine`) are tracked through our [Active CVE Remediation Strategy](docs/cve-remediation.md). Check existing [CVE tracking issues](https://github.com/Soumalya-De/LEMP-Sentinel/labels/cve-tracking) before reporting.
+
+---
+
+## Coordinated Disclosure
+
+Upon confirmation of a vulnerability:
+
+1. **Patch Development:** We develop and test a fix in a private branch
+2. **CVE Assignment:** Request a CVE identifier if applicable (via GitHub Security Advisories)
+3. **Security Advisory:** Publish a GitHub Security Advisory with:
+   - Vulnerability description
+   - Affected versions
+   - Patched versions
+   - Workarounds or mitigations
+   - Credit to the reporter (if desired)
+4. **Public Disclosure:** Announce the fix in release notes and community channels
+
+**Reporter Credit:** We acknowledge responsible disclosures in release notes and security advisories unless anonymity is requested.
+
+---
+
+## Security Best Practices
+
+For secure deployment of LEMP-Sentinel:
+
+- Review [Security Hardening Guide](docs/security-hardening.md)
+- Enable [pre-commit secret scanning](docs/secrets.md)
+- Follow [CVE Remediation Strategy](docs/cve-remediation.md)
+- Never expose Adminer in production environments
+- Use TLS/SSL for production deployments
+- Regularly update base images and dependencies
+
+---
+
+## Security Resources
+
+- **Documentation:** [docs/security-hardening.md](docs/security-hardening.md)
+- **CVE Strategy:** [docs/cve-remediation.md](docs/cve-remediation.md)
+- **CI/CD Security:** [docs/ci-cd-workflows.md](docs/ci-cd-workflows.md)
+- **Secrets Management:** [docs/secrets.md](docs/secrets.md)
+
+---
+
+**Last Updated:** November 8, 2025

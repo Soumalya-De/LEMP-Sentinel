@@ -1,6 +1,6 @@
 # Quickstart Guide
 
-Get the LEMP stack running in 5 minutes.
+This guide provides step-by-step instructions for deploying LEMP-Sentinel in local development environments. Complete deployment requires approximately 5 minutes on systems meeting the prerequisites.
 
 ## Table of Contents
 
