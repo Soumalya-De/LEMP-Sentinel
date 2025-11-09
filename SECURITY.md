@@ -24,7 +24,7 @@ LEMP-Sentinel implements enterprise-grade security practices for containerized i
 
 1. **Submit a Private Report:**
    - Use [GitHub Security Advisories](https://github.com/Soumalya-De/LEMP-Sentinel/security/advisories/new) (preferred)
-   - Or email: `[maintainer email]` with subject: `[LEMP-Sentinel] Security Vulnerability`
+   - Or create a private issue by contacting the repository maintainer via GitHub
 
 2. **Include the Following Information:**
    - **Affected Component:** Docker image, configuration file, or code module
@@ -81,17 +81,19 @@ LEMP-Sentinel implements enterprise-grade security practices for containerized i
 
 Upon confirmation of a vulnerability:
 
-1. **Patch Development:** We develop and test a fix in a private branch
-2. **CVE Assignment:** Request a CVE identifier if applicable (via GitHub Security Advisories)
+1. **Assessment:** We confirm the vulnerability and determine severity
+2. **Fix Development:** We develop and test a fix (coordinating timeline with reporter)
 3. **Security Advisory:** Publish a GitHub Security Advisory with:
    - Vulnerability description
    - Affected versions
    - Patched versions
-   - Workarounds or mitigations
-   - Credit to the reporter (if desired)
-4. **Public Disclosure:** Announce the fix in release notes and community channels
+   - Workarounds or mitigations (if available)
+   - Credit to the reporter (unless anonymity is requested)
+4. **Public Disclosure:** Release the fix and announce in release notes
 
-**Reporter Credit:** We acknowledge responsible disclosures in release notes and security advisories unless anonymity is requested.
+**Timeline Coordination:** We will work with you to agree on a reasonable disclosure timeline that allows users to patch before public details are released.
+
+**Reporter Credit:** We acknowledge responsible disclosures in release notes and security advisories unless you request anonymity.
 
 ---
 
