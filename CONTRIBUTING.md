@@ -2,6 +2,49 @@
 
 We welcome contributions that enhance security, improve documentation, or add features aligned with production-grade DevSecOps practices. This guide outlines development workflows, quality standards, and submission requirements.
 
+## 📌 Current Project Status
+
+**🟢 Active (Maintenance Mode)** - Core features are complete and stable. This project intentionally maintains a focused scope: **secure LEMP deployment with automated vulnerability management**.
+
+### What We're Accepting
+
+✅ **Security Fixes**
+- CVE patches and security vulnerability resolutions
+- Security hardening improvements
+- Pre-commit hook enhancements
+
+✅ **Bug Fixes**
+- Service reliability issues
+- Configuration errors
+- Documentation corrections
+
+✅ **Documentation Improvements**
+- Clarity enhancements
+- Missing details or examples
+- Updated best practices
+
+✅ **Dependency Updates**
+- Docker image updates
+- Security patches
+- Alpine/PHP/MySQL/Nginx version bumps
+
+### What We're Not Adding
+
+❌ **New Major Features**
+- Full observability stack (Prometheus/Grafana/Loki)
+- Additional services beyond LEMP core
+- Alternative database systems
+- Language/framework changes
+
+❌ **Scope Expansion**
+- Container orchestration platforms (Kubernetes, Docker Swarm)
+- Multi-region deployment patterns
+- Advanced networking configurations
+
+**Why?** Feature creep reduces this project's value as a **learning resource and production starting point**. If you need additional capabilities, consider forking the project or building on top of it.
+
+**Have an idea that doesn't fit?** We encourage forks! This MIT-licensed project is designed to be a foundation you can build upon.
+
 ## Prerequisites
 - Docker Engine v24+ with Compose v2
 - Optional: `pre-commit` (Python) for local hooks

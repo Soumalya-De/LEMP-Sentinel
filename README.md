@@ -1,10 +1,25 @@
 # LEMP-Sentinel: Production-Grade DevSecOps Infrastructure
 
+[![CI Pipeline](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml)
+[![Security Scan](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
+[![CVE Monitoring](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/cve-remediation-monitor.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/cve-remediation-monitor.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+![Last Commit](https://img.shields.io/github/last-commit/Soumalya-De/LEMP-Sentinel)
+[![GitHub Stars](https://img.shields.io/github/stars/Soumalya-De/LEMP-Sentinel?style=social)](https://github.com/Soumalya-De/LEMP-Sentinel/stargazers)
+
 <p align="center">
   <img src="images/LEMP-GitHub-Cover-Banner.png" alt="LEMP Stack Banner" width="800" style="max-width: 100%; height: auto;">
 </p>
 
 **A security-first, fully containerized LEMP stack with active CVE remediation and automated security scanning.** This project demonstrates enterprise-grade DevSecOps practices—from container orchestration and CI/CD automation to supply chain security and real-time monitoring. Built for DevOps/SRE learning, local development environments, and production-aligned architectures.
+
+## 📌 Project Status
+
+**🟢 Active (Maintenance Mode)** - Core development complete. This project demonstrates production-grade DevSecOps practices for LEMP stack deployment with automated security workflows. Currently maintained for dependency updates and security patches.
+
+**Built:** August-November 2025 (NIELIT Cloud Computing Internship)  
+**Use Cases:** Learning resource, portfolio showcase, production starting point for secure LEMP deployments
 
 ### 🎯 What Makes This Different
 
@@ -16,11 +31,6 @@ Unlike basic Docker tutorials, LEMP-Sentinel implements **active CVE remediation
 - 🛡️ Network isolation ensures internal services never expose ports to the host (zero-trust architecture)
 - ⚡ Nginx rate limiting (10 req/s) and security headers protect against DoS, XSS, and clickjacking attacks
 - 📊 Real-time monitoring with Uptime Kuma and Telegram/Discord alerting for immediate downtime notifications
-
-[![CI Pipeline](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml)
-[![Security Scan](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 ---
 
