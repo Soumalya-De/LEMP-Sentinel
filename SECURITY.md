@@ -6,10 +6,10 @@ LEMP-Sentinel implements enterprise-grade security practices for containerized i
 
 ## Supported Versions
 
-**Current Status:** Active Development  
+**Current Status:** Active (Maintenance Mode) - v1.2.0  
 **Security Scanning:** Automated Trivy vulnerability scans run on:
 - Pull requests (informational warnings)
-- Nightly builds (blocking on HIGH/CRITICAL findings)
+- Nightly scans (daily at 03:00 UTC, blocks on HIGH/CRITICAL findings)
 - Weekly CVE remediation monitoring with auto-generated tracking issues
 
 **Versioning:** This project follows [Semantic Versioning](https://semver.org/). Security patches are applied to the latest stable release.
@@ -73,7 +73,7 @@ LEMP-Sentinel implements enterprise-grade security practices for containerized i
 ❌ Social engineering or physical attacks  
 ❌ Denial of service requiring extraordinary resources  
 
-**Note:** CVEs in base images (e.g., `php:8.2-fpm-alpine`) are tracked through our [Active CVE Remediation Strategy](docs/cve-remediation.md). Check existing [CVE tracking issues](https://github.com/Soumalya-De/LEMP-Sentinel/labels/cve-tracking) before reporting.
+**Note:** CVEs in base images (e.g., `php:8.2-fpm-alpine`) are tracked through our [CVE Remediation Playbook](docs/cve-playbook.md) and [CVE Remediation Strategy](docs/cve-remediation.md). Check existing [CVE tracking issues](https://github.com/Soumalya-De/LEMP-Sentinel/labels/cve-tracking) before reporting.
 
 ---
 
@@ -119,4 +119,5 @@ For secure deployment of LEMP-Sentinel:
 
 ---
 
-**Last Updated:** November 8, 2025
+---
+**Last Updated:** November 10, 2025
