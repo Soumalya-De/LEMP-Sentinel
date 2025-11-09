@@ -133,10 +133,10 @@ CVE-2025-49794
 
 ---
 
-### 6. **Implementation Summary Document** 📖
+### 6. **Implementation Documentation** 📖
 
 **What's New:**
-- Document: `CVE-REMEDIATION-SUMMARY.md` (251 lines)
+- Documents: `docs/cve-remediation.md` (326 lines), `docs/cve-playbook.md` (added in v1.2.0)
 - Comprehensive overview of CVE strategy implementation
 - Includes: benefits, workflow diagrams, success metrics
 
@@ -144,7 +144,7 @@ CVE-2025-49794
 
 ## 📦 File Changes
 
-### New Files Added (6)
+### New Files Added (5)
 
 | File | Lines | Purpose |
 |------|-------|---------|
@@ -152,10 +152,9 @@ CVE-2025-49794
 | `.github/ISSUE_TEMPLATE/cve-tracking.md` | 33 | GitHub issue template for CVE tracking |
 | `scripts/check-cve-remediation.sh` | 85 | Manual CVE status checker |
 | `docs/cve-remediation.md` | 326 | Comprehensive CVE remediation guide |
-| `CVE-REMEDIATION-SUMMARY.md` | 251 | Implementation summary |
 | `RELEASE_NOTES_v1.1.0.md` | This file | Release documentation |
 
-**Total New Documentation:** ~1,155 lines
+**Total New Documentation:** ~900+ lines (v1.2.0 added cve-playbook.md with 300+ lines)
 
 ### Modified Files (2)
 
@@ -347,8 +346,8 @@ $ ./scripts/check-cve-remediation.sh
 
 ## 🔗 References
 
-- **CVE Remediation Guide:** [docs/cve-remediation.md](docs/cve-remediation.md)
-- **Implementation Summary:** [CVE-REMEDIATION-SUMMARY.md](CVE-REMEDIATION-SUMMARY.md)
+- **CVE Remediation Strategy:** [docs/cve-remediation.md](docs/cve-remediation.md)
+- **CVE Remediation Playbook:** [docs/cve-playbook.md](docs/cve-playbook.md)
 - **Workflow File:** [.github/workflows/cve-remediation-monitor.yml](.github/workflows/cve-remediation-monitor.yml)
 - **Manual Script:** [scripts/check-cve-remediation.sh](scripts/check-cve-remediation.sh)
 - **Alpine Package Tracker:** https://pkgs.alpinelinux.org/package/edge/main/x86_64/libxml2

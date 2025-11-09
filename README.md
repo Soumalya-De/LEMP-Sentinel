@@ -205,7 +205,6 @@ LEMP-Sentinel/
 ├── SECURITY.md                 # Security policy
 ├── RELEASE_NOTES_v1.0.0.md     # v1.0.0 release documentation
 ├── RELEASE_NOTES_v1.1.0.md     # v1.1.0 release documentation
-├── CVE-REMEDIATION-SUMMARY.md  # CVE strategy implementation summary
 ├── LICENSE                     # MIT License (code)
 └── LICENSE-DOCS                # CC-BY-4.0 License (docs)
 ```
