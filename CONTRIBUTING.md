@@ -1,10 +1,10 @@
 # Contributing to LEMP-Sentinel
 
-We welcome contributions that enhance security, improve documentation, or add features aligned with production-grade DevSecOps practices. This guide outlines development workflows, quality standards, and submission requirements.
+Thanks for your interest! This guide covers how to contribute to the project.
 
 ## 📌 Current Project Status
 
-**🟢 Active (Maintenance Mode)** - Core features are complete and stable. This project intentionally maintains a focused scope: **secure LEMP deployment with automated vulnerability management**.
+**🟢 Active (Maintenance Mode)** - Core features are complete. The project focuses on secure LEMP deployment with automated vulnerability management.
 
 ### What We're Accepting
 
@@ -41,9 +41,7 @@ We welcome contributions that enhance security, improve documentation, or add fe
 - Multi-region deployment patterns
 - Advanced networking configurations
 
-**Why?** Feature creep reduces this project's value as a **learning resource and production starting point**. If you need additional capabilities, consider forking the project or building on top of it.
-
-**Have an idea that doesn't fit?** We encourage forks! This MIT-licensed project is designed to be a foundation you can build upon.
+**Why?** Keeping the project focused makes it useful as a learning resource and production starting point. If you need additional features, fork the project - it's MIT licensed.
 
 ## Prerequisites
 - Docker Engine v24+ with Compose v2
@@ -180,4 +178,4 @@ For assistance:
 
 ---
 
-We value contributions that enhance security, improve documentation, or add features aligned with production-grade DevSecOps practices. Thank you for helping make LEMP-Sentinel better.
+Thanks for contributing!
