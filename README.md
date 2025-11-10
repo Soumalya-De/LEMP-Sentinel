@@ -196,16 +196,15 @@ LEMP-Sentinel/
 │   ├── index.php               # Homepage
 │   ├── info.php                # PHP diagnostics (dev only)
 │   └── test-db.php             # Database test (dev only)
-├── docker-compose.yml          # Service orchestration (main)
-├── docker-compose.nonroot.yml  # Non-root PHP override
-├── docker-compose.prod.yml     # Production overrides (digest pinning)
-├── Makefile                    # Common task automation
 ├── .env.example                # Environment template
 ├── .gitignore                  # Git ignore rules
 ├── .pre-commit-config.yaml     # Pre-commit hooks
 ├── .secrets.baseline           # detect-secrets baseline
 ├── .trivyignore                # CVE suppressions (actively monitored)
 ├── CONTRIBUTING.md             # Contribution guidelines
+├── docker-compose.yml          # Service orchestration (main)
+├── docker-compose.nonroot.yml  # Non-root PHP override
+├── docker-compose.prod.yml     # Production overrides (digest pinning)
 ├── LICENSE                     # MIT License (code)
 ├── LICENSE-DOCS                # CC-BY-4.0 License (docs)
 ├── Makefile                    # Common task automation
