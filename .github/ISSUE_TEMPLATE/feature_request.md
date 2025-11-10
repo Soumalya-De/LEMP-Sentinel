@@ -1,19 +1,19 @@
 ---
 name: "Feature request"
-about: Suggest an idea for this project
+about: Suggest an idea
 title: "[FEAT] Brief description"
 labels: [enhancement]
 assignees: []
 ---
 
-## Problem statement
+## Problem
 What problem are you trying to solve?
 
-## Proposed solution
-Describe the solution you'd like.
+## Proposed Solution
+What would you like to see?
 
-## Alternatives considered
-Describe any alternative solutions or features you've considered.
+## Alternatives
+Other solutions you've considered.
 
-## Additional context
-Add any other context or screenshots about the feature request here.
+## Context
+Additional details or use cases.

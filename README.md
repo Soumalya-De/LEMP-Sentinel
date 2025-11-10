@@ -160,14 +160,16 @@ LEMP-Sentinel/
 │   ├── pull_request_template.md # PR checklist template
 │   └── dependabot.yml          # Automated dependency updates
 ├── backup/                     # Backup files (gitignored)
-├── docs/                       # Comprehensive documentation
+│   └── README-FULL-BACKUP.md   # Backup instructions
+├── docs/                       # Documentation
 │   ├── architecture.md         # System design and data flow
-│   ├── quickstart.md           # Platform-specific setup
-│   ├── configuration.md        # Environment variables
 │   ├── ci-cd-workflows.md      # GitHub Actions documentation
+│   ├── configuration.md        # Environment variables and deployment
+│   ├── cve-playbook.md         # CVE remediation operational procedures
+│   ├── cve-remediation.md      # CVE remediation strategy
+│   ├── quickstart.md           # Platform-specific setup
 │   ├── secrets.md              # Secrets management guide
-│   ├── security-hardening.md   # Security best practices
-│   └── cve-remediation.md      # CVE remediation strategy
+│   └── security-hardening.md   # Security best practices
 ├── images/                     # Screenshots and diagrams
 │   ├── LEMP-GitHub-Cover-Banner.png  # Repository banner
 │   ├── system-architecture.png       # Complete system architecture
@@ -200,15 +202,18 @@ LEMP-Sentinel/
 ├── Makefile                    # Common task automation
 ├── .env.example                # Environment template
 ├── .gitignore                  # Git ignore rules
-├── .trivyignore                # CVE suppressions (actively monitored)
 ├── .pre-commit-config.yaml     # Pre-commit hooks
+├── .secrets.baseline           # detect-secrets baseline
+├── .trivyignore                # CVE suppressions (actively monitored)
 ├── CONTRIBUTING.md             # Contribution guidelines
-├── SECURITY.md                 # Security policy
+├── LICENSE                     # MIT License (code)
+├── LICENSE-DOCS                # CC-BY-4.0 License (docs)
+├── Makefile                    # Common task automation
+├── README.md                   # This file
 ├── RELEASE_NOTES_v1.0.0.md     # v1.0.0 release documentation
 ├── RELEASE_NOTES_v1.1.0.md     # v1.1.0 release documentation
 ├── RELEASE_NOTES_v1.2.0.md     # v1.2.0 release documentation
-├── LICENSE                     # MIT License (code)
-└── LICENSE-DOCS                # CC-BY-4.0 License (docs)
+└── SECURITY.md                 # Security policy
 ```
 
 ---
