@@ -1,4 +1,41 @@
 services:
+  nginx:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+      - CHOWN
+      - SETGID
+      - SETUID
+
+  php:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run
+
+  mysql:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+
+  uptime-kuma:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
   adminer:
     # Exclude adminer in prod profile by overriding with condition: service_removed in docs or simply not including this file.
     # This file intentionally left minimal; production orchestrations should remove this service entirely.

@@ -1,6 +1,11 @@
 # Security Hardening Guide
 
-Comprehensive security measures implemented in LEMP-Sentinel.
+Security measures implemented in LEMP-Sentinel.
+
+**Related Docs:**
+- [Secrets Management](secrets.md)
+- [CVE Remediation Strategy](cve-remediation.md)
+- [CVE Remediation Playbook](cve-playbook.md)
 
 ## ✅ Implemented Security Features
 
@@ -101,10 +106,4 @@ If you discover a security vulnerability:
 - Email the maintainer with details
 - See [SECURITY.md](../SECURITY.md) for reporting procedures
 
-## 🔄 Release Hygiene
 
-- Tag releases with semantic versioning (v1.0.0, v1.1.0, etc.)
-- Attach SBOM artifacts to releases
-- Consider signing images or producing provenance (SLSA) for production
-- Document security improvements in release notes
-- Maintain changelog with security fixes highlighted

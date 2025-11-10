@@ -77,7 +77,7 @@ SMTP_FROM=noreply@example.com
 SMTP_TO=oncall@example.com
 ```
 
-See [Monitoring Guide](monitoring.md) for setup instructions.
+Configure Uptime Kuma monitoring via the web interface at http://localhost:3001.
 
 ## Docker Compose Options
 
@@ -532,10 +532,64 @@ docker compose ps
 docker inspect lemp-stack-nginx | jq '.[0].State.Health'
 ```
 
-## Related Documentation
+---
+
+
+## Production Deployment
+
+### What's Included
+
+- Nginx security headers and rate limiting
+- Automated Trivy vulnerability scans
+- Container hardening (non-root users, read-only FS)
+- Uptime Kuma health monitoring
+- GitHub Actions CI/CD workflows
+
+### What You Need to Add
+
+**1. TLS/HTTPS**
+- Use Traefik + Let's Encrypt, cloud load balancer (AWS ALB, GCP HTTPS LB), or Certbot
+- See respective documentation for setup
+
+**2. Secrets Management**  
+- Development: `.env` file (gitignored)
+- Production: Use AWS Secrets Manager, HashiCorp Vault, GCP Secret Manager, or Azure Key Vault
+- Never hard-code credentials
+
+**3. Logging (Optional)**
+- Current: Docker logs + Uptime Kuma
+- Production: Consider Prometheus + Grafana, ELK stack, or cloud-native solutions (CloudWatch, Stackdriver)
+
+**4. Backups**
+- Database: `make backup` (run via cron)
+- Volumes: Implement backup strategy for your environment
+- Test restore procedures regularly
+
+**5. Deployment Checklist**
+- [ ] TLS certificates configured
+- [ ] All default passwords changed (`.env`)
+- [ ] Secrets moved to vault
+- [ ] Adminer disabled (not in docker-compose.prod.yml)
+- [ ] Firewall rules configured
+- [ ] Backup automation set up
+- [ ] Monitoring alerts configured
+- [ ] Review `.trivyignore` (remove when fixes available)
+
+### Why Not Include Everything?
+
+This project focuses on **security automation** for LEMP stack. Adding full observability, orchestration, and enterprise features would:
+- Increase complexity for learners
+- Add infrastructure costs
+- Create maintenance burden
+- Reduce flexibility (your AWS setup differs from GCP, self-hosted, etc.)
+
+You get a secure foundation. You add what fits your environment.
+
+---
+
 
 - [Architecture](architecture.md) - System design and components
 - [Quickstart](quickstart.md) - Getting started guide
-- [Security](security.md) - Security hardening
-- [Monitoring](monitoring.md) - Uptime Kuma setup
-- [Performance Tuning](performance-tuning.md) - Optimization strategies
+- [Security Hardening](security-hardening.md) - Detailed security guide
+- [CVE Playbook](cve-playbook.md) - Vulnerability management procedures
+- [CI/CD Workflows](ci-cd-workflows.md) - Automation documentation

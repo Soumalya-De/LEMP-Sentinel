@@ -1,26 +1,36 @@
 # LEMP-Sentinel: Production-Grade DevSecOps Infrastructure
 
+[![CI Pipeline](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml)
+[![Security Scan](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
+[![CVE Monitoring](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/cve-remediation-monitor.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/cve-remediation-monitor.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+![Last Commit](https://img.shields.io/github/last-commit/Soumalya-De/LEMP-Sentinel)
+[![GitHub Stars](https://img.shields.io/github/stars/Soumalya-De/LEMP-Sentinel?style=social)](https://github.com/Soumalya-De/LEMP-Sentinel/stargazers)
+
 <p align="center">
   <img src="images/LEMP-GitHub-Cover-Banner.png" alt="LEMP Stack Banner" width="800" style="max-width: 100%; height: auto;">
 </p>
 
-**A security-first, fully containerized LEMP stack with active CVE remediation and automated security scanning.** This project demonstrates enterprise-grade DevSecOps practices—from container orchestration and CI/CD automation to supply chain security and real-time monitoring. Built for DevOps/SRE learning, local development environments, and production-aligned architectures.
+**A security-first, containerized LEMP stack with automated CVE remediation and security scanning.** Built to learn DevSecOps practices—container orchestration, CI/CD automation, supply chain security, and monitoring. Good for learning, local development, and production deployments.
 
-### 🎯 What Makes This Different
+## 📌 Project Status
 
-Unlike basic Docker tutorials, LEMP-Sentinel implements **active CVE remediation** through automated weekly vulnerability scanning with GitHub Actions. When CVEs are detected, the system auto-generates tracking issues with severity-based SLAs (HIGH: 14 days, MEDIUM: 30 days) and alerts when patches become available—reducing manual security management from hours to minutes.
+**🟢 Active (Maintenance Mode)** - Core features complete. Maintained for security updates and dependency patches.
 
-**Core Security Features:**
-- 🔒 Pre-commit secret scanning (Gitleaks, detect-secrets) prevents credential leaks before they reach version control
-- 📦 Automated SBOM generation provides complete supply chain transparency for audit compliance
-- 🛡️ Network isolation ensures internal services never expose ports to the host (zero-trust architecture)
-- ⚡ Nginx rate limiting (10 req/s) and security headers protect against DoS, XSS, and clickjacking attacks
-- 📊 Real-time monitoring with Uptime Kuma and Telegram/Discord alerting for immediate downtime notifications
+**Built:** August-November 2025 (NIELIT Cloud Computing Internship)  
+**Use Cases:** Learning resource, portfolio project, starting point for LEMP deployments
 
-[![CI Pipeline](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml)
-[![Security Scan](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+### 🎯 What's Different
+
+**Active CVE Management** - Weekly automated vulnerability scans with GitHub Actions. When CVEs are found, tracking issues are auto-created with SLA timelines. Get alerts when patches are available.
+
+**Core Security:**
+- 🔒 Pre-commit secret scanning (Gitleaks, detect-secrets)
+- 📦 Automated SBOM generation for supply chain tracking
+- 🛡️ Network isolation (services don't expose ports to host)
+- ⚡ Nginx rate limiting and security headers
+- 📊 Uptime Kuma monitoring with Telegram/Discord alerts
 
 ---
 
@@ -33,39 +43,39 @@ Unlike basic Docker tutorials, LEMP-Sentinel implements **active CVE remediation
 - **Security Headers**: XSS protection, clickjacking prevention, MIME-sniffing guards, and rate limiting (10 req/s)
 
 ### 🚀 CI/CD & Automation
-- **6 GitHub Actions Workflows**: Automated secret scanning, vulnerability detection, SBOM generation, backup validation, and CVE monitoring
-- **Environment-Based Configs**: Single codebase deploys to dev/staging/production with environment variables
-- **Health Checks**: Self-healing containers with automated restart policies and dependency management
+- **6 GitHub Actions Workflows**: Secret scanning, vulnerability detection, SBOM generation, backup validation, CVE monitoring
+- **Environment-Based Configs**: Single codebase for dev/staging/production
+- **Health Checks**: Self-healing containers with restart policies
 
-### � Monitoring & Observability
-- **Real-Time Monitoring**: Uptime Kuma tracks Nginx, PHP-FPM, and MySQL health with 60-second intervals
-- **Instant Alerting**: Telegram and Discord notifications for downtime events
-- **Network Isolation**: Zero-trust architecture with internal-only service communication
+### 📊 Monitoring
+- **Real-Time Monitoring**: Uptime Kuma tracks Nginx, PHP-FPM, and MySQL
+- **Alerting**: Telegram and Discord notifications
+- **Network Isolation**: Internal-only service communication
 
-### �️ Developer Experience
-- **5-Minute Setup**: Single-command deployment across Linux, macOS, and Windows (WSL2)
-- **Hot-Reload Development**: Live PHP file changes without container restarts
-- **Database Management**: Adminer UI for easy MySQL administration (dev profile)
-- **Cross-Platform**: Tested on Ubuntu 22.04, macOS 14, and Windows 11 (WSL2)
+### 🛠️ Developer Experience
+- **5-Minute Setup**: Works on Linux, macOS, and Windows (WSL2)
+- **Hot-Reload**: PHP changes without container restarts
+- **Database UI**: Adminer for MySQL management (dev profile)
+- **Cross-Platform**: Tested on Ubuntu 22.04, macOS 14, Windows 11
 
 ---
 
 ## 🎓 Why This Project?
 
-**Traditional LEMP stacks lack integrated security automation and monitoring**—developers manually track CVEs, configure alerts, and maintain infrastructure hygiene. LEMP-Sentinel bridges this gap by treating **security as code**, implementing the same practices used by enterprise DevSecOps teams but without expensive commercial tools.
+Most LEMP tutorials skip security automation. This project treats **security as code** with automated CVE tracking, secrets scanning, and monitoring.
 
-**Perfect For:**
-- 🎯 DevOps/SRE engineers building production-ready portfolio projects
-- 🚀 Startups needing secure, scalable local development environments
-- 📚 Learning modern DevSecOps practices with real-world CI/CD workflows
-- 🏢 Teams requiring dev/prod parity without Kubernetes complexity
+**Good For:**
+- 🎯 DevOps/SRE portfolio projects
+- 🚀 Secure local development environments
+- 📚 Learning DevSecOps practices
+- 🏢 Teams wanting dev/prod parity without Kubernetes
 
 **What You'll Learn:**
-- Container orchestration with Docker Compose and multi-stage builds
-- GitOps-driven CI/CD with GitHub Actions (6 automated workflows)
-- Vulnerability management with automated Trivy scans and SBOM generation
-- Infrastructure monitoring with health checks and alerting systems
-- Security hardening with network isolation, rate limiting, and secret management
+- Docker Compose orchestration
+- GitHub Actions CI/CD (6 workflows)
+- Vulnerability management (Trivy, SBOM)
+- Monitoring and alerting
+- Security hardening
 
 ---
 
@@ -110,7 +120,8 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 | [**CI/CD Workflows**](docs/ci-cd-workflows.md) | GitHub Actions pipelines, Dependabot, SBOM, security scanning |
 | [**Secrets Management**](docs/secrets.md) | Environment variables, credential storage, pre-commit hooks |
 | [**Security Hardening**](docs/security-hardening.md) | Security best practices and hardening recommendations |
-| [**CVE Remediation**](docs/cve-remediation.md) | Active CVE management strategy, monitoring, and remediation process |
+| [**CVE Remediation Strategy**](docs/cve-remediation.md) | CVE management approach, current status, prevention strategies |
+| [**CVE Remediation Playbook**](docs/cve-playbook.md) | Operational procedures, SLA timelines, escalation workflows |
 
 ---
 
@@ -140,7 +151,7 @@ LEMP-Sentinel/
 │   │   ├── build-and-pin-php-patched.yml  # Digest pinning
 │   │   ├── db-backup-restore.yml    # Backup validation
 │   │   └── cve-remediation-monitor.yml  # Weekly CVE monitoring
-│   ├── ISSUE_TEMPLATE/         # Issue templates
+│   ├── ISSUE_TEMPLATE/         # Issue templates (GitHub convention)
 │   │   ├── bug_report.md       # Bug report template
 │   │   ├── config.yml          # Issue template configuration
 │   │   ├── cve-tracking.md     # CVE suppression tracking
@@ -149,14 +160,16 @@ LEMP-Sentinel/
 │   ├── pull_request_template.md # PR checklist template
 │   └── dependabot.yml          # Automated dependency updates
 ├── backup/                     # Backup files (gitignored)
-├── docs/                       # Comprehensive documentation
+│   └── README-FULL-BACKUP.md   # Backup instructions
+├── docs/                       # Documentation
 │   ├── architecture.md         # System design and data flow
-│   ├── quickstart.md           # Platform-specific setup
-│   ├── configuration.md        # Environment variables
 │   ├── ci-cd-workflows.md      # GitHub Actions documentation
+│   ├── configuration.md        # Environment variables and deployment
+│   ├── cve-playbook.md         # CVE remediation operational procedures
+│   ├── cve-remediation.md      # CVE remediation strategy
+│   ├── quickstart.md           # Platform-specific setup
 │   ├── secrets.md              # Secrets management guide
-│   ├── security-hardening.md   # Security best practices
-│   └── cve-remediation.md      # CVE remediation strategy
+│   └── security-hardening.md   # Security best practices
 ├── images/                     # Screenshots and diagrams
 │   ├── LEMP-GitHub-Cover-Banner.png  # Repository banner
 │   ├── system-architecture.png       # Complete system architecture
@@ -183,21 +196,23 @@ LEMP-Sentinel/
 │   ├── index.php               # Homepage
 │   ├── info.php                # PHP diagnostics (dev only)
 │   └── test-db.php             # Database test (dev only)
+├── .env.example                # Environment template
+├── .gitignore                  # Git ignore rules
+├── .pre-commit-config.yaml     # Pre-commit hooks
+├── .secrets.baseline           # detect-secrets baseline
+├── .trivyignore                # CVE suppressions (actively monitored)
+├── CONTRIBUTING.md             # Contribution guidelines
 ├── docker-compose.yml          # Service orchestration (main)
 ├── docker-compose.nonroot.yml  # Non-root PHP override
 ├── docker-compose.prod.yml     # Production overrides (digest pinning)
+├── LICENSE                     # MIT License (code)
+├── LICENSE-DOCS                # CC-BY-4.0 License (docs)
 ├── Makefile                    # Common task automation
-├── .env.example                # Environment template
-├── .gitignore                  # Git ignore rules
-├── .trivyignore                # CVE suppressions (actively monitored)
-├── .pre-commit-config.yaml     # Pre-commit hooks
-├── CONTRIBUTING.md             # Contribution guidelines
-├── SECURITY.md                 # Security policy
+├── README.md                   # Project documentation and getting started guide
 ├── RELEASE_NOTES_v1.0.0.md     # v1.0.0 release documentation
 ├── RELEASE_NOTES_v1.1.0.md     # v1.1.0 release documentation
-├── CVE-REMEDIATION-SUMMARY.md  # CVE strategy implementation summary
-├── LICENSE                     # MIT License (code)
-└── LICENSE-DOCS                # CC-BY-4.0 License (docs)
+├── RELEASE_NOTES_v1.2.0.md     # v1.2.0 release documentation
+└── SECURITY.md                 # Security policy
 ```
 
 ---
@@ -217,7 +232,7 @@ This project implements multiple layers of security:
 - **Rate Limiting**: DoS and brute force prevention (10 req/s general, 5 req/s PHP with burst allowances)
 - **Modern Authentication**: MySQL 8.0 authentication (development uses mysql_native_password, production should use caching_sha2_password with SSL)
 
-See [**CVE Remediation Strategy**](docs/cve-remediation.md), [**Secrets Management Guide**](docs/secrets.md), and [**Security Hardening**](docs/security-hardening.md) for comprehensive security practices.
+See [**CVE Remediation Strategy**](docs/cve-remediation.md), [**CVE Remediation Playbook**](docs/cve-playbook.md), [**Secrets Management Guide**](docs/secrets.md), and [**Security Hardening**](docs/security-hardening.md) for comprehensive security practices.
 
 ---
 

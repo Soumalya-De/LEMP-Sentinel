@@ -1,5 +1,13 @@
 # Secrets Management Guidance
 
+## Overview
+
+**Document Purpose:** Environment-specific guidance for handling credentials across local/CI/cloud deployments  
+**Audience:** Developers configuring environments  
+**Related Documents:** [Security Hardening](security-hardening.md) for implementation details
+
+---
+
 This repo is designed for local/staging use with `.env` files (ignored by git). For CI and cloud, use a managed secret store.
 
 - Local dev: copy `.env.example` to `.env`. Never commit `.env`.

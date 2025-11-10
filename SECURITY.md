@@ -6,10 +6,10 @@ LEMP-Sentinel implements enterprise-grade security practices for containerized i
 
 ## Supported Versions
 
-**Current Status:** Active Development  
+**Current Status:** Active (Maintenance Mode) - v1.2.0  
 **Security Scanning:** Automated Trivy vulnerability scans run on:
 - Pull requests (informational warnings)
-- Nightly builds (blocking on HIGH/CRITICAL findings)
+- Nightly scans (daily at 03:00 UTC, blocks on HIGH/CRITICAL findings)
 - Weekly CVE remediation monitoring with auto-generated tracking issues
 
 **Versioning:** This project follows [Semantic Versioning](https://semver.org/). Security patches are applied to the latest stable release.
@@ -24,7 +24,7 @@ LEMP-Sentinel implements enterprise-grade security practices for containerized i
 
 1. **Submit a Private Report:**
    - Use [GitHub Security Advisories](https://github.com/Soumalya-De/LEMP-Sentinel/security/advisories/new) (preferred)
-   - Or email: `[maintainer email]` with subject: `[LEMP-Sentinel] Security Vulnerability`
+   - Or create a private issue by contacting the repository maintainer via GitHub
 
 2. **Include the Following Information:**
    - **Affected Component:** Docker image, configuration file, or code module
@@ -73,7 +73,7 @@ LEMP-Sentinel implements enterprise-grade security practices for containerized i
 ❌ Social engineering or physical attacks  
 ❌ Denial of service requiring extraordinary resources  
 
-**Note:** CVEs in base images (e.g., `php:8.2-fpm-alpine`) are tracked through our [Active CVE Remediation Strategy](docs/cve-remediation.md). Check existing [CVE tracking issues](https://github.com/Soumalya-De/LEMP-Sentinel/labels/cve-tracking) before reporting.
+**Note:** CVEs in base images (e.g., `php:8.2-fpm-alpine`) are tracked through our [CVE Remediation Playbook](docs/cve-playbook.md) and [CVE Remediation Strategy](docs/cve-remediation.md). Check existing [CVE tracking issues](https://github.com/Soumalya-De/LEMP-Sentinel/labels/cve-tracking) before reporting.
 
 ---
 
@@ -81,17 +81,19 @@ LEMP-Sentinel implements enterprise-grade security practices for containerized i
 
 Upon confirmation of a vulnerability:
 
-1. **Patch Development:** We develop and test a fix in a private branch
-2. **CVE Assignment:** Request a CVE identifier if applicable (via GitHub Security Advisories)
+1. **Assessment:** We confirm the vulnerability and determine severity
+2. **Fix Development:** We develop and test a fix (coordinating timeline with reporter)
 3. **Security Advisory:** Publish a GitHub Security Advisory with:
    - Vulnerability description
    - Affected versions
    - Patched versions
-   - Workarounds or mitigations
-   - Credit to the reporter (if desired)
-4. **Public Disclosure:** Announce the fix in release notes and community channels
+   - Workarounds or mitigations (if available)
+   - Credit to the reporter (unless anonymity is requested)
+4. **Public Disclosure:** Release the fix and announce in release notes
 
-**Reporter Credit:** We acknowledge responsible disclosures in release notes and security advisories unless anonymity is requested.
+**Timeline Coordination:** We will work with you to agree on a reasonable disclosure timeline that allows users to patch before public details are released.
+
+**Reporter Credit:** We acknowledge responsible disclosures in release notes and security advisories unless you request anonymity.
 
 ---
 
@@ -110,11 +112,13 @@ For secure deployment of LEMP-Sentinel:
 
 ## Security Resources
 
-- **Documentation:** [docs/security-hardening.md](docs/security-hardening.md)
+- **Security Hardening:** [docs/security-hardening.md](docs/security-hardening.md)
 - **CVE Strategy:** [docs/cve-remediation.md](docs/cve-remediation.md)
+- **CVE Playbook:** [docs/cve-playbook.md](docs/cve-playbook.md)
 - **CI/CD Security:** [docs/ci-cd-workflows.md](docs/ci-cd-workflows.md)
 - **Secrets Management:** [docs/secrets.md](docs/secrets.md)
 
 ---
 
-**Last Updated:** November 8, 2025
+---
+**Last Updated:** November 10, 2025

@@ -1,6 +1,6 @@
 # Quickstart Guide
 
-This guide provides step-by-step instructions for deploying LEMP-Sentinel in local development environments. Complete deployment requires approximately 5 minutes on systems meeting the prerequisites.
+Get LEMP-Sentinel running locally in about 5 minutes.
 
 ## Table of Contents
 
@@ -86,7 +86,7 @@ docker compose ps
 curl http://localhost:8080
 ```
 
-**Expected output**: PHP welcome page with system information.
+**Expected**: PHP welcome page with system information.
 
 ## Access Points
 
@@ -181,16 +181,7 @@ make clean
 docker compose ps
 ```
 
-All services should show `Up` with `healthy` status:
-
-```
-NAME                  STATUS
-lemp-stack-nginx      Up (healthy)
-lemp-stack-php        Up (healthy)
-lemp-stack-mysql      Up (healthy)
-lemp-stack-kuma       Up (healthy)
-lemp-stack-adminer    Up (healthy)  # dev profile only
-```
+All services should show `Up (healthy)` status.
 
 ### 2. Test Application
 
@@ -202,7 +193,7 @@ curl http://localhost:8080
 curl http://localhost:8080/test-db.php
 ```
 
-**Expected**: Both return HTTP 200 with valid HTML content.
+**Expected**: Both return HTTP 200 with HTML content.
 
 <p align="center">
   <img src="../images/dashboard-connected.png" alt="Dashboard with Database Connected" width="800" style="max-width: 100%; height: auto;" loading="lazy">
@@ -220,7 +211,7 @@ docker compose logs -f
 docker compose logs -f nginx
 ```
 
-**No errors should appear** (warnings about dev-only files are normal).
+No critical errors should appear (warnings about dev-only files are normal).
 
 ### 4. Test Database Connection
 
@@ -261,7 +252,7 @@ TELEGRAM_BOT_TOKEN=your_bot_token
 TELEGRAM_CHAT_ID=your_chat_id
 ```
 
-See [Configuration Reference](configuration.md) for complete documentation.
+See [Configuration Reference](configuration.md) for more details.
 
 ### Production vs Development
 
@@ -300,7 +291,7 @@ Visit http://localhost:3001 to configure Uptime Kuma:
    - **TCP**: `mysql:3306` (database)
 3. Configure notifications (Telegram, Discord, email)
 
-See [Monitoring Guide](monitoring.md) for detailed setup.
+For Uptime Kuma configuration details, see [Configuration Reference](configuration.md).
 
 ### 2. Database Schema
 
@@ -366,16 +357,16 @@ docker compose logs nginx
 docker compose restart nginx
 ```
 
-See [Troubleshooting Guide](troubleshooting.md) for comprehensive solutions.
+For more common issues and solutions, see the [README Troubleshooting](../README.md#troubleshooting) section.
 
 ## Next Steps
 
 - **[Architecture](architecture.md)**: Understand system design
-- **[Configuration](configuration.md)**: Customize environment variables
-- **[Monitoring](monitoring.md)**: Set up alerts and dashboards
-- **[Security](security.md)**: Harden production deployment
+- **[Configuration](configuration.md)**: Customize environment variables and production deployment
+- **[Security Hardening](security-hardening.md)**: Harden production deployment
+- **[CVE Remediation](cve-remediation.md)**: Vulnerability management strategy
+- **[Secrets Management](secrets.md)**: Handle credentials securely
 - **[CI/CD Workflows](ci-cd-workflows.md)**: Automated testing and scanning
-- **[Troubleshooting](troubleshooting.md)**: Common issues and solutions
 
 ## Development Workflow
 
@@ -409,7 +400,7 @@ Before deploying to production:
 - [ ] Enable HTTPS with reverse proxy (nginx-proxy, Traefik, Caddy)
 - [ ] Set up automated backups (`make backup` in cron)
 - [ ] Configure Uptime Kuma alerts
-- [ ] Review [Security Hardening](security.md)
+- [ ] Review [Security Hardening](security-hardening.md)
 
 ## Support
 

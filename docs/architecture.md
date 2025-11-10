@@ -159,7 +159,7 @@ See [Configuration Guide](configuration.md) for complete reference.
 4. **Pre-Commit Hooks**: `gitleaks` and `detect-secrets` scan before push
 5. **CI/CD Security**: Automated secret scanning, vulnerability scans (Trivy), SBOM generation
 
-See [Security Guide](security.md) for comprehensive security practices.
+See [Security Hardening Guide](security-hardening.md) for comprehensive security practices.
 
 ## Scalability Considerations
 
@@ -204,7 +204,7 @@ For production deployment, consider:
 ## Related Documentation
 
 - [Quickstart Guide](quickstart.md) - Get started in 5 minutes
-- [Configuration Reference](configuration.md) - All environment variables
-- [Monitoring Setup](monitoring.md) - Uptime Kuma and alerting
-- [Security Practices](security.md) - Security hardening and best practices
-- [Troubleshooting](troubleshooting.md) - Common issues and solutions
+- [Configuration Reference](configuration.md) - All environment variables and production deployment
+- [Security Hardening](security-hardening.md) - Security best practices and implementation
+- [CVE Remediation Strategy](cve-remediation.md) - Vulnerability management approach
+- [Secrets Management](secrets.md) - Credential handling across environments

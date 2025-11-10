@@ -1,31 +1,24 @@
 ## Summary
-Briefly describe the change, motivation, and context.
+What changed and why?
 
 ## Changes
 - 
 - 
 
-## Test Plan
-Describe how you tested this change locally. Include commands and results.
+## Testing
+How did you test this?
 
 - `docker compose config` ✅/❌
-- `make lint-php` ✅/❌
-- `docker compose up -d` + `make smoke` ✅/❌
-- Any additional tests/screenshots/logs
+- `docker compose up -d` ✅/❌
+- Smoke tests ✅/❌
 
 ## Checklist
-- [ ] No secrets in diffs; `.env` not committed
-- [ ] `pre-commit run --all-files` passes (if installed)
+- [ ] No secrets committed
 - [ ] `docker compose config` passes
-- [ ] PHP lint passes (`make lint-php`)
-- [ ] Smoke tests pass locally
-- [ ] README/docs updated (if behavior/ports/endpoints changed)
-- [ ] CI green on this PR
+- [ ] Services start successfully
+- [ ] Docs updated (if needed)
+- [ ] CI passes
 
-## Risks & Rollout
-- Potential impact or rollback steps
-- Notable dependency/version changes
-
-## Security impact
-- Any changes to secrets handling, auth, or exposed ports
+## Notes
+Any risks, rollback steps, or security impacts?
 
