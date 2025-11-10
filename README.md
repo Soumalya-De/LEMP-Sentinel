@@ -1,8 +1,8 @@
 # LEMP-Sentinel: Production-Grade DevSecOps Infrastructure
 
-[![CI Pipeline](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml)
-[![Security Scan](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
-[![CVE Monitoring](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/cve-remediation-monitor.yml/badge.svg)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/cve-remediation-monitor.yml)
+[![CI Pipeline](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/ci.yml)
+[![Security Scan](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml/badge.svg?branch=main)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/security-scan-fixed.yml)
+[![CVE Monitoring](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/cve-remediation-monitor.yml/badge.svg?branch=main)](https://github.com/Soumalya-De/LEMP-Sentinel/actions/workflows/cve-remediation-monitor.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 ![Last Commit](https://img.shields.io/github/last-commit/Soumalya-De/LEMP-Sentinel)
