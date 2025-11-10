@@ -300,7 +300,7 @@ Visit http://localhost:3001 to configure Uptime Kuma:
    - **TCP**: `mysql:3306` (database)
 3. Configure notifications (Telegram, Discord, email)
 
-See [Monitoring Guide](monitoring.md) for detailed setup.
+For Uptime Kuma configuration details, see [Configuration Reference](configuration.md).
 
 ### 2. Database Schema
 
@@ -366,16 +366,16 @@ docker compose logs nginx
 docker compose restart nginx
 ```
 
-See [Troubleshooting Guide](troubleshooting.md) for comprehensive solutions.
+For more common issues and solutions, see the [README Troubleshooting](../README.md#troubleshooting) section.
 
 ## Next Steps
 
 - **[Architecture](architecture.md)**: Understand system design
-- **[Configuration](configuration.md)**: Customize environment variables
-- **[Monitoring](monitoring.md)**: Set up alerts and dashboards
-- **[Security](security.md)**: Harden production deployment
+- **[Configuration](configuration.md)**: Customize environment variables and production deployment
+- **[Security Hardening](security-hardening.md)**: Harden production deployment
+- **[CVE Remediation](cve-remediation.md)**: Vulnerability management strategy
+- **[Secrets Management](secrets.md)**: Handle credentials securely
 - **[CI/CD Workflows](ci-cd-workflows.md)**: Automated testing and scanning
-- **[Troubleshooting](troubleshooting.md)**: Common issues and solutions
 
 ## Development Workflow
 
@@ -409,7 +409,7 @@ Before deploying to production:
 - [ ] Enable HTTPS with reverse proxy (nginx-proxy, Traefik, Caddy)
 - [ ] Set up automated backups (`make backup` in cron)
 - [ ] Configure Uptime Kuma alerts
-- [ ] Review [Security Hardening](security.md)
+- [ ] Review [Security Hardening](security-hardening.md)
 
 ## Support
 

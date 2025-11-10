@@ -1,6 +1,15 @@
 # Security Hardening Guide
 
+## Overview
+
 Comprehensive security measures implemented in LEMP-Sentinel.
+
+**Document Purpose:** Implementation reference - what security features are active and how to use them  
+**Audience:** Developers and DevOps engineers deploying this stack  
+**Related Documents:**
+- [Secrets Management](secrets.md) - Environment-specific credential handling
+- [CVE Remediation Strategy](cve-remediation.md) - Vulnerability management approach
+- [CVE Remediation Playbook](cve-playbook.md) - Operational response procedures
 
 ## ✅ Implemented Security Features
 

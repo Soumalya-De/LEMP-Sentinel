@@ -120,7 +120,8 @@ See the [**Quickstart Guide**](docs/quickstart.md) for detailed setup instructio
 | [**CI/CD Workflows**](docs/ci-cd-workflows.md) | GitHub Actions pipelines, Dependabot, SBOM, security scanning |
 | [**Secrets Management**](docs/secrets.md) | Environment variables, credential storage, pre-commit hooks |
 | [**Security Hardening**](docs/security-hardening.md) | Security best practices and hardening recommendations |
-| [**CVE Remediation**](docs/cve-remediation.md) | Active CVE management strategy, monitoring, and remediation process |
+| [**CVE Remediation Strategy**](docs/cve-remediation.md) | CVE management approach, current status, prevention strategies |
+| [**CVE Remediation Playbook**](docs/cve-playbook.md) | Operational procedures, SLA timelines, escalation workflows |
 
 ---
 
@@ -226,7 +227,7 @@ This project implements multiple layers of security:
 - **Rate Limiting**: DoS and brute force prevention (10 req/s general, 5 req/s PHP with burst allowances)
 - **Modern Authentication**: MySQL 8.0 authentication (development uses mysql_native_password, production should use caching_sha2_password with SSL)
 
-See [**CVE Remediation Strategy**](docs/cve-remediation.md), [**Secrets Management Guide**](docs/secrets.md), and [**Security Hardening**](docs/security-hardening.md) for comprehensive security practices.
+See [**CVE Remediation Strategy**](docs/cve-remediation.md), [**CVE Remediation Playbook**](docs/cve-playbook.md), [**Secrets Management Guide**](docs/secrets.md), and [**Security Hardening**](docs/security-hardening.md) for comprehensive security practices.
 
 ---
 

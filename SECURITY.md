@@ -112,8 +112,9 @@ For secure deployment of LEMP-Sentinel:
 
 ## Security Resources
 
-- **Documentation:** [docs/security-hardening.md](docs/security-hardening.md)
+- **Security Hardening:** [docs/security-hardening.md](docs/security-hardening.md)
 - **CVE Strategy:** [docs/cve-remediation.md](docs/cve-remediation.md)
+- **CVE Playbook:** [docs/cve-playbook.md](docs/cve-playbook.md)
 - **CI/CD Security:** [docs/ci-cd-workflows.md](docs/ci-cd-workflows.md)
 - **Secrets Management:** [docs/secrets.md](docs/secrets.md)
 
