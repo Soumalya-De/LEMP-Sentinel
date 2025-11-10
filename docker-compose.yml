@@ -39,6 +39,7 @@ services:
       - DB_NAME=${DB_NAME:-my_app_db}
       - DB_USER=${DB_USER:-app_user}
       - DB_PASSWORD=${DB_PASSWORD:-app_pass}
+      - APP_ENV=${APP_ENV:-development}
     depends_on:
       mysql:
         condition: service_healthy
