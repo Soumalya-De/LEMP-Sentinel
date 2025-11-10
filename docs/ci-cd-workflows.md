@@ -603,11 +603,13 @@ Track workflow metrics:
 - File size <10MB (GitHub limit)
 - Unique category per upload (no duplicates)
 
-See [Troubleshooting Guide](troubleshooting.md) for comprehensive solutions.
+For common CI/CD issues, see the [README Troubleshooting](../README.md#troubleshooting) section.
 
 ## Related Documentation
 
-- [Security Practices](security.md) - Security hardening and scanning
-- [Monitoring](monitoring.md) - Uptime Kuma and alerting
+- [Security Hardening](security-hardening.md) - Security best practices and implementation
+- [CVE Remediation Strategy](cve-remediation.md) - Vulnerability management approach
+- [CVE Remediation Playbook](cve-playbook.md) - Operational CVE response procedures
+- [Secrets Management](secrets.md) - Credential handling across environments
+- [Configuration](configuration.md) - Environment variables and production deployment
 - [Architecture](architecture.md) - System design and components
-- [Troubleshooting](troubleshooting.md) - Common issues and solutions

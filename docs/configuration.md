@@ -77,7 +77,7 @@ SMTP_FROM=noreply@example.com
 SMTP_TO=oncall@example.com
 ```
 
-See [Monitoring Guide](monitoring.md) for setup instructions.
+Configure Uptime Kuma monitoring via the web interface at http://localhost:3001.
 
 ## Docker Compose Options
 
