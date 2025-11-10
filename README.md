@@ -12,25 +12,25 @@
   <img src="images/LEMP-GitHub-Cover-Banner.png" alt="LEMP Stack Banner" width="800" style="max-width: 100%; height: auto;">
 </p>
 
-**A security-first, fully containerized LEMP stack with active CVE remediation and automated security scanning.** This project demonstrates enterprise-grade DevSecOps practices—from container orchestration and CI/CD automation to supply chain security and real-time monitoring. Built for DevOps/SRE learning, local development environments, and production-aligned architectures.
+**A security-first, containerized LEMP stack with automated CVE remediation and security scanning.** Built to learn DevSecOps practices—container orchestration, CI/CD automation, supply chain security, and monitoring. Good for learning, local development, and production deployments.
 
 ## 📌 Project Status
 
-**🟢 Active (Maintenance Mode)** - Core development complete. This project demonstrates production-grade DevSecOps practices for LEMP stack deployment with automated security workflows. Currently maintained for dependency updates and security patches.
+**🟢 Active (Maintenance Mode)** - Core features complete. Maintained for security updates and dependency patches.
 
 **Built:** August-November 2025 (NIELIT Cloud Computing Internship)  
-**Use Cases:** Learning resource, portfolio showcase, production starting point for secure LEMP deployments
+**Use Cases:** Learning resource, portfolio project, starting point for LEMP deployments
 
-### 🎯 What Makes This Different
+### 🎯 What's Different
 
-Unlike basic Docker tutorials, LEMP-Sentinel implements **active CVE remediation** through automated weekly vulnerability scanning with GitHub Actions. When CVEs are detected, the system auto-generates tracking issues with severity-based SLAs (HIGH: 14 days, MEDIUM: 30 days) and alerts when patches become available—reducing manual security management from hours to minutes.
+**Active CVE Management** - Weekly automated vulnerability scans with GitHub Actions. When CVEs are found, tracking issues are auto-created with SLA timelines. Get alerts when patches are available.
 
-**Core Security Features:**
-- 🔒 Pre-commit secret scanning (Gitleaks, detect-secrets) prevents credential leaks before they reach version control
-- 📦 Automated SBOM generation provides complete supply chain transparency for audit compliance
-- 🛡️ Network isolation ensures internal services never expose ports to the host (zero-trust architecture)
-- ⚡ Nginx rate limiting (10 req/s) and security headers protect against DoS, XSS, and clickjacking attacks
-- 📊 Real-time monitoring with Uptime Kuma and Telegram/Discord alerting for immediate downtime notifications
+**Core Security:**
+- 🔒 Pre-commit secret scanning (Gitleaks, detect-secrets)
+- 📦 Automated SBOM generation for supply chain tracking
+- 🛡️ Network isolation (services don't expose ports to host)
+- ⚡ Nginx rate limiting and security headers
+- 📊 Uptime Kuma monitoring with Telegram/Discord alerts
 
 ---
 
@@ -43,39 +43,39 @@ Unlike basic Docker tutorials, LEMP-Sentinel implements **active CVE remediation
 - **Security Headers**: XSS protection, clickjacking prevention, MIME-sniffing guards, and rate limiting (10 req/s)
 
 ### 🚀 CI/CD & Automation
-- **6 GitHub Actions Workflows**: Automated secret scanning, vulnerability detection, SBOM generation, backup validation, and CVE monitoring
-- **Environment-Based Configs**: Single codebase deploys to dev/staging/production with environment variables
-- **Health Checks**: Self-healing containers with automated restart policies and dependency management
+- **6 GitHub Actions Workflows**: Secret scanning, vulnerability detection, SBOM generation, backup validation, CVE monitoring
+- **Environment-Based Configs**: Single codebase for dev/staging/production
+- **Health Checks**: Self-healing containers with restart policies
 
-### � Monitoring & Observability
-- **Real-Time Monitoring**: Uptime Kuma tracks Nginx, PHP-FPM, and MySQL health with 60-second intervals
-- **Instant Alerting**: Telegram and Discord notifications for downtime events
-- **Network Isolation**: Zero-trust architecture with internal-only service communication
+### 📊 Monitoring
+- **Real-Time Monitoring**: Uptime Kuma tracks Nginx, PHP-FPM, and MySQL
+- **Alerting**: Telegram and Discord notifications
+- **Network Isolation**: Internal-only service communication
 
-### �️ Developer Experience
-- **5-Minute Setup**: Single-command deployment across Linux, macOS, and Windows (WSL2)
-- **Hot-Reload Development**: Live PHP file changes without container restarts
-- **Database Management**: Adminer UI for easy MySQL administration (dev profile)
-- **Cross-Platform**: Tested on Ubuntu 22.04, macOS 14, and Windows 11 (WSL2)
+### 🛠️ Developer Experience
+- **5-Minute Setup**: Works on Linux, macOS, and Windows (WSL2)
+- **Hot-Reload**: PHP changes without container restarts
+- **Database UI**: Adminer for MySQL management (dev profile)
+- **Cross-Platform**: Tested on Ubuntu 22.04, macOS 14, Windows 11
 
 ---
 
 ## 🎓 Why This Project?
 
-**Traditional LEMP stacks lack integrated security automation and monitoring**—developers manually track CVEs, configure alerts, and maintain infrastructure hygiene. LEMP-Sentinel bridges this gap by treating **security as code**, implementing the same practices used by enterprise DevSecOps teams but without expensive commercial tools.
+Most LEMP tutorials skip security automation. This project treats **security as code** with automated CVE tracking, secrets scanning, and monitoring.
 
-**Perfect For:**
-- 🎯 DevOps/SRE engineers building production-ready portfolio projects
-- 🚀 Startups needing secure, scalable local development environments
-- 📚 Learning modern DevSecOps practices with real-world CI/CD workflows
-- 🏢 Teams requiring dev/prod parity without Kubernetes complexity
+**Good For:**
+- 🎯 DevOps/SRE portfolio projects
+- 🚀 Secure local development environments
+- 📚 Learning DevSecOps practices
+- 🏢 Teams wanting dev/prod parity without Kubernetes
 
 **What You'll Learn:**
-- Container orchestration with Docker Compose and multi-stage builds
-- GitOps-driven CI/CD with GitHub Actions (6 automated workflows)
-- Vulnerability management with automated Trivy scans and SBOM generation
-- Infrastructure monitoring with health checks and alerting systems
-- Security hardening with network isolation, rate limiting, and secret management
+- Docker Compose orchestration
+- GitHub Actions CI/CD (6 workflows)
+- Vulnerability management (Trivy, SBOM)
+- Monitoring and alerting
+- Security hardening
 
 ---
 
