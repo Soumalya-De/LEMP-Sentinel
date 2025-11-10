@@ -151,7 +151,7 @@ LEMP-Sentinel/
 │   │   ├── build-and-pin-php-patched.yml  # Digest pinning
 │   │   ├── db-backup-restore.yml    # Backup validation
 │   │   └── cve-remediation-monitor.yml  # Weekly CVE monitoring
-│   ├── ISSUE_TEMPLATE/         # Issue templates
+│   ├── issue_template/         # Issue templates
 │   │   ├── bug_report.md       # Bug report template
 │   │   ├── config.yml          # Issue template configuration
 │   │   ├── cve-tracking.md     # CVE suppression tracking
@@ -208,7 +208,7 @@ LEMP-Sentinel/
 ├── LICENSE                     # MIT License (code)
 ├── LICENSE-DOCS                # CC-BY-4.0 License (docs)
 ├── Makefile                    # Common task automation
-├── README.md                   # This file
+├── README.md                   # Project documentation and getting started guide
 ├── RELEASE_NOTES_v1.0.0.md     # v1.0.0 release documentation
 ├── RELEASE_NOTES_v1.1.0.md     # v1.1.0 release documentation
 ├── RELEASE_NOTES_v1.2.0.md     # v1.2.0 release documentation
