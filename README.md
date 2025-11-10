@@ -151,7 +151,7 @@ LEMP-Sentinel/
 │   │   ├── build-and-pin-php-patched.yml  # Digest pinning
 │   │   ├── db-backup-restore.yml    # Backup validation
 │   │   └── cve-remediation-monitor.yml  # Weekly CVE monitoring
-│   ├── issue_template/         # Issue templates
+│   ├── ISSUE_TEMPLATE/         # Issue templates (GitHub convention)
 │   │   ├── bug_report.md       # Bug report template
 │   │   ├── config.yml          # Issue template configuration
 │   │   ├── cve-tracking.md     # CVE suppression tracking
