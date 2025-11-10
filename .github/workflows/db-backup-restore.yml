@@ -20,6 +20,8 @@ jobs:
       DB_USER: app_user
       DB_PASSWORD: app_pass
       MYSQL_ROOT_PASSWORD: rootpass
+      # Ensure development diagnostics are available for these validation flows
+      APP_ENV: development
     steps:
       - name: Checkout
         uses: actions/checkout@v5
