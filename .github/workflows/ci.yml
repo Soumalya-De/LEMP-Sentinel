@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Run gitleaks (detect high-confidence secrets)
         run: |
@@ -37,7 +37,7 @@ jobs:
       MYSQL_ROOT_PASSWORD: rootpass
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Resolve image digests (main only)
         if: github.ref == 'refs/heads/main'
         run: |
@@ -193,7 +193,7 @@ jobs:
       MYSQL_ROOT_PASSWORD: rootpass
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Resolve image digests (main only)
         if: github.ref == 'refs/heads/main'
